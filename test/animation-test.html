@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Animation Test</title>
+</head>
+<body>
+    <canvas id="animation-test"></canvas>
+    <script type="text/javascript" src="Ticker.js"></script>
+    <script type="text/javascript" src="Engine.js"></script>
+    <script type="text/javascript" src="Animation.js"></script>
+    <script type="text/javascript" src="Spritesheet.js"></script>
+    <script type="text/javascript" src="Calc.js"></script>
+
+    <script>
+    /*global Engine*/
+        (function(){
+            
+            let bipedRunningAnimation;
+            let bipedRunningAnimation2;
+            let bipedClimbingAnimation;
+            let bipedSheet;
+            let bipedTexture;
+            let characterTexture;
+            let characterSheet;
+            let knightWalkingAnimation;
+            let knightJumpingAnimation;
+            let knightClimbingAnimation;
+            
+            function load(){
+                bipedTexture = new Image();
+                bipedTexture.src = "../img/biped.png";
+                characterTexture = new Image();
+                characterTexture.src = "../img/characters.png";
+            }
+            function init(){
+                
+                // Make spritesheets
+                bipedSheet = new Engine.Spritesheet(AnimTest, bipedTexture, 32, 32);
+                characterSheet = new Engine.Spritesheet(AnimTest, characterTexture, 32, 32);
+                
+                // Make the animations
+                bipedRunningAnimation = bipedSheet.makeAnimation(0, 36, 500);
+                bipedRunningAnimation2 = bipedSheet.makeAnimation(48, 70, 2000, true);
+                bipedClimbingAnimation = bipedSheet.makeAnimation(37, 48, 2000, true);
+                
+                knightWalkingAnimation = characterSheet.makeAnimation(23, 27, 500);
+                knightJumpingAnimation = characterSheet.makeAnimation(27, 31, 1000);
+                knightClimbingAnimation = characterSheet.makeAnimation(41, 45, 1000);
+                
+                
+            }
+            function update(delta){
+                
+                // bipedRunningAnimation.update(delta);
+                // bipedRunningAnimation2.update(delta);
+                // bipedClimbingAnimation.update(delta);
+                
+                // knightWalkingAnimation.update(delta);
+                // knightJumpingAnimation.update(delta);
+                // knightClimbingAnimation.update(delta);
+                
+            }
+            
+            function render(ctx){
+                // bipedRunningAnimation.render(ctx, 0, 0);
+                // bipedRunningAnimation2.render(ctx, 50, 0);
+                // bipedClimbingAnimation.render(ctx, 100, 0);
+                
+                // knightWalkingAnimation.render(ctx, 0, 40);
+                // knightJumpingAnimation.render(ctx, 50, 40);
+                // knightClimbingAnimation.render(ctx, 100, 40);
+            }
+            
+            let AnimTest = new Engine({canvas: 'animation-test', init: init, update: update, render: render, load: load});
+            
+            AnimTest.init();
+            
+        })();
+    </script>
+</body>
+</html>

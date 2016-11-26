@@ -1,0 +1,49 @@
+Engine
+	constructor(callbacks)
+	load(cacheKey, url)
+	add
+		sprite(cacheKey, x, y)
+		spritesheet(name, cacheKey, tileWidth, tileHeight)
+		group()
+
+	Sprite
+		add
+			animation(name, spritesheetName, frames, totalTime, opts)
+			image(name, cacheKey)
+			sound(name, cacheKey)
+		play
+			animation(name)
+			sound(name)
+		position(x, y)
+
+	Animation
+		constructor(spritesheetKey, frames, totalTime, infinite)
+		play()
+		stop()
+		onFinish(cb)
+		onRepeat(cb)
+
+	Spritesheet
+		constructor(cacheKey, tileWidth, tileHeight)
+
+============================================
+Private stuffs
+============================================
+	Cache
+		add(key, obj)
+		use(key)
+	AssetManager
+		load(cacheKey, url)
+		go(progressCB, finishedCB)
+
+	ObjectFactory
+		sprite
+		spritesheet
+		group
+		
+	TileSheet(cacheKey, numCols, numRows)
+		
+	Render
+
+	C
+		static range(min, max) => [min, ..., max]
