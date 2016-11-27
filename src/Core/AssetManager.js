@@ -1,10 +1,8 @@
 class AssetManager{
 
-	constructor(cache, updateCB, finishedCB){
+	constructor(cache){
 
 		this.cache = cache;
-		this.updateCB= updateCB;
-		this.finishedCB = finishedCB;
 		this.queue = [];
 		this.numCompleted = 0;
 

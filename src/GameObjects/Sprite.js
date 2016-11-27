@@ -1,8 +1,8 @@
 class Sprite{
 
-	constructor(engine, x, y){
+	constructor(parent, x, y){
 
-		this.engine = engine;
+		this.parent = parent;
 		this.currentAnimation = null;
 		this.animations = {};
 		this.pos = {
@@ -34,27 +34,22 @@ class Sprite{
 
 		}).bind(this);
 
-		this.engine.ticker.add(this, this.render, 0)
-
-	}
-
-
-
-	update(delta){
-
+		this.parent.ticker.add(this, this.render, Engine.FPS);
 
 	}
 
 
 	render(delta){
-
-		this.engine.ctx.fillStyle = "red";
-		this.engine.ctx.fillRect(this.pos.x, this.pos.y, 30, 30);
+	
+		this.parent.ctx.fillStyle = "red";
+		this.parent.ctx.fillRect(this.pos.x, this.pos.y, 30, 30);
 
 	}
 
+
 	setPos(x, y){
 
+		// debugger;
 		this.pos.x = x;
 		this.pos.y = y;
 

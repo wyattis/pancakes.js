@@ -43,7 +43,8 @@ class Ticker{
 			if(timeSinceLastCalled >= interval){
 
 				this.cbs[i].call(this.contexts[i], timeSinceLastCalled);
-				this.timeSinceLastCalled[i] = timeSinceLastCalled % interval;
+				// this.timeSinceLastCalled[i] = timeSinceLastCalled % interval;
+				this.timeSinceLastCalled[i] = 0;
 
 			}
 
@@ -79,6 +80,16 @@ class Ticker{
 		this.timeSinceLastCalled[index] = 0;
 		this.isRunning[index] = true;
 
+	}
+	
+	reset(){
+		
+		this.cbs = [];
+		this.contexts = [];
+		this.intervals = [];
+		this.timeSinceLastCalled = [];
+		this.isRunning = [];
+		
 	}
 
 }

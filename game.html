@@ -7,54 +7,62 @@
 <body>
 	
 	<!-- <script src="Render.js"></script> -->
-	<script src="Engine.js"></script>
-	<script src="Ticker.js"></script>
-	<script src="C.js"></script>
-	<script src="Cache.js"></script>
-	<script src="ObjectFactory.js"></script>
-	<script src="Sprite.js"></script>
-	<script src="Animation.js"></script>
-	<script src="Spritesheet.js"></script>
-	<script src="AssetManager.js"></script>
-	<script src="TileSheet.js"></script>
+	<script src="src/Engine.js"></script>
+	<script src="src/Game.js"></script>
+	<script src="src/Core/Ticker.js"></script>
+	<script src="src/Core/C.js"></script>
+	<script src="src/Core/StockPile.js"></script>
+	<script src="src/Core/AssetManager.js"></script>
+	<script src="src/GameObjects/ObjectFactory.js"></script>
+	<script src="src/GameObjects/Sprite.js"></script>
+	<script src="src/Animation/Animation.js"></script>
+	<script src="src/Animation/Spritesheet.js"></script>
+	<script src="src/ScreenObjects/Screen.js"></script>
+	<script src="src/ScreenObjects/ScreenManager.js"></script>
+	<script src="src/ScreenObjects/Layer.js"></script>
+	<script src="src/ScreenObjects/LayerFactory.js"></script>
+	<!--<script src="src/core/TileSheet.js"></script>-->
 
 	<script>
 		(function(){
 
 			let character;
 			let platforms;
+			let Game = Engine.game();
+			let firstScreen;
 
 			function load(){
 
-				Game.load('bipedImage', 'img/biped.png');
-				Game.load('charactersImage', 'img/characters.png');
-				Game.load('blockImage', 'img/block.png');
+				firstScreen.load('bipedImage', 'img/biped.png');
+				firstScreen.load('charactersImage', 'img/characters.png');
+				firstScreen.load('blockImage', 'img/block.png');
 
 			}
 
 			function init(){
 
-				Game.add.spritesheet('characters', 'charactersImage', 32, 32);
-				Game.add.spritesheet('biped', 'bipedImage', 32, 32);
+				firstScreen.add.spritesheet('characters', 'charactersImage', 32, 32);
+				firstScreen.add.spritesheet('biped', 'bipedImage', 32, 32);
 
-				character = Game.add.sprite(0, 0);
+				character = firstScreen.add.sprite(0, 0);
 				character.add.animation('running', 'biped', C.range(0, 36), 2000);
 				character.add.animation('climbing', 'biped', C.range(37, 48), 2000, {backAndForth: true});
 
 				character.play.animation('running');
+				
 			}
 
 			function update(delta){
 
-				console.log('updating', delta);
-				// debugger;
-				character.setPos(character.pos.x ++, character.pos.y ++)
+				// console.log('updating', delta);
+				character.setPos((character.pos.x += 10 / delta), (character.pos.y += 10 / delta))
 
 			}
+			
+			
+			firstScreen = Game.add.screen('first', {load: load, init: init, update: update});
 
-			let Game = new Engine({load: load, init: init, update: update});
-
-			Game.start();
+			Game.play.screen('first');
 
 		})();
 	</script>

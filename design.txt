@@ -1,18 +1,26 @@
 Engine
-	constructor(callbacks)
-	load(cacheKey, url)
-	add
-		screen()
+	game()
+	
+	Game
+		add
+			screen(name)
+		play
+			screen(name)
 
 	Screen
-		add
-			layer()
-
-	Layer
+		constructor(callbacks)
+		load(cacheKey, url)
 		add
 			sprite(cacheKey, x, y)
 			spritesheet(name, cacheKey, tileWidth, tileHeight)
 			group()
+			# layer()
+
+	# Layer
+	# 	add
+	# 		sprite(cacheKey, x, y)
+	# 		spritesheet(name, cacheKey, tileWidth, tileHeight)
+	# 		group()
 
 	Sprite
 		add
