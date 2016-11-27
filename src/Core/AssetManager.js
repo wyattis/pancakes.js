@@ -82,7 +82,7 @@ class AssetManager{
 		console.log('Starting image load');
 		img.src = url;
 		
-		this.cache[cacheKey] = img;
+		this.cache.add(cacheKey, img);
 
 	}
 

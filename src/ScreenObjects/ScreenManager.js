@@ -20,14 +20,14 @@ class ScreenManager{
     
     stop(){
         
-        this.game.ticker.reset();
+        // this.game.ticker.reset();
         
     }
     
     start(name){
         
-        this.screenIds.update = this.game.ticker.add(this.currentScreen, this.currentScreen.update, Engine.FPS);
-        this.screenIds.render = this.game.ticker.add(this.currentScreen, this.currentScreen.render, Engine.FPS);
+        // this.screenIds.update = this.game.ticker.add(this.currentScreen, this.currentScreen.update, Engine.FPS);
+        // this.screenIds.render = this.game.ticker.add(this.currentScreen, this.currentScreen.render, Engine.FPS);
         this.currentScreen.start();
 
     }

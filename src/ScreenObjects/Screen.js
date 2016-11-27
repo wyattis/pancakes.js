@@ -3,8 +3,10 @@ class Screen{
     constructor(game, opts){
         
         this.game = game;
+        this.cache = game.engine.cache;
         this.load = game.engine.load;
         this.ticker = game.ticker;
+        this.sprites = [];
         
         this.initCB = opts.init;
         this.updateCB = opts.update;
@@ -53,7 +55,7 @@ class Screen{
         }, () => {
 	
 			console.log('Finished loading');
-			this.init();
+			setTimeout(this.init.bind(this), 200);
 	
 		});
         
@@ -69,19 +71,31 @@ class Screen{
         
         if(this.initCB) this.initCB();
         
-        this.game.ticker.start();
+        this.game.loop(this.update.bind(this), this.render.bind(this));
         
     }
     
     update(delta){
         
         // console.log('Screen update', delta);
+        for(let i = 0; i < this.sprites.length; i++){
+            
+            this.sprites[i].update(delta);
+            
+        }
         if(this.updateCB) this.updateCB(delta);
         
     }
     
     render(delta){
+        
         this.ctx.clearRect(0, 0, this.width, this.height);
+        
+        for(let i=0; i < this.sprites.length; i++){
+            
+            this.sprites[i].render(this.ctx, delta);
+            
+        }
         // console.log('Screen render', delta);
         if(this.renderCB) this.renderCB(this.ctx, delta);
         

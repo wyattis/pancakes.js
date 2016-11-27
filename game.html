@@ -25,7 +25,8 @@
 
 	<script>
 		(function(){
-
+	
+			let updateCount = 0;
 			let character;
 			let platforms;
 			let Game = Engine.game();
@@ -45,18 +46,28 @@
 				firstScreen.add.spritesheet('biped', 'bipedImage', 32, 32);
 
 				character = firstScreen.add.sprite(0, 0);
-				character.add.animation('running', 'biped', C.range(0, 36), 2000);
-				character.add.animation('climbing', 'biped', C.range(37, 48), 2000, {backAndForth: true});
+				character.add.animation('running', 'biped', C.range(0, 36), 1200);
+				character.add.animation('climbing', 'biped', C.range(37, 48), 1200, {backAndForth: true});
 
 				character.play.animation('running');
+				// character.play.animation('climbing');
 				
 			}
 
 			function update(delta){
-
-				// console.log('updating', delta);
-				character.setPos((character.pos.x += 10 / delta), (character.pos.y += 10 / delta))
-
+				
+				updateCount ++;
+				
+				if(updateCount > 60){
+					// console.log('updating', delta);
+					character.setPos((character.pos.x += 5 / delta), (character.pos.y += 5 / delta));
+				}
+				
+				if(updateCount === 200){
+					console.log(200);
+					character.play.animation('climbing');
+				}
+				
 			}
 			
 			

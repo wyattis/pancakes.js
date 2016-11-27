@@ -40,7 +40,7 @@ Engine
 		onRepeat(cb)
 
 	Spritesheet
-		constructor(cacheKey, tileWidth, tileHeight)
+		constructor(cacheKey, tileWidth, tileHeight, tilePadding)
 
 	Button
 		constructor(onHover, onClick, onDown, onUp)

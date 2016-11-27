@@ -8,15 +8,19 @@ class ObjectFactory{
 
 
 	sprite(x, y){
-
-		return new Sprite(this.parent, x, y);
+		
+		let sprite = new Sprite(this.parent, x, y);
+		this.parent.sprites.push(sprite);
+		return sprite;
 
 	}
 
 
-	spritesheet(cacheKey, imageKey, tileWidth, tileHeight){
-
-		return new Spritesheet(cacheKey, imageKey, tileWidth, tileHeight);
+	spritesheet(cacheKey, imageKey, tileWidth, tileHeight, tilePadding){
+		
+		let spritesheet = new Spritesheet(this.parent.cache.use(imageKey), tileWidth, tileHeight, tilePadding)
+		this.parent.cache.add(cacheKey, spritesheet);
+		return spritesheet;
 
 	}
 
