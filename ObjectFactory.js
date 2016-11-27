@@ -9,7 +9,7 @@ class ObjectFactory{
 
 	sprite(x, y){
 
-		return new Sprite(x, y);
+		return new Sprite(this.parent, x, y);
 
 	}
 

@@ -19,6 +19,8 @@ class Engine{
 		};
 
 		this.add = new ObjectFactory(this);
+
+		this.ticker = new Ticker();
 	}
 
 
@@ -44,19 +46,23 @@ class Engine{
 
 	init(){
 
-		if(this.updateCB) this.initCB();
+		if(this.initCB) this.initCB();
+
+		this.ticker.add(this, this.update, 1000 / 61);
+		this.ticker.add(this, this.render, 1000/30);
+
+		this.ticker.start();
+	}
+
+	update(delta){
+
+		if(this.updateCB) this.updateCB(delta);
 
 	}
 
-	update(){
+	render(delta){
 
-		if(this.updateCB) this.updateCB();
-
-	}
-
-	render(){
-
-		if(this.renderCB) this.renderCB();
+		if(this.renderCB) this.renderCB(delta);
 
 	}
 

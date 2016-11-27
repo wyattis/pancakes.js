@@ -2,9 +2,17 @@ Engine
 	constructor(callbacks)
 	load(cacheKey, url)
 	add
-		sprite(cacheKey, x, y)
-		spritesheet(name, cacheKey, tileWidth, tileHeight)
-		group()
+		screen()
+
+	Screen
+		add
+			layer()
+
+	Layer
+		add
+			sprite(cacheKey, x, y)
+			spritesheet(name, cacheKey, tileWidth, tileHeight)
+			group()
 
 	Sprite
 		add
@@ -26,12 +34,16 @@ Engine
 	Spritesheet
 		constructor(cacheKey, tileWidth, tileHeight)
 
+	Button
+		constructor(onHover, onClick, onDown, onUp)
+
 ============================================
 Private stuffs
 ============================================
 	Cache
 		add(key, obj)
 		use(key)
+
 	AssetManager
 		load(cacheKey, url)
 		go(progressCB, finishedCB)
@@ -40,7 +52,7 @@ Private stuffs
 		sprite
 		spritesheet
 		group
-		
+
 	TileSheet(cacheKey, numCols, numRows)
 		
 	Render
