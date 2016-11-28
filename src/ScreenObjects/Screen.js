@@ -6,8 +6,9 @@ class Screen{
         this.cache = game.engine.cache;
         this.load = game.engine.load;
         this.ticker = game.ticker;
-        this.sprites = [];
         
+        this.sprites = [];      // Store local copies of all sprites in the screen
+
         this.initCB = opts.init;
         this.updateCB = opts.update;
         this.renderCB = opts.render;
@@ -17,29 +18,42 @@ class Screen{
         // this.add = new LayerFactory(this);
         this.add = new ObjectFactory(this);
         
-        this._getOrCreateCanvas(opts.canvas);
-        this.width = 400 || opts.width;
-        this.height = 300 || opts.height;
+        
+        this._createContainer(opts.container);
+        this._createCanvas();
+        this.width = opts.width || this.container.clientWidth;
+        this.height = opts.height || this.container.clientHeight;
         
         this.canvas.width = this.width;
         this.canvas.height = this.height;
+        
+        console.log('Width, height', this.width, this.height);
     }
     
     
-    _getOrCreateCanvas(canvas){
+    _createContainer(container){
         
-        if(canvas){
+        if(container){
             
-            this.canvas = typeof canvas === 'object' ? canvas : document.getElementById(canvas);
+            this.container = typeof container === 'object' ? container : document.getElementById(container);
+            this.container.innerHTML = "";
             
         }
         else{
             
-            this.canvas = document.createElement('canvas');
-            document.body.appendChild(this.canvas);
-            this.ctx = this.canvas.getContext('2d');
+            this.container = document.createElement('div');
+            this.container.id = 'pancakes';
+            document.body.appendChild(this.container);
             
         }
+        
+    }
+    
+    _createCanvas(container){
+        
+        this.canvas = document.createElement('canvas');
+        this.container.appendChild(this.canvas);
+        this.ctx = this.canvas.getContext('2d');
         
     }
     
@@ -77,23 +91,32 @@ class Screen{
     
     update(delta){
         
-        // console.log('Screen update', delta);
+        console.log('Screen update', delta);
         for(let i = 0; i < this.sprites.length; i++){
             
             this.sprites[i].update(delta);
             
         }
+
         if(this.updateCB) this.updateCB(delta);
         
     }
     
     render(delta){
         
-        this.ctx.clearRect(0, 0, this.width, this.height);
+        // this.ctx.clearRect(0, 0, this.width, this.height);
         
         for(let i=0; i < this.sprites.length; i++){
             
-            this.sprites[i].render(this.ctx, delta);
+            if(this.sprites[i].needsRendered){
+                
+                // debugger;
+                let s = this.sprites[i];
+                // console.log(s.last.pos.x, s.last.pos.y, s.currentAnimation.width, s.currentAnimation.height);
+                this.ctx.clearRect(s.last.pos.x, s.last.pos.y, s.currentAnimation.width, s.currentAnimation.height);
+                this.sprites[i].render(this.ctx, delta);
+                
+            }
             
         }
         // console.log('Screen render', delta);

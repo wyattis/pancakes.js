@@ -1,14 +1,16 @@
 class Animation {
 
-    constructor(spritesheet, frames, animationTime, options) {
+    constructor(parent, spritesheet, frames, animationTime, options) {
 
+        this.parent = parent;
         this.currentIndex = 0;
         this.frames = frames;
         this.spritesheet = spritesheet;
         this.timeSinceLastFrameChange = 0;
         this.width = spritesheet.tileWidth;
         this.height = spritesheet.tileHeight;
-        this.debug = true;
+        // this.debug = true;
+        this.debug = false;
         
         this.onFinishCB = null;
         this.onRepeatCB = null;
@@ -21,7 +23,7 @@ class Animation {
 
         this.frameTime = animationTime / this.frames.length;
         
-        console.log('Animation frameTime', this.frameTime);
+        // console.log('Animation frameTime', this.frameTime);
         
     }
     
@@ -51,6 +53,10 @@ class Animation {
                 this.currentIndex ++;
                 
             }
+            
+            // The frame has changed so we need to que this for another render
+            // debugger;
+            this.parent.queForRender();
             
             this.timeSinceLastFrameChange = this.timeSinceLastFrameChange % this.frameTime;
 
