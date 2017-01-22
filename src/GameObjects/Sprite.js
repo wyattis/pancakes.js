@@ -77,9 +77,10 @@ class Sprite{
 		// the sprite again
 		if(this.pos.x !== x || this.pos.y !== y) this.queForRender();
 		this.last.pos.x = this.pos.x;
-		this.last.posy.y = this.pos.y;
+		this.last.pos.y = this.pos.y;
 		this.pos.x = x;
 		this.pos.y = y;
+
 	}
 	
 	

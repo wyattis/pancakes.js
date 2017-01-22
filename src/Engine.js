@@ -71,7 +71,10 @@ let Engine = {
 		Engine.assetManager = Engine.assetManager || new AssetManager(Engine.cache);
 		return new Game(Engine);
 		
-	}
+	},
+	
+	RECTANGLE: 0,
+	CIRCLE: 1
 	
 };
 

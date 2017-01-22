@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="test.css" type="text/css" />
 </head>
 <body>
-	
+
 	<div id="game"></div>
 	<!-- <script src="Render.js"></script> -->
 	<script src="src/Engine.js"></script>
@@ -28,7 +28,7 @@
 	<script>
 	/*global C Engine*/
 		(function(){
-	
+
 			let updateCount = 0;
 			let characters = [];
 			let platforms;
@@ -47,19 +47,19 @@
 
 				firstScreen.add.spritesheet('characters', 'charactersImage', 32, 32);
 				firstScreen.add.spritesheet('biped', 'bipedImage', 32, 32);
-				
+
 				let dx = 32;
 				let dy = 32;
-				
-				let num = 50;
+
+				let num = 15;
 				for(let x=0; x<num; x++){
 					for(let y=0; y<num; y++){
 
 						let character = firstScreen.add.sprite((x * dx) % 640, (y * dy) % 640);
-						
+
 						// Texture swapping
 						switch(C.randomInt(0, 3)){
-							
+
 							case 0:
 								character.add.animation('running', 'biped', C.range(0, 36), 1200);
 								break;
@@ -72,12 +72,12 @@
 							case 3:
 								character.add.animation('knightJumping', 'characters', C.range(27, 31), 800);
 								break;
-								
+
 						}
-						
+
 						// Single texture
 						// switch(C.randomInt(0, 1)){
-							
+
 						// 	case 0:
 						// 		character.add.animation('knightWalking', 'characters', C.range(23, 27), 800);
 						// 		break;
@@ -86,37 +86,37 @@
 						// 		break;
 						// }
 						// character.play.animation('running');
-						
+
 						// All same animation
 						// character.add.animation('knightJumping', 'characters', C.range(27, 31), 800);
 						// character.add.animation('knightWalking', 'characters', C.range(23, 27), 800);
 						// // console.log('Is just a reference?', character.animations['knightWalking'].spritesheet.texture === Engine.cache.items['charactersImage']);
-						// characters.push(character);
+						characters.push(character);
 					}
 				}
-				
-				
+
+
 				// character.play.animation('climbing');
-				
+
 			}
 
 			function update(delta){
-				
+
 				updateCount ++;
-				
+
 				for(let i=0; i < characters.length; i++){
-					
-					let character = characters[i];
+
+					// let character = characters[i];
 					// character.setPos((character.pos.x += 1 / delta), (character.pos.y += 1 / delta));
-					
-					if(updateCount === 300){
-						character.play.animation('knightJumping');
-					}
+
+					// if(updateCount === 300){
+					// 	character.play.animation('knightJumping');
+					// }
 				}
 
 			}
-			
-			
+
+
 			firstScreen = Game.add.screen('first', {container:'game', load: load, init: init, update: update});
 
 			Game.play.screen('first');
