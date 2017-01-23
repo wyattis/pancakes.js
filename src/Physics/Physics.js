@@ -49,6 +49,7 @@ class Physics{
 
                 if(Collision.collides(bodyA, bodyB)){
                     this.collisionMemo.set(bodyB, bodyA);
+                    console.log('Collision between', bodyA, bodyB);
                     // this.calculate()
                 }
 
