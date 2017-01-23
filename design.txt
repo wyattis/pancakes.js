@@ -1,10 +1,26 @@
 Engine
-	constructor(callbacks)
-	load(cacheKey, url)
-	add
-		sprite(cacheKey, x, y)
-		spritesheet(name, cacheKey, tileWidth, tileHeight)
-		group()
+	game()
+	
+	Game
+		add
+			screen(name)
+		play
+			screen(name)
+
+	Screen
+		constructor(callbacks)
+		load(cacheKey, url)
+		add
+			sprite(cacheKey, x, y)
+			spritesheet(name, cacheKey, tileWidth, tileHeight)
+			group()
+			# layer()
+
+	# Layer
+	# 	add
+	# 		sprite(cacheKey, x, y)
+	# 		spritesheet(name, cacheKey, tileWidth, tileHeight)
+	# 		group()
 
 	Sprite
 		add
@@ -24,7 +40,10 @@ Engine
 		onRepeat(cb)
 
 	Spritesheet
-		constructor(cacheKey, tileWidth, tileHeight)
+		constructor(cacheKey, tileWidth, tileHeight, tilePadding)
+
+	Button
+		constructor(onHover, onClick, onDown, onUp)
 
 ============================================
 Private stuffs
@@ -32,6 +51,7 @@ Private stuffs
 	Cache
 		add(key, obj)
 		use(key)
+
 	AssetManager
 		load(cacheKey, url)
 		go(progressCB, finishedCB)
@@ -40,7 +60,7 @@ Private stuffs
 		sprite
 		spritesheet
 		group
-		
+
 	TileSheet(cacheKey, numCols, numRows)
 		
 	Render

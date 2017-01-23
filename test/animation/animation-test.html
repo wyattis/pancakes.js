@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pancakes Test</title>
+	<link rel="stylesheet" href="../test.css" type="text/css" />
+</head>
+<body>
+
+	<div id="pancakes"></div>
+	<script src="../../build/pancakes.js"></script>
+
+	<script>
+	/*global C Engine*/
+		(function(){
+
+			let updateCount = 0;
+			let characters = [];
+			let platforms;
+			let Game = Engine.game();
+			let firstScreen;
+
+			function load(){
+
+				firstScreen.load('bipedImage', '../img/biped.png');
+				firstScreen.load('charactersImage', '../img/characters.png');
+				firstScreen.load('blockImage', '../img/block.png');
+
+			}
+
+			function init(){
+
+				firstScreen.add.spritesheet('characters', 'charactersImage', 32, 32);
+				firstScreen.add.spritesheet('biped', 'bipedImage', 32, 32);
+
+				let dx = 32;
+				let dy = 32;
+
+				let num = 15;
+				for(let x=0; x<num; x++){
+					for(let y=0; y<num; y++){
+
+						let character = firstScreen.add.sprite((x * dx) % 640, (y * dy) % 640);
+
+						// Texture swapping
+						switch(C.randomInt(0, 3)){
+
+							case 0:
+								character.add.animation('running', 'biped', C.range(0, 36), 1200);
+								break;
+							case 1:
+								character.add.animation('climbing', 'biped', C.range(37, 48), 1200, {backAndForth: true});
+								break;
+							case 2:
+								character.add.animation('knightWalking', 'characters', C.range(23, 27), 800);
+								break;
+							case 3:
+								character.add.animation('knightJumping', 'characters', C.range(27, 31), 800);
+								break;
+
+						}
+
+						// Single texture
+						// switch(C.randomInt(0, 1)){
+
+						// 	case 0:
+						// 		character.add.animation('knightWalking', 'characters', C.range(23, 27), 800);
+						// 		break;
+						// 	case 1:
+						// 		character.add.animation('knightJumping', 'characters', C.range(27, 31), 800);
+						// 		break;
+						// }
+						// character.play.animation('running');
+
+						// All same animation
+						// character.add.animation('knightJumping', 'characters', C.range(27, 31), 800);
+						// character.add.animation('knightWalking', 'characters', C.range(23, 27), 800);
+						// // console.log('Is just a reference?', character.animations['knightWalking'].spritesheet.texture === Engine.cache.items['charactersImage']);
+						characters.push(character);
+					}
+				}
+
+
+				// character.play.animation('climbing');
+
+			}
+
+			function update(delta){
+
+				updateCount ++;
+
+				for(let i=0; i < characters.length; i++){
+
+					// let character = characters[i];
+					// character.setPos((character.pos.x += 1 / delta), (character.pos.y += 1 / delta));
+
+					// if(updateCount === 300){
+					// 	character.play.animation('knightJumping');
+					// }
+				}
+
+			}
+
+
+			firstScreen = Game.add.screen('first', {container:'pancakes', load: load, init: init, update: update});
+
+			Game.play.screen('first');
+
+		})();
+	</script>
+</body>
+</html>

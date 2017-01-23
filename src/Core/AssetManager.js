@@ -1,10 +1,8 @@
 class AssetManager{
 
-	constructor(cache, updateCB, finishedCB){
+	constructor(cache){
 
 		this.cache = cache;
-		this.updateCB= updateCB;
-		this.finishedCB = finishedCB;
 		this.queue = [];
 		this.numCompleted = 0;
 
@@ -36,7 +34,7 @@ class AssetManager{
 
 		}
 		else{
-			
+
 			item.type = 'unknown';
 
 		}
@@ -46,6 +44,9 @@ class AssetManager{
 
 
 	go(progressCB, finishedCB){
+
+		if(this.queue.length === 0)
+			return finishedCB();
 
 		this.progressCB = progressCB;
 		this.finishedCB = finishedCB;
@@ -83,8 +84,8 @@ class AssetManager{
 
 		console.log('Starting image load');
 		img.src = url;
-		
-		this.cache[cacheKey] = img;
+
+		this.cache.add(cacheKey, img);
 
 	}
 

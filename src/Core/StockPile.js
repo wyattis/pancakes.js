@@ -1,4 +1,4 @@
-class Cache{
+class StockPile{
 
 	constructor(){
 
