@@ -104,14 +104,14 @@ class Screen{
 
     render(delta){
 
-        // this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.clearRect(0, 0, this.width, this.height);
 
         for(let i=0; i < this.sprites.length; i++){
 
             if(this.sprites[i].needsRendered){
 
                 // console.log(s.last.pos.x, s.last.pos.y, s.currentAnimation.width, s.currentAnimation.height);
-                this.ctx.clearRect(this.sprites[i].last.pos.x, this.sprites[i].last.pos.y, this.sprites[i].currentAnimation.width, this.sprites[i].currentAnimation.height);
+                // this.ctx.clearRect(this.sprites[i].last.pos.x, this.sprites[i].last.pos.y, this.sprites[i].currentAnimation.width, this.sprites[i].currentAnimation.height);
                 this.sprites[i].render(this.ctx, delta);
 
             }

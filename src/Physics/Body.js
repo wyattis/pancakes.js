@@ -3,6 +3,9 @@ class Body{
 
     constructor(x, y, vx, vy){
 
+        this.enabled = true;
+        this.mass = 100;
+
         this.pos = [0, 0];
         this.vel = [0, 0];
         this.acc = [0, 0];
@@ -16,9 +19,15 @@ class Body{
         if(x || y)
             this.setPos(x, y);
 
-        this.geometry = Engine.RECTANGLE;
+    }
+
+
+    addGeometry(shape){
+
+        this.geometry = shape;
 
     }
+
 
     /**
      * Setter for position
@@ -26,6 +35,7 @@ class Body{
     setPos(x, y){
 
         this.pos = [x, y];
+        this.geometry.setPos(x, y);
 
     }
 
@@ -34,7 +44,10 @@ class Body{
      */
     setVel(x, y){
 
-        this.vel = [x, y];
+        if(x !== undefined)
+            this.vel[0] = x;
+        if(y !== undefined)
+            this.vel[1] = y;
 
     }
 
@@ -44,6 +57,33 @@ class Body{
     setAcc(x, y){
 
         this.acc = [x, y];
+
+    }
+
+
+    /**
+     * Update the position of the body
+     */
+    update(delta){
+
+        // accelerate
+        if(this.acc[0] || this.acc[1]){
+            this.vel[0] += (this.acc[0] / delta);
+            this.vel[1] += (this.acc[1] / delta);
+        }
+
+        // move
+        if(this.vel[0] || this.vel[1]){
+            this.pos[0] += (this.vel[0] / delta);
+            this.pos[1] += (this.vel[1] / delta);
+            this.geometry.setPos(this.pos[0], this.pos[1]);
+        }
+
+        // TODO: apply rotation acceleration
+        // TODO: apply rotation
+
+        // TODO: apply friction
+        // TODO: reduce small nums to zero
 
     }
 

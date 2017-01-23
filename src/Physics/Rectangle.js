@@ -1,7 +1,9 @@
-class Rectangle{
+/*global Engine*/
+Engine.Rectangle = class{
 
     constructor(x, y, width, height){
 
+        this.type = Engine.RECTANGLE;
         this.width = width;
         this.height = height;
         this.setPos(x, y);
@@ -21,4 +23,4 @@ class Rectangle{
 
     }
 
-}
+};
