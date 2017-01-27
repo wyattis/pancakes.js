@@ -22,6 +22,9 @@ class Body{
     }
 
 
+    /**
+     * Add a shape supported by the physics engine
+     */
     addGeometry(shape){
 
         this.geometry = shape;
@@ -35,9 +38,10 @@ class Body{
     setPos(x, y){
 
         this.pos = [x, y];
-        this.geometry.setPos(x, y);
+        if(this.geometry) this.geometry.setPos(x, y);
 
     }
+
 
     /**
      * Setter for velocity
@@ -50,6 +54,7 @@ class Body{
             this.vel[1] = y;
 
     }
+
 
     /**
      * Setter for acceleration

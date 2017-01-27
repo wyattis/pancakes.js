@@ -91,12 +91,13 @@
 
 				for(let i=0; i < characters.length; i++){
 
-					// let character = characters[i];
-					// character.setPos((character.pos.x += 1 / delta), (character.pos.y += 1 / delta));
+					let character = characters[i];
+					character.setPos((character.pos.x += 1 / delta), (character.pos.y += 1 / delta));
 
-					// if(updateCount === 300){
-					// 	character.play.animation('knightJumping');
-					// }
+					if(updateCount === 300){
+						character.play.animation('knightJumping');
+					}
+					
 				}
 
 			}

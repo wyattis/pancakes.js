@@ -20,6 +20,7 @@ Engine.Rectangle = class{
         this.bottom = y + this.height;
         this.centerX = (this.left + this.right) / 2;
         this.centerY = (this.top + this.bottom) / 2;
+        this.diagSqrd = this.width ^ 2 + this.height ^ 2;
 
     }
 
