@@ -1,4 +1,4 @@
-/*global QuadTree Engine Body*/
+/*global QuadTree Engine Body Collision*/
 class Physics{
 
     constructor(options){
@@ -48,53 +48,13 @@ class Physics{
                 }
                 else if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
                     this.collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);
-                    console.log('Collision between', this.bodies[leftIndex].pos, this.bodies[rightIndex].pos);
-                    this.collision(this.bodies[leftIndex], this.bodies[rightIndex]);
+                    // console.log('Collision between', this.bodies[leftIndex].pos, this.bodies[rightIndex].pos);
+                    Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);
                 }
 
             }
 
         }
-
-    }
-
-
-    collision(bodyA, bodyB){
-
-        if(bodyA.geometry.type === Engine.RECTANGLE && bodyB.geometry.type === Engine.RECTANGLE){
-        }
-
-    }
-
-
-    /*
-     *  Calculates final velocities for 1D elastic particle collision
-     */
-    static elasticParticleCollision1D(v_1, m_1, v_2, m_2){
-
-
-        const v_1_f = v_1 * ((m_1 - m_2) / (m_1 + m_2)) +
-                    v_2 * ((2 * m_2 ) / (m_1 + m_2));
-
-
-        const v_2_f = v_1 * ((2 * m_1) / (m_1 + m_2)) +
-                    v_2 * ((m_2 - m_1) / (m_1 + m_2));
-
-        return [v_1_f, v_2_f];
-
-    }
-
-
-    /*
-     *  Returns the final velocities for two particles SLAMMING
-     */
-    static elasticParticleCollision2D(v_1, m_1, v_2, m_2){
-
-        const v_f_x = Physics.elasticParticleCollision1D(v_1.x, m_1, v_2.x, m_2);
-
-        const v_f_y = Physics.elasticParticleCollision1D(v_1.y, m_1, v_2.y, m_2);
-
-        return [v_f_x, v_f_y];
 
     }
 

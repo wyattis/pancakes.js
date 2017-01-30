@@ -1,4 +1,4 @@
-/*global Engine Physics Body Rectangle*/
+/*global Engine Physics Body C*/
 "use strict";
 let game = Engine.game();
 let bodies = [];
@@ -10,7 +10,7 @@ function init(){
     const dy = 40;
     const h = 25;
     const w = 25;
-    const numSide = 2;
+    const numSide = 8;
 
     for(let x=0; x<numSide; x++){
 

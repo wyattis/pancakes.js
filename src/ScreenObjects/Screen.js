@@ -61,7 +61,6 @@ class Screen{
 
         if(this.loadCB) this.loadCB();
 
-
         this.game.engine.assetManager.go(() => {
 
             this.loadProgress();
