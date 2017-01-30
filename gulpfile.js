@@ -1,11 +1,14 @@
 "use strict";
 const gulp = require('gulp');
 const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('js', ()=>{
 
     return gulp.src('src/**/*.js')
+        .pipe(sourcemaps.init())
         .pipe(concat('pancakes.js'))
+        .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest('build'));
 
 });
