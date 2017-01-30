@@ -40,7 +40,7 @@ class Collision{
             const widthDiff = ((fullWidth - Math.abs(dxPos))/2) + .01;
             // console.log('X collision:', fullWidth, dxPos, widthDiff);
             if(widthDiff > 1){
-                console.log('X error');
+                // console.log('X error');
                 console.dir(bodyA);
                 console.dir(bodyB);
             }
@@ -68,7 +68,7 @@ class Collision{
             const heightDiff = (((fullHeight - Math.abs(dyPos))/2) >> 0);
             // console.log('Y collision:', fullHeight, dyPos, heightDiff);
             if(heightDiff > 1){
-                console.log('Y error');
+                // console.log('Y error');
                 console.dir(bodyA);
                 console.dir(bodyB);
             }
