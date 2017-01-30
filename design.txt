@@ -1,5 +1,5 @@
 Engine
-	game()
+	game(opts)
 
 	Game
 		constructor(engine, container)
@@ -20,13 +20,22 @@ Engine
 			layer()					// creates a new canvas layer
 
 	Layer
-		constructor()	// creates a new canvas as a layer
+		scale			// holds matrix for scaling the screen
 		ctx 			// holds the canvas context
 		depth			// controls how far away from the viewport the layer appears to be
+		constructor()	// creates a new canvas as a layer
 		render()
 	 	add
 	 		sprite(cacheKey, x, y)
 	 		group()
+
+	Group
+		children
+		pos								// Collision and rendering could be done relative to this position
+		constructor(parentLayer)
+		add([child|children])
+		collidesWith([group|sprite])
+		render(ctx)
 
 	Sprite
 		constructor(parentLayer)
@@ -37,10 +46,11 @@ Engine
 		play
 			animation(name)
 			sound(name)
-		position(x, y)
+
 
 	Animation
 		constructor(spritesheetKey, frames, totalTime, infinite)
+		update(delta)
 		play()
 		stop()
 		onFinish(cb)
@@ -52,17 +62,62 @@ Engine
 	Button
 		constructor(onHover, onClick, onDown, onUp)
 
-	Input				// handle events on the container and pass through to appropriate layer
+	Input	// handle events on the container and pass through to appropriate layer
 
 ============================================
 Private stuffs
 ============================================
+	Body
+		pos
+		vel
+		acc
+		angle???
+		dAngle???
+		ddAngle???
+		geometry/shape
+		touching
+			left
+			right
+			top
+			bottom
+		update(delta)
+
 	Physics
+		constructor()
+		add(body)
+		tick(delta)
+
 	Geometry
+		rectRectIntersect(A, B)
+		rectCircleIntersect(R, C)
+		circleCircleIntersect(A, B)
+
 	Collision
-	QuadTree
+		rectRectCollision(A, B)
+		rectCircleCollision(rect, circ)
+		elasticCollision1D(v1i, m1, v2i, m2)
+		elasticCollision2D(v1i, m1, v2i, m2)
+
 	Rectangle
+		width
+		height
+		x
+		y
+		left
+		right
+		top
+		bottom
+		centerX
+		centerY
+		constructor(x, y, w, h)
+		setPos(x, y)
+
 	Circle
+		radius
+		centerX
+		centerY
+		setPos(x, y)
+
 	Cache
 		add(key, obj)
 		use(key)
@@ -76,11 +131,14 @@ Private stuffs
 		spritesheet
 		group
 
-	TileSheet(spritesheetName, numCols, numRows)
-
-	Render
-
 	C
 		static random
 		static randomInt
 		static range(min, max) => [min, ..., max]
+
+
+	TileSheet(spritesheetName, numCols, numRows)
+
+	Render
+
+	QuadTree
