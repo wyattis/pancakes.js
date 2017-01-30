@@ -73,14 +73,14 @@ class Body{
 
         // accelerate
         if(this.acc[0] || this.acc[1]){
-            this.vel[0] += (this.acc[0] / delta);
-            this.vel[1] += (this.acc[1] / delta);
+            this.vel[0] += (this.acc[0] * delta) / 400;
+            this.vel[1] += (this.acc[1] * delta) / 400;
         }
 
         // move
         if(this.vel[0] || this.vel[1]){
-            this.pos[0] += (this.vel[0] / delta);
-            this.pos[1] += (this.vel[1] / delta);
+            this.pos[0] += (this.vel[0] * delta) / 400;
+            this.pos[1] += (this.vel[1] * delta) / 400;
             this.geometry.setPos(this.pos[0], this.pos[1]);
         }
 

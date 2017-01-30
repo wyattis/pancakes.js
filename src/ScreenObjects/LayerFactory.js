@@ -1,15 +1,18 @@
+/*global Engine*/
 class LayerFactory{
-    
-    constructor(screen){
-        
-        this.screen = screen;
-        
+
+    constructor(scene){
+
+        this.scene = scene;
+
     }
-    
-    layer(ctx){
-        
-        return new Layer(ctx);
-        
+
+    layer(name){
+
+        let layer = new Layer(this.scene);
+        this.scene.layers.set(name, layer);
+        return layer;
+
     }
-    
+
 }

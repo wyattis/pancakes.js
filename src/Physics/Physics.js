@@ -37,6 +37,10 @@ class Physics{
         // Clear the memo at the beginning of each tick
         this.collisionMemo.clear();
 
+        for(let i=0; i<this.bodies.length; i++){
+            this.bodies[i].update(delta);
+        }
+
         for(let leftIndex=0; leftIndex<this.bodies.length - 1; leftIndex++){
 
             for(let rightIndex=leftIndex+1; rightIndex<this.bodies.length; rightIndex++){

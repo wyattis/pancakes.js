@@ -1,28 +1,44 @@
 Engine
-	game()
-	
+	game(opts)
+
 	Game
+		constructor(engine, container)
+		container					// html element to create each canvas
 		add
-			screen(name)
+			screen(name)			// add a screen to the list of possible screens
 		play
-			screen(name)
+			screen(name)			// cleans up a previous screen before initializing the next one
 
 	Screen
 		constructor(callbacks)
+		init()						// Handles the creation of canvas layers needed for the screen
 		load(cacheKey, url)
+		update(delta)
+		render(delta)				// renders each layer in the screen
 		add
-			sprite(cacheKey, x, y)
 			spritesheet(name, cacheKey, tileWidth, tileHeight)
-			group()
-			# layer()
+			layer()					// creates a new canvas layer
 
-	# Layer
-	# 	add
-	# 		sprite(cacheKey, x, y)
-	# 		spritesheet(name, cacheKey, tileWidth, tileHeight)
-	# 		group()
+	Layer
+		scale			// holds matrix for scaling the screen
+		ctx 			// holds the canvas context
+		depth			// controls how far away from the viewport the layer appears to be
+		constructor()	// creates a new canvas as a layer
+		render()
+	 	add
+	 		sprite(cacheKey, x, y)
+	 		group()
+
+	Group
+		children
+		pos								// Collision and rendering could be done relative to this position
+		constructor(parentLayer)
+		add([child|children])
+		collidesWith([group|sprite])
+		render(ctx)
 
 	Sprite
+		constructor(parentLayer)
 		add
 			animation(name, spritesheetName, frames, totalTime, opts)
 			image(name, cacheKey)
@@ -30,10 +46,11 @@ Engine
 		play
 			animation(name)
 			sound(name)
-		position(x, y)
+
 
 	Animation
 		constructor(spritesheetKey, frames, totalTime, infinite)
+		update(delta)
 		play()
 		stop()
 		onFinish(cb)
@@ -45,9 +62,62 @@ Engine
 	Button
 		constructor(onHover, onClick, onDown, onUp)
 
+	Input	// handle events on the container and pass through to appropriate layer
+
 ============================================
 Private stuffs
 ============================================
+	Body
+		pos
+		vel
+		acc
+		angle???
+		dAngle???
+		ddAngle???
+		geometry/shape
+		touching
+			left
+			right
+			top
+			bottom
+		update(delta)
+
+	Physics
+		constructor()
+		add(body)
+		tick(delta)
+
+	Geometry
+		rectRectIntersect(A, B)
+		rectCircleIntersect(R, C)
+		circleCircleIntersect(A, B)
+
+	Collision
+		rectRectCollision(A, B)
+		rectCircleCollision(rect, circ)
+		elasticCollision1D(v1i, m1, v2i, m2)
+		elasticCollision2D(v1i, m1, v2i, m2)
+
+	Rectangle
+		width
+		height
+		x
+		y
+		left
+		right
+		top
+		bottom
+		centerX
+		centerY
+		constructor(x, y, w, h)
+		setPos(x, y)
+
+	Circle
+		radius
+		centerX
+		centerY
+		setPos(x, y)
+
 	Cache
 		add(key, obj)
 		use(key)
@@ -61,9 +131,14 @@ Private stuffs
 		spritesheet
 		group
 
-	TileSheet(cacheKey, numCols, numRows)
-		
+	C
+		static random
+		static randomInt
+		static range(min, max) => [min, ..., max]
+
+
+	TileSheet(spritesheetName, numCols, numRows)
+
 	Render
 
-	C
-		static range(min, max) => [min, ..., max]
+	QuadTree
