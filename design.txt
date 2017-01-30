@@ -1,28 +1,35 @@
 Engine
 	game()
-	
+
 	Game
+		constructor(engine, container)
+		container					// html element to create each canvas
 		add
-			screen(name)
+			screen(name)			// add a screen to the list of possible screens
 		play
-			screen(name)
+			screen(name)			// cleans up a previous screen before initializing the next one
 
 	Screen
 		constructor(callbacks)
+		init()						// Handles the creation of canvas layers needed for the screen
 		load(cacheKey, url)
+		update(delta)
+		render(delta)				// renders each layer in the screen
 		add
-			sprite(cacheKey, x, y)
 			spritesheet(name, cacheKey, tileWidth, tileHeight)
-			group()
-			# layer()
+			layer()					// creates a new canvas layer
 
-	# Layer
-	# 	add
-	# 		sprite(cacheKey, x, y)
-	# 		spritesheet(name, cacheKey, tileWidth, tileHeight)
-	# 		group()
+	Layer
+		constructor()	// creates a new canvas as a layer
+		ctx 			// holds the canvas context
+		depth			// controls how far away from the viewport the layer appears to be
+		render()
+	 	add
+	 		sprite(cacheKey, x, y)
+	 		group()
 
 	Sprite
+		constructor(parentLayer)
 		add
 			animation(name, spritesheetName, frames, totalTime, opts)
 			image(name, cacheKey)
@@ -45,9 +52,17 @@ Engine
 	Button
 		constructor(onHover, onClick, onDown, onUp)
 
+	Input				// handle events on the container and pass through to appropriate layer
+
 ============================================
 Private stuffs
 ============================================
+	Physics
+	Geometry
+	Collision
+	QuadTree
+	Rectangle
+	Circle
 	Cache
 		add(key, obj)
 		use(key)
@@ -61,9 +76,11 @@ Private stuffs
 		spritesheet
 		group
 
-	TileSheet(cacheKey, numCols, numRows)
-		
+	TileSheet(spritesheetName, numCols, numRows)
+
 	Render
 
 	C
+		static random
+		static randomInt
 		static range(min, max) => [min, ..., max]
