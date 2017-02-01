@@ -38,7 +38,9 @@ Engine
 		render(ctx)
 
 	Sprite
+		body
 		constructor(parentLayer)
+		collidesWith([sprite|group])
 		add
 			animation(name, spritesheetName, frames, totalTime, opts)
 			image(name, cacheKey)
