@@ -9,7 +9,12 @@ class Game{
 
 
         // Create or find the container element
+        this.container = undefined;
         this._createContainer(opts && opts.container);
+
+
+        // Create the input object for this game
+        this.input = new Input(this.container);
 
 
         // Container setup

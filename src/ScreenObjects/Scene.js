@@ -61,6 +61,9 @@ class Scene{
      */
     init(){
 
+        // Start listening to keyboard input by default
+        this.game.input.start();
+
         if(this.initCB) this.initCB();
 
         this.game.loop(this.update.bind(this), this.render.bind(this));
