@@ -10,15 +10,16 @@ function update(delta){
 
     for(let key in ['UP', 'DOWN', 'LEFT', 'RIGHT']){
 
-        if(game.input.keyboard.keys[key].isDown){
-            console.log(`${key} is down`);
-        }
-        if(game.input.keyboard.keys[key].isUp){
-            console.log(`${key} is up`);
-        }
-        if(game.input.keyboard.keys[key].isHeld){
-            console.log(`${key} is held`);
-        }
+        // Console log the state of each of these keys during each update
+        // if(game.input.keyboard.keys[key].isDown){
+        //     console.log(`${key} is down`);
+        // }
+        // if(game.input.keyboard.keys[key].isUp){
+        //     console.log(`${key} is up`);
+        // }
+        // if(game.input.keyboard.keys[key].isHeld){
+        //     console.log(`${key} is held`);
+        // }
 
     }
 
