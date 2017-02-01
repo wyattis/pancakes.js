@@ -18,11 +18,14 @@ class Input{
      */
     _handleKeyDown(event){
 
-        if(this.keyboard.keys[event.keyCode].isDown)
-            this.keyboard.keys[event.keyCode].isHeld = true;
+        let key = this.keyboard.keys[Engine.Keyboard.keyCodes[event.keyCode]];
+        if(key.isDown)
+            key.isHeld = true;
 
-        this.keyboard.keys[event.keyCode].isDown = true;
-        this.keyboard.keys[event.keyCode].isUp = false;
+        key.isDown = true;
+        key.isUp = false;
+
+        event.preventDefault();
 
     }
 
@@ -33,9 +36,12 @@ class Input{
      */
     _handleKeyUp(event){
 
-        this.keyboard.keys[event.keyCode].isHeld = false;
-        this.keyboard.keys[event.keyCode].isDown = false;
-        this.keyboard.keys[event.keyCode].isUp = true;
+        let key = this.keyboard.keys[Engine.Keyboard.keyCodes[event.keyCode]];
+        key.isHeld = false;
+        key.isDown = false;
+        key.isUp = true;
+
+        event.preventDefault();
 
     }
 
@@ -46,8 +52,10 @@ class Input{
      */
     start(){
 
-        this.element.addEventListener('keydown', this._handleKeyDown);
-        this.element.addEventListener('keyup', this._handleKeyUp);
+        this.keyboard = new Engine.Keyboard();
+        console.log('keyboard defined', this.keyboard);
+        this.element.addEventListener('keydown', this._handleKeyDown.bind(this));
+        this.element.addEventListener('keyup', this._handleKeyUp.bind(this));
 
         this.isListening.down = true;
         this.isListening.up = true;

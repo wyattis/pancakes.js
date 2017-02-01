@@ -14,6 +14,7 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [ ] keyboard
     - [ ] joystick?
 - [ ] Add canvas layers for rendering
+    - [ ] add styles to container and canvas to make them stack correctly
     - [ ] a layer manages rendering for all sprites and groups associated with it
     - [x] a single scene can have multiple rendering layers
     - [x] a scene has a "default" layer upon creation

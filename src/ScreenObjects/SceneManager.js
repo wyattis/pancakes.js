@@ -28,6 +28,9 @@ class SceneManager{
         this.game.container.appendChild(canvas);
         canvas.width = this.game.width;
         canvas.height = this.game.height;
+        canvas.style.position = 'absolute';
+        canvas.style.zIndex = 0;
+
 
         console.log('Width, height', this.width, this.height);
 

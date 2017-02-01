@@ -46,6 +46,9 @@ class Game{
 
         }
 
+        this.container.style.position = 'relative';
+        this.container.tabIndex = 0;
+
     }
 
 
