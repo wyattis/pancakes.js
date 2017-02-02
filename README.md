@@ -23,13 +23,14 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [ ] Callbacks (oncomplete, onmid, onstart, onpercent?)
 - [ ] Physics
     - [ ] Body
-        - [ ] Add friction
+        - [x] Add friction
         - [ ] Add max-velocity
+        - [ ] Add acceleration normalization
         - [ ] Add velocity normalization
         - [ ] Populate touching booleans
         - [ ] Add callbacks for each collision direction
     - [ ] Collision
-        - [ ] Fix "stickiness" on collisions
+        - [ ] Fix "stickiness" on collisions (likely due to bad determination of relative location of colliding bodies)
         - [ ] Add QuadTree to check for collision
         - [ ] Rectangle to Circle intersection
         - [ ] Rectangle to Circle collisions

@@ -36,4 +36,15 @@ class C{
 
     }
 
+
+    /**
+     * Normalize a vector
+     */
+    static normalize(vec){
+
+        //TODO
+        return vec;
+
+    }
+
 }

@@ -1,7 +1,7 @@
 /*global Engine*/
 const game = Engine.game();
 const physics = new Physics();
-const ACC = 5;
+const ACC = 150;
 let player;
 let bodies = [];
 let screen = game.add.screen('keyboard-friction', {init: init, update: update});
@@ -12,6 +12,7 @@ game.play.screen('keyboard-friction');
 function init(){
 
     player = new Body(200, 200);
+    player.friction = 100;
     player.addGeometry(new Engine.Rectangle(200, 200, 10, 10));
     physics.add(player);
 
@@ -25,6 +26,8 @@ function init(){
     for(let x=0; x<count; x++){
         for(let y=0; y<count; y++){
                 const body = new Body(x*dx, y*dy, 0, 0);
+                body.friction = 40;
+                body.maxSpeed = 100;
                 body.addGeometry(new Engine.Rectangle(x*dx, y*dy, w, h));
                 physics.add(body);
                 bodies.push(body);
@@ -36,29 +39,27 @@ function init(){
 
 function update(delta){
 
+    // Up and down input
     if(game.input.keyboard.keys.UP.isDown){
-        player.setAcc(player.acc[0], -ACC);
+        player.acc[1] = -ACC;
     }
     if(game.input.keyboard.keys.DOWN.isDown){
-        player.setAcc(player.acc[0],  ACC);
+        player.acc[1] = ACC;
     }
+    if(game.input.keyboard.keys.UP.isUp && game.input.keyboard.keys.DOWN.isUp){
+        player.acc[1] = 0;
+    }
+
+
+    // Left and right input
     if(game.input.keyboard.keys.LEFT.isDown){
-        player.setAcc(-ACC, player.acc[1]);
+        player.acc[0] = -ACC;
     }
     if(game.input.keyboard.keys.RIGHT.isDown){
-        player.setAcc(ACC, player.acc[1]);
+        player.acc[0] = ACC;
     }
-    if(game.input.keyboard.keys.UP.isUP){
-        player.setAcc(player.acc[0], 0);
-    }
-    if(game.input.keyboard.keys.DOWN.isUP){
-        player.setAcc(player.acc[0],  0);
-    }
-    if(game.input.keyboard.keys.LEFT.isUP){
-        player.setAcc(0, player.acc[1]);
-    }
-    if(game.input.keyboard.keys.RIGHT.isUP){
-        player.setAcc(0, player.acc[1]);
+    if(game.input.keyboard.keys.LEFT.isUp && game.input.keyboard.keys.RIGHT.isUp){
+        player.acc[0] = 0;
     }
 
     physics.tick(delta);

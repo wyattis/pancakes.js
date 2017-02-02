@@ -4,7 +4,10 @@ class Body{
     constructor(x, y, vx, vy){
 
         this.enabled = true;
+        this.fixed = false;
         this.mass = 100;
+        this.friction = 0;
+        this.maxSpeed = 0;
 
         this.pos = [0, 0];
         this.vel = [0, 0];
@@ -18,6 +21,9 @@ class Body{
 
         if(x || y)
             this.setPos(x, y);
+
+        // Private values
+        this._vel_tol = 1e-2; // The tolerance at which to call a velocity 0
 
     }
 
@@ -71,10 +77,46 @@ class Body{
      */
     update(delta){
 
-        // accelerate
+        // accelerate or apply friction
         if(this.acc[0] || this.acc[1]){
             this.vel[0] += (this.acc[0] * delta) / 400;
             this.vel[1] += (this.acc[1] * delta) / 400;
+        }
+        else{
+
+            if(this.vel[0] > 0){
+                this.vel[0] -= this.friction / 400;
+
+                if(this.vel[0] < this._vel_tol)
+                    this.vel[0] = 0;
+            }
+            else{
+                this.vel[0] += this.friction / 400;
+
+                if(this.vel[0] > -this._vel_tol)
+                    this.vel[0] = 0;
+            }
+
+            if(this.vel[1] > 0){
+                this.vel[1] -= this.friction / 400;
+
+                if(this.vel[1] < this._vel_tol)
+                    this.vel[1] = 0;
+            }
+            else{
+                this.vel[1] += this.friction / 400;
+
+                if(this.vel[1] > -this._vel_tol)
+                    this.vel[1] = 0;
+            }
+
+        }
+
+        // Normalize velocity and apply maximum speed
+        if(this.maxSpeed){
+
+            // TODO
+
         }
 
         // move
