@@ -23,14 +23,13 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [ ] Callbacks (oncomplete, onmid, onstart, onpercent?)
 - [ ] Physics
     - [ ] Body
-        - [x] Add friction
+        - [ ] Add friction
         - [ ] Add max-velocity
-        - [ ] Add acceleration normalization
         - [ ] Add velocity normalization
         - [ ] Populate touching booleans
         - [ ] Add callbacks for each collision direction
     - [ ] Collision
-        - [ ] Fix "stickiness" on collisions (likely due to bad determination of relative location of colliding bodies)
+        - [ ] Fix "stickiness" on collisions
         - [ ] Add QuadTree to check for collision
         - [ ] Rectangle to Circle intersection
         - [ ] Rectangle to Circle collisions
@@ -45,12 +44,29 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [ ] keyboard
         - [x] populate booleans (isDown, isUp, isHeld)
         - [ ] callbacks for each key
-    - [ ] joystick?
+    - [ ] joystick/gamepad?
 - [ ] Add canvas layers for rendering
     - [ ] a layer manages rendering for all sprites and groups associated with it
     - [x] add styles to container and canvas to make them stack correctly
     - [x] a single scene can have multiple rendering layers
     - [x] a scene has a "default" layer upon creation
+
+## Computer Controlled Characters
+- [ ] Specify movement types for character
+- [ ] Move towards obj function
+- [ ] "react" callbacks to react to different types of objects within a certain distance of character
+
+## Network
+- [ ] P2P???
+    - [ ] 2 player???
+    - [ ] Multiplayer P2P???
+- [ ] Client
+    - [ ] Interpolate
+    - [ ] Correct discrepancies between server and client
+- [ ] Server
+    - [ ] loop
+    - [ ] handle aggregating inputs
+    - [ ] record states of game
 
 ## Tests
 - [ ] Scenes
