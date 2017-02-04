@@ -23,17 +23,21 @@ class Collision{
      */
     static rectangleCollision(bodyA, bodyB){
 
-        let dxPos = bodyA.pos[0] - bodyB.pos[0];
-        let dyPos = bodyA.pos[1] - bodyB.pos[1];
+        let dxPos = bodyA.pos.x - bodyB.pos.x;
+        let dyPos = bodyA.pos.y - bodyB.pos.y;
+        let dxVel = bodyA.vel.x - bodyB.vel.x;
+        let dyVel = bodyA.vel.y - bodyB.vel.y;
+
+
 
         if(Math.abs(dxPos) > Math.abs(dyPos)){
             // React in X direction because that the is the direction the rectangles
             // must be colliding in.
 
             // Calculate the final velocities of the rectangles
-            let vels = Collision.elasticParticleCollision1D(bodyA.vel[0], bodyA.mass, bodyB.vel[0], bodyB.mass);
-            bodyA.vel[0] = vels[0];
-            bodyB.vel[0] = vels[1];
+            let vels = Collision.elasticParticleCollision1D(bodyA.vel.x, bodyA.mass, bodyB.vel.x, bodyB.mass);
+            bodyA.vel.x = vels[0];
+            bodyB.vel.x = vels[1];
 
             // Move the rectangles so that they don't accidentally collide on the next tick
             const fullWidth = (bodyA.geometry.width + bodyB.geometry.width)/2;
@@ -44,13 +48,13 @@ class Collision{
                 // console.dir(bodyA);
                 // console.dir(bodyB);
             }
-            if(bodyA.vel[0] > 0){
-                bodyA.pos[0] -= widthDiff;
-                bodyB.pos[0] += widthDiff;
+            if(bodyA.vel.x > 0){
+                bodyA.pos.x -= widthDiff;
+                bodyB.pos.x += widthDiff;
             }
-            else if(bodyA.vel[0] < 0){
-                bodyA.pos[0] += widthDiff;
-                bodyB.pos[0] -= widthDiff;
+            else if(bodyA.vel.x < 0){
+                bodyA.pos.x += widthDiff;
+                bodyB.pos.x -= widthDiff;
             }
         }
         else{
@@ -59,9 +63,9 @@ class Collision{
             // is colliding.
 
             // Calculate the final velocities of the rectangles
-            let vels = Collision.elasticParticleCollision1D(bodyA.vel[1], bodyA.mass, bodyB.vel[1], bodyB.mass);
-            bodyA.vel[1] = vels[0];
-            bodyB.vel[1] = vels[1];
+            let vels = Collision.elasticParticleCollision1D(bodyA.vel.y, bodyA.mass, bodyB.vel.y, bodyB.mass);
+            bodyA.vel.y = vels[0];
+            bodyB.vel.y = vels[1];
 
             // Move the rectangles so that they don't accidentally collide on the next tick
             const fullHeight = (bodyA.geometry.height + bodyB.geometry.height)/2;
@@ -72,13 +76,13 @@ class Collision{
                 // console.dir(bodyA);
                 // console.dir(bodyB);
             }
-            if(bodyA.vel[1] > 0){
-                bodyA.pos[1] -= heightDiff;
-                bodyB.pos[1] += heightDiff;
+            if(bodyA.vel.y > 0){
+                bodyA.pos.y -= heightDiff;
+                bodyB.pos.y += heightDiff;
             }
-            else if(bodyA.vel[1] < 0){
-                bodyA.pos[1] += heightDiff;
-                bodyB.pos[1] -= heightDiff;
+            else if(bodyA.vel.y < 0){
+                bodyA.pos.y += heightDiff;
+                bodyB.pos.y -= heightDiff;
             }
 
         }
@@ -109,9 +113,9 @@ class Collision{
      */
     static elasticParticleCollision2D(v_1, m_1, v_2, m_2){
 
-        let v_f_x = Collision.elasticParticleCollision1D(v_1[0], m_1, v_2[0], m_2);
+        let v_f_x = Collision.elasticParticleCollision1D(v_1.x, m_1, v_2.x, m_2);
 
-        let v_f_y = Collision.elasticParticleCollision1D(v_1[1], m_1, v_2[1], m_2);
+        let v_f_y = Collision.elasticParticleCollision1D(v_1.y, m_1, v_2.y, m_2);
 
         return [v_f_x, v_f_y];
 

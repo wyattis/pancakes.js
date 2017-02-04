@@ -28,13 +28,14 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
         - [ ] Add velocity normalization
         - [ ] Populate touching booleans
         - [ ] Add callbacks for each collision direction
+        - [x] Convert to Vectors for holding values
     - [ ] Collision
         - [ ] Fix "stickiness" on collisions
         - [ ] Add QuadTree to check for collision
         - [ ] Rectangle to Circle intersection
         - [ ] Rectangle to Circle collisions
         - [ ] Add memoization to momentum calculations
-        - [ ] Add collision with fixed bodies
+        - [ ] Add fixed body collision
 - [ ] Rendering
     - [ ] Use pixi.js for dynamic layers
     - [ ] Use custom renderer with similar API for static layers???

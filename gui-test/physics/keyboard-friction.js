@@ -12,7 +12,8 @@ game.play.screen('keyboard-friction');
 function init(){
 
     player = new Body(200, 200);
-    player.friction = 100;
+    player.friction = 40;
+    player.maxSpeed = 200;
     player.addGeometry(new Engine.Rectangle(200, 200, 10, 10));
     physics.add(player);
 
@@ -26,7 +27,7 @@ function init(){
     for(let x=0; x<count; x++){
         for(let y=0; y<count; y++){
                 const body = new Body(x*dx, y*dy, 0, 0);
-                body.friction = 40;
+                body.friction = 30;
                 body.maxSpeed = 100;
                 body.addGeometry(new Engine.Rectangle(x*dx, y*dy, w, h));
                 physics.add(body);
@@ -41,25 +42,25 @@ function update(delta){
 
     // Up and down input
     if(game.input.keyboard.keys.UP.isDown){
-        player.acc[1] = -ACC;
+        player.acc.y = -ACC;
     }
     if(game.input.keyboard.keys.DOWN.isDown){
-        player.acc[1] = ACC;
+        player.acc.y = ACC;
     }
     if(game.input.keyboard.keys.UP.isUp && game.input.keyboard.keys.DOWN.isUp){
-        player.acc[1] = 0;
+        player.acc.y = 0;
     }
 
 
     // Left and right input
     if(game.input.keyboard.keys.LEFT.isDown){
-        player.acc[0] = -ACC;
+        player.acc.x = -ACC;
     }
     if(game.input.keyboard.keys.RIGHT.isDown){
-        player.acc[0] = ACC;
+        player.acc.x = ACC;
     }
     if(game.input.keyboard.keys.LEFT.isUp && game.input.keyboard.keys.RIGHT.isUp){
-        player.acc[0] = 0;
+        player.acc.x = 0;
     }
 
     physics.tick(delta);

@@ -76,13 +76,14 @@ class Scene{
      */
     update(delta){
 
+        // Perform user supplied updates first
+        if(this.updateCB) this.updateCB(delta);
+
         for(let i = 0; i < this.sprites.length; i++){
 
             this.sprites[i].update(delta);
 
         }
-
-        if(this.updateCB) this.updateCB(delta);
 
     }
 

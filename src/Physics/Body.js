@@ -9,9 +9,9 @@ class Body{
         this.friction = 0;
         this.maxSpeed = 0;
 
-        this.pos = [0, 0];
-        this.vel = [0, 0];
-        this.acc = [0, 0];
+        this.pos = new Engine.Vector(0, 0);
+        this.vel = new Engine.Vector(0, 0);
+        this.acc = new Engine.Vector(0, 0);
         this.angle = 0;
         this.omega = 0;
         this.alpha = 0;
@@ -43,7 +43,8 @@ class Body{
      */
     setPos(x, y){
 
-        this.pos = [x, y];
+        this.pos.x = x;
+        this.pos.y = y;
         if(this.geometry) this.geometry.setPos(x, y);
 
     }
@@ -55,9 +56,9 @@ class Body{
     setVel(x, y){
 
         if(x !== undefined)
-            this.vel[0] = x;
+            this.vel.x = x;
         if(y !== undefined)
-            this.vel[1] = y;
+            this.vel.y = y;
 
     }
 
@@ -67,7 +68,8 @@ class Body{
      */
     setAcc(x, y){
 
-        this.acc = [x, y];
+        this.acc.x = x;
+        this.acc.y = y;
 
     }
 
@@ -78,36 +80,37 @@ class Body{
     update(delta){
 
         // accelerate or apply friction
-        if(this.acc[0] || this.acc[1]){
-            this.vel[0] += (this.acc[0] * delta) / 400;
-            this.vel[1] += (this.acc[1] * delta) / 400;
+        if(this.acc.x || this.acc.y){
+            this.vel.x += (this.acc.x * delta) / 400;
+            this.vel.y += (this.acc.y * delta) / 400;
         }
         else{
 
-            if(this.vel[0] > 0){
-                this.vel[0] -= this.friction / 400;
+            const FC = (this.friction * delta);
+            if(this.vel.x > 0){
+                this.vel.x -= FC / 400;
 
-                if(this.vel[0] < this._vel_tol)
-                    this.vel[0] = 0;
+                if(this.vel.x < this._vel_tol)
+                    this.vel.x = 0;
             }
             else{
-                this.vel[0] += this.friction / 400;
+                this.vel.x += FC / 400;
 
-                if(this.vel[0] > -this._vel_tol)
-                    this.vel[0] = 0;
+                if(this.vel.x > -this._vel_tol)
+                    this.vel.x = 0;
             }
 
-            if(this.vel[1] > 0){
-                this.vel[1] -= this.friction / 400;
+            if(this.vel.y > 0){
+                this.vel.y -= FC / 400;
 
-                if(this.vel[1] < this._vel_tol)
-                    this.vel[1] = 0;
+                if(this.vel.y < this._vel_tol)
+                    this.vel.y = 0;
             }
             else{
-                this.vel[1] += this.friction / 400;
+                this.vel.y += FC / 400;
 
-                if(this.vel[1] > -this._vel_tol)
-                    this.vel[1] = 0;
+                if(this.vel.y > -this._vel_tol)
+                    this.vel.y = 0;
             }
 
         }
@@ -115,22 +118,25 @@ class Body{
         // Normalize velocity and apply maximum speed
         if(this.maxSpeed){
 
-            // TODO
+            const mag = this.vel.mag();
+            if(mag > this.maxSpeed){
+
+                this.vel.x *= this.maxSpeed / mag;
+                this.vel.y *= this.maxSpeed / mag;
+
+            }
 
         }
 
         // move
-        if(this.vel[0] || this.vel[1]){
-            this.pos[0] += (this.vel[0] * delta) / 400;
-            this.pos[1] += (this.vel[1] * delta) / 400;
-            this.geometry.setPos(this.pos[0], this.pos[1]);
+        if(this.vel.x || this.vel.y){
+            this.pos.x += (this.vel.x * delta) / 400;
+            this.pos.y += (this.vel.y * delta) / 400;
+            this.geometry.setPos(this.pos.x, this.pos.y);
         }
 
         // TODO: apply rotation acceleration
         // TODO: apply rotation
-
-        // TODO: apply friction
-        // TODO: reduce small nums to zero
 
     }
 
