@@ -1,5 +1,5 @@
 /*global Engine*/
-class LayerFactory{
+Engine.LayerFactory = class LayerFactory{
 
     constructor(scene){
 
@@ -9,10 +9,10 @@ class LayerFactory{
 
     layer(name){
 
-        let layer = new Layer(this.scene);
+        let layer = new Engine.Layer(this.scene);
         this.scene.layers.set(name, layer);
         return layer;
 
     }
 
-}
+};

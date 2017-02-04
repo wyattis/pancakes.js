@@ -1,17 +1,17 @@
 /*global Engine*/
 const game = Engine.game();
-const physics = new Physics();
+const physics = new Engine.Physics();
 const ACC = 150;
 let player;
 let bodies = [];
-let screen = game.add.screen('keyboard-friction', {init: init, update: update});
-screen.layers.get('default').setRender(render);
-game.play.screen('keyboard-friction');
+let scene = game.add.scene('keyboard-friction', {init: init, update: update});
+scene.layers.get('default').setRender(render);
+game.play.scene('keyboard-friction');
 
 
 function init(){
 
-    player = new Body(200, 200);
+    player = new Engine.Body(200, 200);
     player.friction = 40;
     player.maxSpeed = 200;
     player.addGeometry(new Engine.Rectangle(200, 200, 10, 10));
@@ -26,7 +26,7 @@ function init(){
 
     for(let x=0; x<count; x++){
         for(let y=0; y<count; y++){
-                const body = new Body(x*dx, y*dy, 0, 0);
+                const body = new Engine.Body(x*dx, y*dy, 0, 0);
                 body.friction = 30;
                 body.maxSpeed = 100;
                 body.addGeometry(new Engine.Rectangle(x*dx, y*dy, w, h));

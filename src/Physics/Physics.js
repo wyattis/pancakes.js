@@ -1,5 +1,5 @@
-/*global QuadTree Engine Body Collision*/
-class Physics{
+/*global Engine*/
+Engine.Physics = class Physics{
 
     constructor(options){
 
@@ -10,14 +10,14 @@ class Physics{
 
         this.collisionMemo = new Map();
         this.bodies = [];
-        this.tree = new QuadTree();
+        this.tree = new Engine.QuadTree();
 
     }
 
 
     add(bodies){
 
-        if (bodies instanceof Body){
+        if (bodies instanceof Engine.Body){
 
             this.bodies.push(bodies);
 
@@ -60,7 +60,7 @@ class Physics{
 
                     // Check for intersect of these two bodies
                     this.collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);    // Record this collision so we don't repeat calculations
-                    Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
+                    Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
 
                 }
 
@@ -70,4 +70,4 @@ class Physics{
 
     }
 
-}
+};

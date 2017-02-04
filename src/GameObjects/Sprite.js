@@ -1,4 +1,5 @@
-class Sprite{
+/*global Engine*/
+Engine.Sprite = class Sprite{
 
 	constructor(parent, x, y){
 
@@ -7,7 +8,7 @@ class Sprite{
 		this.animations = {};
 		this.needsRendered = true;
 		this.pos = {
-			x: x, 
+			x: x,
 			y: y
 		};
 		this.vel = {
@@ -23,9 +24,9 @@ class Sprite{
 		// Add "factory"
 		this.add = {};
 		this.add.animation = (function(name, spritesheetKey, frames, totalTime, options){
-			
-			let animation = new Animation(this, this.parent.cache.use(spritesheetKey), frames, totalTime, options);
-			
+
+			let animation = new Engine.Animation(this, this.parent.cache.use(spritesheetKey), frames, totalTime, options);
+
 			this.animations[name] = animation;
 
 			this.currentAnimation = animation;
@@ -48,31 +49,31 @@ class Sprite{
 		}).bind(this);
 
 	}
-	
+
 	update(delta){
-		
+
 		this.currentAnimation.update(delta);
-		
+
 	}
 
 	render(delta){
-	
+
 		// (0.5 + num) << 0 is a bitwise shift to perform rounding
 		this.currentAnimation.render(this.parent.ctx, (0.5 + this.pos.x) << 0, (0.5 + this.pos.y) << 0);
-		
+
 		this.needsRendered = false;
 		// Not rounding makes the images appear fuzzy
 		// this.currentAnimation.render(this.parent.ctx, this.pos.x, this.pos.y);
 
 	}
 
-	
+
 	/**
 	 * Set the position of the sprite. Also lets the parent know that the sprite
 	 * needs to be rendered again.
 	 */
 	setPos(x, y){
-		
+
 		// If the position is different than the previous position we will render
 		// the sprite again
 		if(this.pos.x !== x || this.pos.y !== y) this.queForRender();
@@ -82,16 +83,16 @@ class Sprite{
 		this.pos.y = y;
 
 	}
-	
-	
+
+
 	/**
-	 * Let the screen/layer know that this sprite has changed and needs to be 
+	 * Let the screen/layer know that this sprite has changed and needs to be
 	 * rendered again.
 	 */
 	queForRender(){
-		
+
 		this.needsRendered = true;
-		
+
 	}
 
-}
+};

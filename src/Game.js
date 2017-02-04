@@ -1,10 +1,10 @@
 /*global Engine*/
-class Game{
+Engine.Game = class Game{
 
     constructor(engine, opts){
 
         this.engine = engine;
-		this.play = new SceneManager(this);
+		this.play = new Engine.SceneManager(this);
 		this.add = this.play.add;
 
 
@@ -14,7 +14,7 @@ class Game{
 
 
         // Create the input object for this game
-        this.input = new Input(this.container);
+        this.input = new Engine.Input(this.container);
 
 
         // Container setup
@@ -74,4 +74,4 @@ class Game{
 
     }
 
-}
+};

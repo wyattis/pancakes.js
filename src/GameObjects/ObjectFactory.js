@@ -1,4 +1,5 @@
-class ObjectFactory{
+/*global Engine*/
+Engine.ObjectFactory = class ObjectFactory{
 
 	constructor(parent){
 
@@ -8,8 +9,8 @@ class ObjectFactory{
 
 
 	sprite(x, y){
-		
-		let sprite = new Sprite(this.parent, x, y);
+
+		let sprite = new Engine.Sprite(this.parent, x, y);
 		this.parent.sprites.push(sprite);
 		return sprite;
 
@@ -17,8 +18,8 @@ class ObjectFactory{
 
 
 	spritesheet(cacheKey, imageKey, tileWidth, tileHeight, tilePadding){
-		
-		let spritesheet = new Spritesheet(this.parent.cache.use(imageKey), tileWidth, tileHeight, tilePadding)
+
+		let spritesheet = new Engine.Spritesheet(this.parent.cache.use(imageKey), tileWidth, tileHeight, tilePadding);
 		this.parent.cache.add(cacheKey, spritesheet);
 		return spritesheet;
 
@@ -31,4 +32,4 @@ class ObjectFactory{
 
 	}
 
-}
+};

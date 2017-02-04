@@ -1,5 +1,5 @@
 /*global Engine*/
-Engine.Rectangle = class{
+Engine.Rectangle = class Rectangle{
 
     constructor(x, y, width, height){
 

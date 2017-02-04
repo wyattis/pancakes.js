@@ -1,4 +1,5 @@
-class AssetManager{
+/*global Engine*/
+Engine.AssetManager = class AssetManager{
 
 	constructor(cache){
 
@@ -73,7 +74,7 @@ class AssetManager{
 
 	_loadImage(cacheKey, url){
 
-		let img = new Image();
+		let img = new Engine.Image();
 
 		// debugger;
 
@@ -120,14 +121,14 @@ class AssetManager{
 
 	}
 
-}
+};
 
 
-AssetManager.imageExtensions = ['png', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'gif'];
+Engine.AssetManager.imageExtensions = ['png', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'gif'];
 
-AssetManager.textExtensions = ['txt', 'json', 'js', 'doc'];
+Engine.AssetManager.textExtensions = ['txt', 'json', 'js', 'doc'];
 
-AssetManager.videoExtensions = ['mp4', 'avi', 'mvk', 'mov'];
+Engine.AssetManager.videoExtensions = ['mp4', 'avi', 'mvk', 'mov'];
 
-AssetManager.audioExtensions = ['mp3', 'wma', 'wav'];
+Engine.AssetManager.audioExtensions = ['mp3', 'wma', 'wav'];
 

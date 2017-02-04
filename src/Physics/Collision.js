@@ -1,6 +1,6 @@
 /*global Engine*/
 "use strict";
-class Collision{
+Engine.Collision = class Collision{
 
 
     /**
@@ -121,4 +121,4 @@ class Collision{
 
     }
 
-}
+};

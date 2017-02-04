@@ -1,4 +1,5 @@
-class Scene{
+/*global Engine*/
+Engine.Scene = class Scene{
 
     constructor(game, opts){
 
@@ -15,7 +16,7 @@ class Scene{
         this.loadProgressCB = opts.loadProgress;
 
         // Create layer factory and default layer
-        this.new = new LayerFactory(this);
+        this.new = new Engine.LayerFactory(this);
         this.new.layer('default');
 
         // Create add alias for the layer
@@ -109,4 +110,4 @@ class Scene{
 
     }
 
-}
+};

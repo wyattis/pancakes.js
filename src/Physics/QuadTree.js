@@ -1,4 +1,5 @@
-class QuadTree{
+/*global Engine*/
+Engine.QuadTree = class QuadTree{
 
     constructor(currentLevel, bounds){
 
@@ -7,4 +8,4 @@ class QuadTree{
 
     }
 
-}
+};

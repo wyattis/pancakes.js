@@ -1,5 +1,5 @@
 /*global Engine*/
-class Body{
+Engine.Body = class Body{
 
     constructor(x, y, vx, vy){
 
@@ -140,4 +140,4 @@ class Body{
 
     }
 
-}
+};

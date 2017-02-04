@@ -1,5 +1,5 @@
 /*global Engine*/
-class Input{
+Engine.Input = class Input{
 
     constructor(element){
 
@@ -85,4 +85,5 @@ class Input{
         // TODO
 
     }
-}
+
+};

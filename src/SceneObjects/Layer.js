@@ -1,5 +1,5 @@
 /*global Engine*/
-class Layer{
+Engine.Layer = class Layer{
 
     constructor(scene){
 
@@ -8,7 +8,7 @@ class Layer{
         this.ctx;
         this.sprites = [];
         this.groups = [];
-        this.add = new ObjectFactory(this);
+        this.add = new Engine.ObjectFactory(this);
         this.renderCB;
 
     }
@@ -57,4 +57,4 @@ class Layer{
 
     }
 
-}
+};
