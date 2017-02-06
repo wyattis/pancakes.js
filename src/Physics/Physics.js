@@ -14,7 +14,21 @@ Engine.Physics = class Physics{
 
     }
 
+    /**
+     * Clear all bodies from physics
+     */
+    clear(){
 
+        this.collisionMemo.clear();
+        this.bodies = [];
+        this.tree.clear();
+
+    }
+
+
+    /**
+     * Add a single body to the physics
+     */
     add(bodies){
 
         if (bodies instanceof Engine.Body){

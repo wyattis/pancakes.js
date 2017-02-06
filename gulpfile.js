@@ -14,13 +14,20 @@ gulp.task('js', ()=>{
 });
 
 
-gulp.task('build', ['js']);
+gulp.task('build-full', ['build'], ()=>{
 
-
-gulp.task('watch', ()=>{
-
-    gulp.watch('src/**/*.js', ['build']);
+    return gulp.src(['tests/strict.js', 'build/pancakes.js', 'tests/export.js'])
+        .pipe(concat('pancakes.test.js'))
+        .pipe(gulp.dest('build'));
 
 });
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('build', ['js']);
+
+gulp.task('watch', ()=>{
+
+    gulp.watch('src/**/*.js', ['build-full']);
+
+});
+
+gulp.task('default', ['build-full', 'watch']);

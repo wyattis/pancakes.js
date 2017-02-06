@@ -8,4 +8,12 @@ Engine.QuadTree = class QuadTree{
 
     }
 
+
+    /**
+     * Clear the QuadTree
+     */
+    clear(){
+
+    }
+
 };
