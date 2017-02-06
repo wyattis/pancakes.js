@@ -1,9 +1,10 @@
 /*global Engine*/
 Engine.ObjectFactory = class ObjectFactory{
 
-	constructor(parent){
+	constructor(parent, cache){
 
 		this.parent = parent;
+		this.cache = cache;
 
 	}
 
@@ -12,6 +13,7 @@ Engine.ObjectFactory = class ObjectFactory{
 
 		let sprite = new Engine.Sprite(this.parent, x, y);
 		this.parent.sprites.push(sprite);
+		this.parent.scene.sprites.push(sprite);
 		return sprite;
 
 	}
@@ -19,8 +21,8 @@ Engine.ObjectFactory = class ObjectFactory{
 
 	spritesheet(cacheKey, imageKey, tileWidth, tileHeight, tilePadding){
 
-		let spritesheet = new Engine.Spritesheet(this.parent.cache.use(imageKey), tileWidth, tileHeight, tilePadding);
-		this.parent.cache.add(cacheKey, spritesheet);
+		let spritesheet = new Engine.Spritesheet(this.cache.use(imageKey), tileWidth, tileHeight, tilePadding);
+		this.cache.add(cacheKey, spritesheet);
 		return spritesheet;
 
 	}

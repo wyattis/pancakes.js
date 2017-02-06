@@ -20,18 +20,20 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [ ] Allow keyframe scenes
     - [ ] Provide scripting objects for completely scripted scenes?
 - [ ] Animation
-    - [ ] Callbacks (oncomplete, onmid, onstart, onpercent?)
+    - [x] Callbacks (oncomplete, onstart, onrepeat)
+- [ ] QuadTree
+
 - [ ] Physics
     - [ ] Body
-        - [ ] Add friction
-        - [ ] Add max-velocity
-        - [ ] Add velocity normalization
+        - [x] Add friction
+        - [x] Add max-velocity
+        - [x] Add velocity normalization
         - [ ] Populate touching booleans
         - [ ] Add callbacks for each collision direction
         - [x] Convert to Vectors for holding values
     - [ ] Collision
         - [ ] Fix "stickiness" on collisions
-        - [ ] Add QuadTree to check for collision
+        - [ ] Use QuadTree to minimize collision checks
         - [ ] Rectangle to Circle intersection
         - [ ] Rectangle to Circle collisions
         - [ ] Add memoization to momentum calculations
@@ -42,6 +44,7 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
 - [ ] Input handler
     - [ ] touch
     - [ ] mouse
+        - [ ] event callbacks
     - [ ] keyboard
         - [x] populate booleans (isDown, isUp, isHeld)
         - [ ] callbacks for each key
@@ -70,6 +73,10 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [ ] record states of game
 
 ## Tests
+- [ ] Events
+    - [ ] all collision events
+    - [ ] all animation events
+
 - [ ] Scenes
     - [ ] switching scenes
     - [ ] unloading/loading scenes

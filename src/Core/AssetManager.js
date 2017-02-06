@@ -74,7 +74,7 @@ Engine.AssetManager = class AssetManager{
 
 	_loadImage(cacheKey, url){
 
-		let img = new Engine.Image();
+		let img = new Image();
 
 		// debugger;
 

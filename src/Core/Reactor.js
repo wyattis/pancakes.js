@@ -2,7 +2,19 @@
 Engine.Reactor = class Reactor{
 
     constructor(){
+
         this.events = new Map();
+
+    }
+
+
+    /**
+     * Add event listener
+     */
+    on(eventName, cb, opts){
+
+        this.events.get(eventName).registerCallback(cb, opts);
+
     }
 
 

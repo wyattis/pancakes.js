@@ -10,7 +10,7 @@ Engine.Event = class Event{
     /**
      * Register a callback for this event
      */
-    registerCallback(cb){
+    registerCallback(cb, opts){
 
         this.callbacks.push(cb);
 

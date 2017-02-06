@@ -10,11 +10,13 @@ Engine.Body = class Body{
         this.maxSpeed = 0;
 
         this.pos = new Engine.Vector(0, 0);
+        this.lastPos = new Engine.Vector(0, 0);
         this.vel = new Engine.Vector(0, 0);
         this.acc = new Engine.Vector(0, 0);
         this.angle = 0;
         this.omega = 0;
         this.alpha = 0;
+
 
         if(vx || vy)
             this.setVel(vx, vy);

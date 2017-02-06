@@ -7,25 +7,13 @@ Engine.Sprite = class Sprite{
 		this.currentAnimation = null;
 		this.animations = {};
 		this.needsRendered = true;
-		this.pos = {
-			x: x,
-			y: y
-		};
-		this.vel = {
-			x: 0,
-			y: 0
-		};
-		this.last = {
-			pos: {x: x, y: y},
-			vel: {x: 0, y: 0}
-		};
-
+		this.body = new Engine.Body(x, y);
 
 		// Add "factory"
 		this.add = {};
 		this.add.animation = (function(name, spritesheetKey, frames, totalTime, options){
 
-			let animation = new Engine.Animation(this, this.parent.cache.use(spritesheetKey), frames, totalTime, options);
+			let animation = new Engine.Animation(this, Engine.cache.use(spritesheetKey), frames, totalTime, options);
 
 			this.animations[name] = animation;
 
@@ -59,7 +47,7 @@ Engine.Sprite = class Sprite{
 	render(delta){
 
 		// (0.5 + num) << 0 is a bitwise shift to perform rounding
-		this.currentAnimation.render(this.parent.ctx, (0.5 + this.pos.x) << 0, (0.5 + this.pos.y) << 0);
+		this.currentAnimation.render(this.parent.ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
 
 		this.needsRendered = false;
 		// Not rounding makes the images appear fuzzy
@@ -81,6 +69,16 @@ Engine.Sprite = class Sprite{
 		this.last.pos.y = this.pos.y;
 		this.pos.x = x;
 		this.pos.y = y;
+
+	}
+
+
+	/**
+	 * Add a position value to the current position of the Sprite
+	 */
+	addPos(x, y){
+
+		this.body.setPos(this.body.pos.x + x, this.body.pos.y + y);
 
 	}
 

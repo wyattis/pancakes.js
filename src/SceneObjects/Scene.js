@@ -7,6 +7,11 @@ Engine.Scene = class Scene{
         this.cache = game.engine.cache;
         this.load = game.engine.load;
 
+        this.opts = {
+            useKeyboard: true,
+            useMouse: true,
+        };
+
         this.sprites = [];  // Reference to all the sprites in the screen
         this.layers = new Map();
 
@@ -63,7 +68,11 @@ Engine.Scene = class Scene{
     init(){
 
         // Start listening to keyboard input by default
-        this.game.input.start();
+        if(this.opts.useKeyboard)
+            this.game.input.startKeyboard();
+
+        if(this.opts.useMouse)
+            this.game.input.startMouse();
 
         if(this.initCB) this.initCB();
 
@@ -80,10 +89,10 @@ Engine.Scene = class Scene{
         // Perform user supplied updates first
         if(this.updateCB) this.updateCB(delta);
 
-        for(let i = 0; i < this.sprites.length; i++){
 
+        let i = this.sprites.length;
+        while(i--){
             this.sprites[i].update(delta);
-
         }
 
     }
