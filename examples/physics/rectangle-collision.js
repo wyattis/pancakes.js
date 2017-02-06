@@ -18,7 +18,7 @@ function init(){
 
             const rectangle = new Engine.Rectangle(x*dx, y*dy, w, h);
             const body = new Engine.Body(x*dx, y*dy, Engine.C.randomInt(0, 50), Engine.C.randomInt(0, 50));
-            body.addGeometry(rectangle);
+            body.addShape(rectangle);
             physics.add(body);
             bodies.push(body);
 
@@ -40,7 +40,7 @@ function render(ctx, delta){
     ctx.fillStyle = 'lightblue';
     for(let body of bodies){
 
-        ctx.fillRect(body.geometry.x, body.geometry.y, body.geometry.width, body.geometry.height);
+        ctx.fillRect(body.shape.x, body.shape.y, body.shape.width, body.shape.height);
 
     }
 

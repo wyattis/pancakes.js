@@ -33,9 +33,9 @@ Engine.Body = class Body{
     /**
      * Add a shape supported by the physics engine
      */
-    addGeometry(shape){
+    addShape(shape){
 
-        this.geometry = shape;
+        this.shape = shape;
 
     }
 
@@ -47,7 +47,7 @@ Engine.Body = class Body{
 
         this.pos.x = x;
         this.pos.y = y;
-        if(this.geometry) this.geometry.setPos(x, y);
+        if(this.shape) this.shape.setPos(x, y);
 
     }
 
@@ -134,7 +134,7 @@ Engine.Body = class Body{
         if(this.vel.x || this.vel.y){
             this.pos.x += (this.vel.x * delta) / 400;
             this.pos.y += (this.vel.y * delta) / 400;
-            this.geometry.setPos(this.pos.x, this.pos.y);
+            this.shape.setPos(this.pos.x, this.pos.y);
         }
 
         // TODO: apply rotation acceleration

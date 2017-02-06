@@ -78,7 +78,7 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
 
             let body = new Engine.Body(config.x || 0, config.y || 0, config.vx || 0, config.vy || 0);
             body.maxSpeed = config.maxSpeed || 0;
-            body.addGeometry(new Engine.Rectangle(config.x || 0, config.y || 0, config.width || 100, config.height || 100));
+            body.addShape(new Engine.Rectangle(config.x || 0, config.y || 0, config.width || 100, config.height || 100));
             physics.add(body);
 
         }
@@ -111,14 +111,14 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
 
         for(let body of physics.bodies){
             ctx.fillStyle = "lightblue";
-            ctx.fillRect(body.geometry.x, body.geometry.y, body.geometry.width, body.geometry.height);
+            ctx.fillRect(body.shape.x, body.shape.y, body.shape.width, body.shape.height);
         }
 
         ctx.fillStyle = "#ff0000";
         ctx.strokeStyle = "#ff0000";
         if($scope.settings.gui.velocityVectors){
             for(let body of physics.bodies){
-                body.vel.draw({x: body.geometry.centerX, y: body.geometry.centerY}, ctx);
+                body.vel.draw({x: body.shape.centerX, y: body.shape.centerY}, ctx);
             }
         }
 
@@ -129,8 +129,8 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
 
             for(let i=0; i<physics.bodies.length - 1; i++){
                 ctx.beginPath();
-                ctx.moveTo(physics.bodies[i].geometry.centerX,  physics.bodies[i].geometry.centerY);
-                ctx.lineTo(physics.bodies[i+1].geometry.centerX,  physics.bodies[i+1].geometry.centerY);
+                ctx.moveTo(physics.bodies[i].shape.centerX,  physics.bodies[i].shape.centerY);
+                ctx.lineTo(physics.bodies[i+1].shape.centerX,  physics.bodies[i+1].shape.centerY);
                 ctx.stroke();
             }
         }

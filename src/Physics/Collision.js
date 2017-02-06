@@ -8,7 +8,7 @@ Engine.Collision = class Collision{
      */
     static collision(a, b){
 
-        if(a.geometry.type === Engine.RECTANGLE && b.geometry.type === Engine.RECTANGLE){
+        if(a.shape.type === Engine.RECTANGLE && b.shape.type === Engine.RECTANGLE){
 
             return Collision.rectangleCollision(a, b);
 
@@ -23,14 +23,14 @@ Engine.Collision = class Collision{
      */
     static rectangleCollision(a, b){
 
-        let dxPos = a.geometry.centerX - b.geometry.centerX;
-        let dyPos = a.geometry.centerY - b.geometry.centerY;
+        let dxPos = a.shape.centerX - b.shape.centerX;
+        let dyPos = a.shape.centerY - b.shape.centerY;
         let dxVel = a.vel.x - b.vel.x;
         let dyVel = a.vel.y - b.vel.y;
 
 
 
-        if(a.geometry.left < b.geometry.right && a.geometry.right > b.geometry.left){
+        if(a.shape.left < b.shape.right && a.shape.right > b.shape.left){
             // React in X direction because that the is the direction the rectangles
             // must be colliding in.
 
@@ -40,7 +40,7 @@ Engine.Collision = class Collision{
             b.vel.x = vels[1];
 
             // Move the rectangles so that they don't accidentally collide on the next tick
-            const fullWidth = (a.geometry.width + b.geometry.width)/2;
+            const fullWidth = (a.shape.width + b.shape.width)/2;
             const widthDiff = ((fullWidth - Math.abs(dxPos))/2) + .01;
             // console.log('X collision:', fullWidth, dxPos, widthDiff);
             if(widthDiff > 1){
@@ -68,7 +68,7 @@ Engine.Collision = class Collision{
             b.vel.y = vels[1];
 
             // Move the rectangles so that they don't accidentally collide on the next tick
-            const fullHeight = (a.geometry.height + b.geometry.height)/2;
+            const fullHeight = (a.shape.height + b.shape.height)/2;
             const heightDiff = (((fullHeight - Math.abs(dyPos))/2) >> 0);
             // console.log('Y collision:', fullHeight, dyPos, heightDiff);
             if(heightDiff > 1){

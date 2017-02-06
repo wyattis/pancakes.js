@@ -1,14 +1,15 @@
+/*global Engine*/
 const game = Engine.game();
-const screen = game.add.screen('keyboard-input-test', {update: update});
+const scene = game.add.scene('keyboard-input-test', {update: update});
 const SPEED = 5;
 let char = new Engine.Rectangle(0, 0, 100, 100);
-screen.layers.get('default').setRender(render);
-game.play.screen('keyboard-input-test');
+scene.layers.get('default').setRender(render);
+game.play.scene('keyboard-input-test');
 
 
 function update(delta){
 
-    for(let key in ['UP', 'DOWN', 'LEFT', 'RIGHT']){
+    // for(let key in ['UP', 'DOWN', 'LEFT', 'RIGHT']){
 
         // Console log the state of each of these keys during each update
         // if(game.input.keyboard.keys[key].isDown){
@@ -21,7 +22,7 @@ function update(delta){
         //     console.log(`${key} is held`);
         // }
 
-    }
+    // }
 
     if(game.input.keyboard.keys.UP.isDown){
         char.setPos(char.x, char.y - SPEED);

@@ -14,7 +14,7 @@ function init(){
     player = new Engine.Body(200, 200);
     player.friction = 40;
     player.maxSpeed = 200;
-    player.addGeometry(new Engine.Rectangle(200, 200, 10, 10));
+    player.addShape(new Engine.Rectangle(200, 200, 10, 10));
     physics.add(player);
 
 
@@ -29,7 +29,7 @@ function init(){
                 const body = new Engine.Body(x*dx, y*dy, 0, 0);
                 body.friction = 30;
                 body.maxSpeed = 100;
-                body.addGeometry(new Engine.Rectangle(x*dx, y*dy, w, h));
+                body.addShape(new Engine.Rectangle(x*dx, y*dy, w, h));
                 physics.add(body);
                 bodies.push(body);
         }
@@ -70,10 +70,10 @@ function update(delta){
 function render(ctx){
 
     ctx.fillStyle = "brown";
-    ctx.fillRect(player.geometry.x, player.geometry.y, player.geometry.width, player.geometry.height);
+    ctx.fillRect(player.shape.x, player.shape.y, player.shape.width, player.shape.height);
 
     ctx.fillStyle = "lightblue";
     for(let body of bodies){
-        ctx.fillRect(body.geometry.x, body.geometry.y, body.geometry.width, body.geometry.height);
+        ctx.fillRect(body.shape.x, body.shape.y, body.shape.width, body.shape.height);
     }
 }
