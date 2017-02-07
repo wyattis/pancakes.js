@@ -10,12 +10,18 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
 - [x] Add gulp
 
 ## Engine
+- [ ] Camera
+    - [x] follow any single body
+    - [ ] frame viewport around any number of bodies
+    - [ ] follow box around Body
 - [ ] TileMap
     - [ ] Load from Tiled/other tilemap editors
 - [ ] Sprite
-    - [ ] Enable physics method
+    - [x] Enable physics method
+- [ ] World
+    - [x] Enable physics method
 - [ ] Scene
-    - [ ] Enable physics
+    - [x] Add World
     - [ ] Allow video scenes
     - [ ] Allow keyframe scenes
     - [ ] Provide scripting objects for completely scripted scenes?
@@ -39,7 +45,7 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
         - [ ] Add memoization to momentum calculations
         - [ ] Add fixed body collision
 - [ ] Rendering
-    - [ ] Use pixi.js for dynamic layers
+    - [ ] Use pixi.js for dynamic layers???
     - [ ] Use custom renderer with similar API for static layers???
 - [ ] Input handler
     - [ ] touch
@@ -50,7 +56,8 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
         - [ ] callbacks for each key
     - [ ] joystick/gamepad?
 - [ ] Add canvas layers for rendering
-    - [ ] a layer manages rendering for all sprites and groups associated with it
+    - [ ] allow for less frequent updates of a canvas layer
+    - [x] a layer manages rendering for all sprites and groups associated with it
     - [x] add styles to container and canvas to make them stack correctly
     - [x] a single scene can have multiple rendering layers
     - [x] a scene has a "default" layer upon creation

@@ -38,16 +38,35 @@ Engine.Sprite = class Sprite{
 
 	}
 
+
+	/**
+	 * Enable physics for this Sprite
+	 */
+	enablePhysics(shape){
+
+		this.body.addShape(shape);
+		this.parent.physics.add(this.body);
+
+	}
+
+	/**
+	 * Sprite update method for updating relevant
+	 * animations
+	 */
 	update(delta){
 
 		this.currentAnimation.update(delta);
 
 	}
 
-	render(delta){
+
+	/**
+	 * Render the given sprite
+	 */
+	render(ctx, delta){
 
 		// (0.5 + num) << 0 is a bitwise shift to perform rounding
-		this.currentAnimation.render(this.parent.ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+		this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
 
 		this.needsRendered = false;
 		// Not rounding makes the images appear fuzzy

@@ -20,6 +20,44 @@ Engine.Vector = class Vector{
 
 
     /**
+     * Clamp the vector values between the min and max
+     */
+    clamp(xMin, xMax, yMin, yMax){
+
+        if(this.x > xMin){
+
+            if(this.x > xMax){
+
+                this.x = xMax;
+
+            }
+
+        }
+        else{
+
+            this.x = xMin;
+
+        }
+
+
+        if(this.y > yMin){
+
+            if(this.y > yMax){
+
+                this.y = yMax;
+
+            }
+
+        }
+        else{
+
+            this.y = yMin;
+
+        }
+
+    }
+
+    /**
      * Will draw an arrow representing the vector
      */
     draw(fromPos, ctx){

@@ -14,7 +14,7 @@ Engine.Layer = class Layer{
         this.ctx;
         this.sprites = [];
         this.groups = [];
-        this.add = new Engine.ObjectFactory(this, Engine.cache);
+        this.add = new Engine.ObjectFactory(this.scene.world, Engine.cache);
         this.renderCB;
 
     }

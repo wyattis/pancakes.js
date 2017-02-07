@@ -7,10 +7,13 @@ Engine.Scene = class Scene{
         this.cache = game.engine.cache;
         this.load = game.engine.load;
 
+
         this.opts = {
             useKeyboard: true,
             useMouse: true,
         };
+        Object.apply(this.opts, opts);
+
 
         this.sprites = [];  // Reference to all the sprites in the screen
         this.layers = new Map();
@@ -21,11 +24,16 @@ Engine.Scene = class Scene{
         this.loadProgressCB = opts.loadProgress;
 
         // Create layer factory and default layer
-        this.new = new Engine.LayerFactory(this);
+        this.new = new Engine.LayerFactory(this, this.opts);
         this.new.layer('default');
 
-        // Create add alias for the layer
-        this.add = this.layers.get('default').add;
+
+        this.world = new Engine.World(this, game.width, game.height);
+
+        this.add = new Engine.ObjectFactory(this.world, this.layers.get('default'), Engine.cache);
+
+        // Create the camera for the scene
+        this.camera = new Engine.Camera(this);
 
     }
 
@@ -89,11 +97,7 @@ Engine.Scene = class Scene{
         // Perform user supplied updates first
         if(this.updateCB) this.updateCB(delta);
 
-
-        let i = this.sprites.length;
-        while(i--){
-            this.sprites[i].update(delta);
-        }
+        this.world.update(delta);
 
     }
 
@@ -104,7 +108,13 @@ Engine.Scene = class Scene{
     render(delta){
 
         for(let layer of this.layers){
+
+            console.log(this.world.camera.pos);
+            layer[1].ctx.save();
+            layer[1].ctx.translate(-this.world.camera.pos.x,-this.world.camera.pos.y);
             layer[1].render(delta);
+
+            layer[1].ctx.restore();
         }
 
     }
