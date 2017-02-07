@@ -1,6 +1,7 @@
 /*global Engine*/
 const game = Engine.game();
 const scene = game.add.scene('camera-follow', {load: load, update: update, init: init});
+scene.layers.get('default').setPreRender(preRender)
 const SPEED = 200;
 let char;
 
@@ -41,6 +42,13 @@ function update(delta){
         char.body.vel.x = SPEED;
     }
 
+    char.body.pos.clamp(0, scene.world.width, 0, scene.world.height);
+
+}
+
+function preRender(ctx){
+    ctx.fillStyle = "lightblue";
+    ctx.fillRect(0, 0, 300, 300);
 }
 
 game.play.scene('camera-follow');

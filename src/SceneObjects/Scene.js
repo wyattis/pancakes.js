@@ -109,7 +109,7 @@ Engine.Scene = class Scene{
 
         for(let layer of this.layers){
 
-            console.log(this.world.camera.pos);
+            // console.log(this.world.camera.pos);
             layer[1].ctx.save();
             layer[1].ctx.translate(-this.world.camera.pos.x,-this.world.camera.pos.y);
             layer[1].render(delta);
