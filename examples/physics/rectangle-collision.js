@@ -1,8 +1,8 @@
-/*global Engine Physics Body C*/
+/*global Engine*/
 "use strict";
 let game = Engine.game({container: 'pancakes'});
 let bodies = [];
-let physics = new Physics();
+let physics = new Engine.Physics();
 
 function init(){
 
@@ -17,8 +17,8 @@ function init(){
         for(let y=0; y<numSide; y++){
 
             const rectangle = new Engine.Rectangle(x*dx, y*dy, w, h);
-            const body = new Body(x*dx, y*dy, C.randomInt(0, 50), C.randomInt(0, 50));
-            body.addGeometry(rectangle);
+            const body = new Engine.Body(x*dx, y*dy, Engine.C.randomInt(0, 50), Engine.C.randomInt(0, 50));
+            body.addShape(rectangle);
             physics.add(body);
             bodies.push(body);
 
@@ -40,12 +40,12 @@ function render(ctx, delta){
     ctx.fillStyle = 'lightblue';
     for(let body of bodies){
 
-        ctx.fillRect(body.geometry.x, body.geometry.y, body.geometry.width, body.geometry.height);
+        ctx.fillRect(body.shape.x, body.shape.y, body.shape.width, body.shape.height);
 
     }
 
 }
 
-const screen = game.add.screen('rect-test', {load: ()=>{}, init: init, update: update});
-screen.layers.get('default').setRender(render);
-game.play.screen('rect-test');
+const scene = game.add.scene('rect-test', {load: ()=>{}, init: init, update: update});
+scene.layers.get('default').setRender(render);
+game.play.scene('rect-test');

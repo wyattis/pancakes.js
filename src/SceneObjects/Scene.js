@@ -1,10 +1,19 @@
-class Scene{
+/*global Engine*/
+Engine.Scene = class Scene{
 
     constructor(game, opts){
 
         this.game = game;
         this.cache = game.engine.cache;
         this.load = game.engine.load;
+
+
+        this.opts = {
+            useKeyboard: true,
+            useMouse: true,
+        };
+        Object.apply(this.opts, opts);
+
 
         this.sprites = [];  // Reference to all the sprites in the screen
         this.layers = new Map();
@@ -15,11 +24,16 @@ class Scene{
         this.loadProgressCB = opts.loadProgress;
 
         // Create layer factory and default layer
-        this.new = new LayerFactory(this);
+        this.new = new Engine.LayerFactory(this, this.opts);
         this.new.layer('default');
 
-        // Create add alias for the layer
-        this.add = this.layers.get('default').add;
+
+        this.world = new Engine.World(this, game.width, game.height);
+
+        this.add = new Engine.ObjectFactory(this.world, this.layers.get('default'), Engine.cache);
+
+        // Create the camera for the scene
+        this.camera = new Engine.Camera(this);
 
     }
 
@@ -62,7 +76,11 @@ class Scene{
     init(){
 
         // Start listening to keyboard input by default
-        this.game.input.start();
+        if(this.opts.useKeyboard)
+            this.game.input.startKeyboard();
+
+        if(this.opts.useMouse)
+            this.game.input.startMouse();
 
         if(this.initCB) this.initCB();
 
@@ -76,13 +94,10 @@ class Scene{
      */
     update(delta){
 
-        for(let i = 0; i < this.sprites.length; i++){
-
-            this.sprites[i].update(delta);
-
-        }
-
+        // Perform user supplied updates first
         if(this.updateCB) this.updateCB(delta);
+
+        this.world.update(delta);
 
     }
 
@@ -93,7 +108,13 @@ class Scene{
     render(delta){
 
         for(let layer of this.layers){
+
+            console.log(this.world.camera.pos);
+            layer[1].ctx.save();
+            layer[1].ctx.translate(-this.world.camera.pos.x,-this.world.camera.pos.y);
             layer[1].render(delta);
+
+            layer[1].ctx.restore();
         }
 
     }
@@ -108,4 +129,4 @@ class Scene{
 
     }
 
-}
+};

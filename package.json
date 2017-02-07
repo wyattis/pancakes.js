@@ -1,0 +1,42 @@
+{
+  "name": "pancakes.js",
+  "version": "0.0.1",
+  "description": "Simple 2D game engine.",
+  "main": "build/pancakes.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "dependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.4.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.4.0",
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyattis/pancakes.js.git"
+  },
+  "keywords": [
+    "pancakes",
+    "2d",
+    "game",
+    "engine",
+    "canvas"
+  ],
+  "author": "Wyatt Israel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyattis/pancakes.js/issues"
+  },
+  "homepage": "https://github.com/wyattis/pancakes.js#readme"
+}

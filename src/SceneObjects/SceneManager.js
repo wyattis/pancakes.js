@@ -1,4 +1,5 @@
-class SceneManager{
+/*global Engine*/
+Engine.SceneManager = class SceneManager{
 
     constructor(game){
 
@@ -7,9 +8,9 @@ class SceneManager{
         this.scenes = new Map();
 
         this.add = {};
-        this.add.screen = (function(name, opts){
+        this.add.scene = (function(name, opts){
 
-            let scene = new Scene(this.game, opts);
+            let scene = new Engine.Scene(this.game, opts);
             this.scenes.set(name, scene);
             return scene;
 
@@ -70,7 +71,7 @@ class SceneManager{
     /**
      * Used to play the current screen.
      */
-    screen(name){
+    scene(name){
 
         this._stop();
         this.currentScene = this.scenes.get(name);
@@ -78,4 +79,4 @@ class SceneManager{
 
     }
 
-}
+};

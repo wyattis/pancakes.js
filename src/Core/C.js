@@ -2,7 +2,7 @@
 /**
  * This is a mathematics helper class
  */
-class C{
+Engine.C = class C{
 
     /**
      * Returns a random value between min (inclusive) and max (inclusive)
@@ -36,4 +36,5 @@ class C{
 
     }
 
-}
+
+};

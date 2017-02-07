@@ -1,4 +1,5 @@
-class Spritesheet {
+/*global Engine*/
+Engine.Spritesheet = class Spritesheet {
 
 	constructor(texture, tileWidth, tileHeight, tilePadding) {
 
@@ -36,7 +37,7 @@ class Spritesheet {
 	 * Render frame
 	 */
 	render(ctx, x, y, index, debug) {
-		
+
 		if(debug){
             ctx.fillStyle = 'lightblue';
             ctx.fillRect(x, y, this.tileWidth, this.tileHeight);
@@ -49,4 +50,4 @@ class Spritesheet {
 
 	}
 
-}
+};

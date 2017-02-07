@@ -1,4 +1,5 @@
-class Sprite{
+/*global Engine*/
+Engine.Sprite = class Sprite{
 
 	constructor(parent, x, y){
 
@@ -6,26 +7,14 @@ class Sprite{
 		this.currentAnimation = null;
 		this.animations = {};
 		this.needsRendered = true;
-		this.pos = {
-			x: x, 
-			y: y
-		};
-		this.vel = {
-			x: 0,
-			y: 0
-		};
-		this.last = {
-			pos: {x: x, y: y},
-			vel: {x: 0, y: 0}
-		};
-
+		this.body = new Engine.Body(x, y);
 
 		// Add "factory"
 		this.add = {};
 		this.add.animation = (function(name, spritesheetKey, frames, totalTime, options){
-			
-			let animation = new Animation(this, this.parent.cache.use(spritesheetKey), frames, totalTime, options);
-			
+
+			let animation = new Engine.Animation(this, Engine.cache.use(spritesheetKey), frames, totalTime, options);
+
 			this.animations[name] = animation;
 
 			this.currentAnimation = animation;
@@ -48,31 +37,50 @@ class Sprite{
 		}).bind(this);
 
 	}
-	
-	update(delta){
-		
-		this.currentAnimation.update(delta);
-		
+
+
+	/**
+	 * Enable physics for this Sprite
+	 */
+	enablePhysics(shape){
+
+		this.body.addShape(shape);
+		this.parent.physics.add(this.body);
+
 	}
 
-	render(delta){
-	
+	/**
+	 * Sprite update method for updating relevant
+	 * animations
+	 */
+	update(delta){
+
+		this.currentAnimation.update(delta);
+
+	}
+
+
+	/**
+	 * Render the given sprite
+	 */
+	render(ctx, delta){
+
 		// (0.5 + num) << 0 is a bitwise shift to perform rounding
-		this.currentAnimation.render(this.parent.ctx, (0.5 + this.pos.x) << 0, (0.5 + this.pos.y) << 0);
-		
+		this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+
 		this.needsRendered = false;
 		// Not rounding makes the images appear fuzzy
 		// this.currentAnimation.render(this.parent.ctx, this.pos.x, this.pos.y);
 
 	}
 
-	
+
 	/**
 	 * Set the position of the sprite. Also lets the parent know that the sprite
 	 * needs to be rendered again.
 	 */
 	setPos(x, y){
-		
+
 		// If the position is different than the previous position we will render
 		// the sprite again
 		if(this.pos.x !== x || this.pos.y !== y) this.queForRender();
@@ -82,16 +90,26 @@ class Sprite{
 		this.pos.y = y;
 
 	}
-	
-	
+
+
 	/**
-	 * Let the screen/layer know that this sprite has changed and needs to be 
+	 * Add a position value to the current position of the Sprite
+	 */
+	addPos(x, y){
+
+		this.body.setPos(this.body.pos.x + x, this.body.pos.y + y);
+
+	}
+
+
+	/**
+	 * Let the screen/layer know that this sprite has changed and needs to be
 	 * rendered again.
 	 */
 	queForRender(){
-		
+
 		this.needsRendered = true;
-		
+
 	}
 
-}
+};

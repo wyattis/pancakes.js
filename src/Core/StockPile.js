@@ -1,4 +1,5 @@
-class StockPile{
+/*global Engine*/
+Engine.StockPile = class StockPile{
 
 	constructor(){
 
@@ -18,4 +19,4 @@ class StockPile{
 
 	}
 
-}
+};

@@ -1,13 +1,30 @@
 /*global Engine*/
-class Input{
+Engine.Input = class Input{
 
     constructor(element){
 
         // TODO: handle event callbacks for individual keycodes
 
-        this.element = element;
-        this.keyboard = undefined;
-        this.isListening = {down: false, up: false};
+        this.element = element;     // The element to attach events to
+        this.keyboard = undefined;  // Holds keyboard specific logic
+        this.reactor = new Engine.Reactor(); // Used to dispatch custom events
+
+        this.isListening = {
+            keyboard: {
+                down: false,
+                up: false
+            }
+        };
+
+    }
+
+
+    /**
+     * "on()" method to handle callbacks for the different types of events
+     */
+    on(eventName, cb, opts){
+
+        this.reactor.addEventListener(eventName, cb, opts);
 
     }
 
@@ -50,29 +67,98 @@ class Input{
     /**
      * Start listening to keydown and keyup events.
      */
-    start(){
+    startKeyboard(){
 
         this.keyboard = new Engine.Keyboard();
         console.log('keyboard defined', this.keyboard);
         this.element.addEventListener('keydown', this._handleKeyDown.bind(this));
         this.element.addEventListener('keyup', this._handleKeyUp.bind(this));
 
-        this.isListening.down = true;
-        this.isListening.up = true;
+        this.isListening.keyboard.down = true;
+        this.isListening.keyboard.up = true;
 
     }
+
 
 
     /**
      * Stop listening to keydown and keyup events.
      */
-    stop(){
+    stopKeyboard(){
 
         this.element.removeEventListener('keydown', this._handleKeyDown);
         this.element.removeEventListener('keyup', this._handleKeyUp);
 
-        this.isListening.down = false;
-        this.isListening.up = false;
+        this.isListening.keyboard.down = false;
+        this.isListening.keyboard.up = false;
+
+    }
+
+
+
+    /**
+     * Handle mouse down
+     */
+    _handleMouseDown(event){
+
+        const pos = this.getMousePosition(event);
+        this.reactor.dispatch('mousedown', pos);
+
+    }
+
+
+    /**
+     *
+     * Handle mouse down
+     */
+    _handleMouseUp(event){
+
+        const pos = this.getMousePosition(event);
+        this.reactor.dispatch('mouseup', pos);
+
+    }
+
+
+
+    /**
+     * Handle mouse down
+     */
+    _handleMouseMove(event){
+
+        const pos = this.getMousePosition(event);
+        this.reactor.dispatch('mousemove', pos);
+
+    }
+
+
+    /**
+     * Start listening to mouse events
+     */
+    startMouse(){
+
+        this.reactor.register('mousemove');
+        this.reactor.register('mousedown');
+        this.reactor.register('mouseup');
+
+        this.element.addEventListener('mousemove', this._handleMouseMove.bind(this));
+        this.element.addEventListener('mousedown', this._handleMouseDown.bind(this));
+        this.element.addEventListener('mouseup', this._handleMouseUp.bind(this));
+
+    }
+
+
+    /**
+     * Stop listening to mouse events
+     */
+    stopMouse(){
+
+        this.reactor.unregister('mousemove');
+        this.reactor.unregister('mousedown');
+        this.reactor.unregister('mouseup');
+
+        this.element.removeEventListener('mousemove', this._handleMouseMove.bing(this));
+        this.element.removeEventListener('mousedown', this._handleMouseDown.bind(this));
+        this.element.removeEventListener('mouseup', this._handleMouseUp.bind(this));
 
     }
 
@@ -80,9 +166,12 @@ class Input{
     /**
      * Convert the mouse event coordinates into a valid mouse position
      */
-    static getMousePosition(event, element){
+    getMousePosition(event){
 
         // TODO
 
+
+
     }
-}
+
+};

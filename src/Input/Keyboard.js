@@ -1,5 +1,5 @@
 /*global Engine*/
-Engine.Keyboard = class{
+Engine.Keyboard = class Keyboard{
 
     constructor(){
 

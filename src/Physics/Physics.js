@@ -1,5 +1,5 @@
-/*global QuadTree Engine Body Collision*/
-class Physics{
+/*global Engine*/
+Engine.Physics = class Physics{
 
     constructor(options){
 
@@ -10,14 +10,28 @@ class Physics{
 
         this.collisionMemo = new Map();
         this.bodies = [];
-        this.tree = new QuadTree();
+        this.tree = new Engine.QuadTree();
+
+    }
+
+    /**
+     * Clear all bodies from physics
+     */
+    clear(){
+
+        this.collisionMemo.clear();
+        this.bodies = [];
+        this.tree.clear();
 
     }
 
 
+    /**
+     * Add a single body to the physics
+     */
     add(bodies){
 
-        if (bodies instanceof Body){
+        if (bodies instanceof Engine.Body){
 
             this.bodies.push(bodies);
 
@@ -37,10 +51,13 @@ class Physics{
         // Clear the memo at the beginning of each tick
         this.collisionMemo.clear();
 
+        // First update the physics bodies
         for(let i=0; i<this.bodies.length; i++){
             this.bodies[i].update(delta);
         }
 
+        // Check each body for collision
+        // TODO: use a quadtree for this update
         for(let leftIndex=0; leftIndex<this.bodies.length - 1; leftIndex++){
 
             for(let rightIndex=leftIndex+1; rightIndex<this.bodies.length; rightIndex++){
@@ -48,12 +65,17 @@ class Physics{
                 if(this.bodies[leftIndex] === this.bodies[rightIndex] ||
                     this.collisionMemo.get(this.bodies[leftIndex]) === this.bodies[rightIndex] ||
                     !this.bodies[leftIndex].enabled || !this.bodies[rightIndex].enabled){
+
+                    // These bodies have already collided
                     continue;
+
                 }
                 else if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
-                    this.collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);
-                    // console.log('Collision between', this.bodies[leftIndex].pos, this.bodies[rightIndex].pos);
-                    Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);
+
+                    // Check for intersect of these two bodies
+                    this.collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);    // Record this collision so we don't repeat calculations
+                    Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
+
                 }
 
             }
@@ -62,4 +84,4 @@ class Physics{
 
     }
 
-}
+};
