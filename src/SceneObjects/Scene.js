@@ -11,9 +11,12 @@ Engine.Scene = class Scene{
         this.opts = {
             useKeyboard: true,
             useMouse: true,
+            size: {
+                width: 600,
+                height: 400,
+            }
         };
-        Object.apply(this.opts, opts);
-
+        Object.assign(this.opts, opts);
 
         this.sprites = [];  // Reference to all the sprites in the screen
         this.layers = new Map();
@@ -27,13 +30,14 @@ Engine.Scene = class Scene{
         this.new = new Engine.LayerFactory(this, this.opts);
         this.new.layer('default');
 
+        // Create the world for this scene
+        this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
 
-        this.world = new Engine.World(this, game.width, game.height);
-
+        // Create object factor instance for API convenience
         this.add = new Engine.ObjectFactory(this.world, this.layers.get('default'), Engine.cache);
 
-        // Create the camera for the scene
-        this.camera = new Engine.Camera(this);
+        // Camera for the scene
+        this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
 
     }
 
@@ -97,8 +101,13 @@ Engine.Scene = class Scene{
         // Perform user supplied updates first
         if(this.updateCB) this.updateCB(delta);
 
+
+        // This call updates each sprite in the world and performs any physics
+        // that are necessary.
         this.world.update(delta);
 
+        // Always update the camera last
+        this.camera.update(delta);
     }
 
 
@@ -109,12 +118,8 @@ Engine.Scene = class Scene{
 
         for(let layer of this.layers){
 
-            console.log(this.world.camera.pos);
-            layer[1].ctx.save();
-            layer[1].ctx.translate(-this.world.camera.pos.x,-this.world.camera.pos.y);
-            layer[1].render(delta);
+            layer[1].render(delta, -this.camera.pos.x, -this.camera.pos.y);
 
-            layer[1].ctx.restore();
         }
 
     }

@@ -15,7 +15,8 @@ Engine.Layer = class Layer{
         this.sprites = [];
         this.groups = [];
         this.add = new Engine.ObjectFactory(this.scene.world, Engine.cache);
-        this.renderCB;
+        this.preRenderCB;
+        this.postRenderCB;
 
     }
 
@@ -33,24 +34,43 @@ Engine.Layer = class Layer{
 
 
     /**
-     * Set the render CB for this layer
+     * Set the post render CB for this layer
      */
     setRender(cb){
 
-        this.renderCB = cb;
+        this.postRenderCB = cb;
 
     }
 
 
     /**
+     * Set the pre render CB for this layer
+     */
+    setPreRender(cb){
+
+        this.preRenderCB = cb;
+
+    }
+
+    /**
      * Render this layer.
      */
-    render(delta){
+    render(delta, translateX, translateY){
+
+        // TODO: dynamically handle different transforms?
+
+        this.ctx.clearRect(0, 0, this.scene.game.width, this.scene.game.height);
+
+        this.ctx.save();
+        this.ctx.translate(translateX, translateY);
+
+        if(this.preRenderCB)
+            this.preRenderCB(this.ctx, delta);
 
         if(this.opts.dynamic){
             // Always try to render the entire layer at 60fps
 
-            this.ctx.clearRect(0, 0, this.scene.game.width, this.scene.game.height);
+            // this.ctx.clearRect(0, 0, this.scene.game.width, this.scene.game.height);
             let i = this.sprites.length;
             while(i--){
 
@@ -72,8 +92,11 @@ Engine.Layer = class Layer{
 
         }
 
-        if(this.renderCB) this.renderCB(this.ctx, delta);
 
+        if(this.postRenderCB)
+            this.postRenderCB(this.ctx, delta);
+
+        this.ctx.restore();
     }
 
 };

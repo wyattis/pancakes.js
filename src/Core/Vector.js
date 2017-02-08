@@ -57,6 +57,17 @@ Engine.Vector = class Vector{
 
     }
 
+
+    /**
+     * Make a non referential copy of the vector
+     */
+    clone(){
+
+        return new Engine.Vector(this.x, this.y);
+
+    }
+
+
     /**
      * Will draw an arrow representing the vector
      */

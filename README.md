@@ -10,10 +10,21 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
 - [x] Add gulp
 
 ## Engine
+- [ ] Vector
+    - [x] Normalize
+    - [x] Magnitude
+    - [ ] Tween
+- [ ] Tweens
+    - [ ] Central tween "registry" for scene
+    - [ ] Update the tweens with each update loop
+    - [ ] Remove tweens when they've reached their desired state
 - [ ] Camera
     - [x] follow any single body
     - [ ] frame viewport around any number of bodies
     - [ ] follow box around Body
+    - [ ] moveToXY method
+    - [ ] moveToBody method
+    - [x] allow for "tweening" positions
 - [ ] TileMap
     - [ ] Load from Tiled/other tilemap editors
 - [ ] Sprite

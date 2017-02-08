@@ -1,8 +1,9 @@
 /*global Engine*/
 Engine.Physics = class Physics{
 
-    constructor(options){
+    constructor(world, options){
 
+        this.world = world;
         this.options = {
             rotation: false,
         };
@@ -52,9 +53,30 @@ Engine.Physics = class Physics{
         this.collisionMemo.clear();
 
         // First update the physics bodies
-        for(let i=0; i<this.bodies.length; i++){
-            this.bodies[i].update(delta);
+        let i = this.bodies.length;
+        while(i--){
+             this.bodies[i].update(delta);
+
+             // Fix bounds
+             if(this.bodies[i].clamped){
+
+                // Reverse velocities if we've hit the sides
+                if(this.bodies[i].pos.x + this.bodies[i].shape.width > this.world.width || this.bodies[i].pos.x < 0){
+
+                    this.bodies[i].vel.x = -this.bodies[i].vel.x;
+
+                }
+                if(this.bodies[i].pos.y + this.bodies[i].shape.height > this.world.height || this.bodies[i].pos.y < 0){
+
+                    this.bodies[i].vel.y = -this.bodies[i].vel.y;
+
+                }
+
+                this.bodies[i].pos.clamp(0, this.world.width - this.bodies[i].shape.width, 0, this.world.height - this.bodies[i].shape.height);
+
+             }
         }
+
 
         // Check each body for collision
         // TODO: use a quadtree for this update
@@ -77,6 +99,8 @@ Engine.Physics = class Physics{
                     Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
 
                 }
+
+
 
             }
 

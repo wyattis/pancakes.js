@@ -15,9 +15,6 @@ Engine.World = class World{
         // use the ObjectFactory from the parent scene
         this.add = this.scene.add;
 
-        // Camera object used for rendering
-        this.camera = new Engine.Camera(this, 0, 0, this.scene.game.width, this.scene.game.height);
-
     }
 
 
@@ -39,9 +36,6 @@ Engine.World = class World{
             this.physics.tick(delta);
 
 
-        // Always update the camera last
-        this.camera.update(delta);
-
     }
 
 
@@ -49,9 +43,9 @@ Engine.World = class World{
     /**
      * Enable the physics for this world
      */
-    enablePhysics(){
+    enablePhysics(opts){
 
-        this.physics = new Engine.Physics();
+        this.physics = new Engine.Physics(this, opts);
 
     }
 };
