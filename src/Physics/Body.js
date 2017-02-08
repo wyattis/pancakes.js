@@ -3,19 +3,20 @@ Engine.Body = class Body{
 
     constructor(x, y, vx, vy){
 
-        this.enabled = true;
-        this.fixed = false;
-        this.mass = 100;
-        this.friction = 0;
-        this.maxSpeed = 0;
+        this.enabled = false;   // physics are enabled
+        this.fixed = false;     // static body not affected by physics
+        this.clamped = false;   // there is a clamp on the bounds of pos?
+        this.mass = 100;        // mass of the body
+        this.friction = 0;      // friction of the body
+        this.maxSpeed = 0;      // maximum speed of the body after normalization
 
-        this.pos = new Engine.Vector(0, 0);
-        this.lastPos = new Engine.Vector(0, 0);
-        this.vel = new Engine.Vector(0, 0);
-        this.acc = new Engine.Vector(0, 0);
-        this.angle = 0;
-        this.omega = 0;
-        this.alpha = 0;
+        this.pos = new Engine.Vector(0, 0);     // position of the body
+        this.lastPos = new Engine.Vector(0, 0); // last position of the body
+        this.vel = new Engine.Vector(0, 0);     // velocity of the body
+        this.acc = new Engine.Vector(0, 0);     // acceleration of the body
+        this.angle = 0;                         // angle of the body
+        this.omega = 0;                         // angular rotation of the body
+        this.alpha = 0;                         // angular acceleration of the body
 
 
         if(vx || vy)

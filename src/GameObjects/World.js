@@ -43,9 +43,9 @@ Engine.World = class World{
     /**
      * Enable the physics for this world
      */
-    enablePhysics(){
+    enablePhysics(opts){
 
-        this.physics = new Engine.Physics();
+        this.physics = new Engine.Physics(this, opts);
 
     }
 };

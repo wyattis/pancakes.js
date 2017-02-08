@@ -9,6 +9,7 @@ Engine.Camera = class Camera{
         this.size = {width: width, height: height};
 
         this.desiredPos = new Engine.Tween(this.pos, this.pos);
+        this.desiredPos.roundToPixel = true;
 
         // Set the bounds for the camera
         this.bounds = {
@@ -66,7 +67,6 @@ Engine.Camera = class Camera{
             });
 
             this.desiredPos.update(delta);
-
             this.desiredPos.ref.clamp(this.bounds.x.min, this.bounds.x.max, this.bounds.y.min, this.bounds.y.max);
 
         }
