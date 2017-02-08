@@ -3,13 +3,24 @@ Engine.Camera = class Camera{
 
     constructor(world, x, y, width, height){
 
-        this.world = world;
+        this.world = world;         // Reference to the world
+        this.followBodies = [];     // Array of the bodies it should follow
         this.pos = new Engine.Vector(x || 0, y || 0);
         this.size = {width: width, height: height};
 
-        this.tweenPos = new Engine.Tween(this.pos, this.pos);
+        this.desiredPos = new Engine.Tween(this.pos, this.pos);
 
-        this.followBodies = [];
+        // Set the bounds for the camera
+        this.bounds = {
+            x: {
+                min: 0,
+                max: this.world.width - this.size.width
+            },
+            y: {
+                min: 0,
+                max: this.world.height - this.size.height
+            }
+        };
 
     }
 
@@ -49,14 +60,14 @@ Engine.Camera = class Camera{
 
         if(this.followBodies.length){
 
-            this.tweenPos.setTo({
+            this.desiredPos.setTo({
                 x: this.followBodies[0].pos.x + this.followBodies[0].shape.width/2 - this.size.width/2,
                 y: this.followBodies[0].pos.y + this.followBodies[0].shape.height/2 - this.size.height/2,
             });
 
-            this.tweenPos.update(delta);
+            this.desiredPos.update(delta);
 
-            this.tweenPos.ref.clamp(0, this.world.width, 0, this.world.height);
+            this.desiredPos.ref.clamp(this.bounds.x.min, this.bounds.x.max, this.bounds.y.min, this.bounds.y.max);
 
         }
 

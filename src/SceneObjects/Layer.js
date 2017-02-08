@@ -55,9 +55,14 @@ Engine.Layer = class Layer{
     /**
      * Render this layer.
      */
-    render(delta, transform){
+    render(delta, translateX, translateY){
+
+        // TODO: dynamically handle different transforms?
 
         this.ctx.clearRect(0, 0, this.scene.game.width, this.scene.game.height);
+
+        this.ctx.save();
+        this.ctx.translate(translateX, translateY);
 
         if(this.preRenderCB)
             this.preRenderCB(this.ctx, delta);
@@ -90,6 +95,8 @@ Engine.Layer = class Layer{
 
         if(this.postRenderCB)
             this.postRenderCB(this.ctx, delta);
+
+        this.ctx.restore();
     }
 
 };

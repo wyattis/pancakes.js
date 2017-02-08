@@ -22,6 +22,8 @@ arcade style physics, layering, I/O, states, animation and rendering. Additional
     - [x] follow any single body
     - [ ] frame viewport around any number of bodies
     - [ ] follow box around Body
+    - [ ] moveToXY method
+    - [ ] moveToBody method
     - [x] allow for "tweening" positions
 - [ ] TileMap
     - [ ] Load from Tiled/other tilemap editors

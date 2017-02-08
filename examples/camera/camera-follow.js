@@ -1,7 +1,7 @@
 /*global Engine*/
 const game = Engine.game();
-const scene = game.add.scene('camera-follow', {load: load, update: update, init: init});
-scene.layers.get('default').setPreRender(preRender)
+const scene = game.add.scene('camera-follow', {load: load, update: update, init: init, size: {width: 800, height: 800}});
+scene.layers.get('default').setPreRender(preRender);
 const SPEED = 200;
 let char;
 
@@ -21,7 +21,7 @@ function init(){
     char.enablePhysics(new Engine.Rectangle(0, 0, 32, 32));
     char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
 
-    scene.world.camera.follow(char);
+    scene.camera.follow(char);
 }
 
 function update(delta){
@@ -42,7 +42,7 @@ function update(delta){
         char.body.vel.x = SPEED;
     }
 
-    char.body.pos.clamp(0, scene.world.width, 0, scene.world.height);
+    char.body.pos.clamp(0, scene.world.width - char.body.shape.width, 0, scene.world.height - char.body.shape.height);
 
 }
 

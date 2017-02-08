@@ -8,7 +8,7 @@ Engine.Tween = class Tween{
         this.type = type || Engine.Tween.EASE_OUT;
         this.finished = false;
         this.speed = 1/10;
-        this.tolerance = 1e-2;
+        this.tolerance = 1e-3;
 
     }
 
@@ -66,7 +66,7 @@ Engine.Tween = class Tween{
      */
     static easeOut(from, to, diff, speed){
 
-        return from + speed * diff;
+        return from + diff * speed;
 
     }
 
