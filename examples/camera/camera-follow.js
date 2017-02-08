@@ -1,6 +1,6 @@
 /*global Engine*/
 const game = Engine.game();
-const scene = game.add.scene('camera-follow', {load: load, update: update, init: init, size: {width: 800, height: 800}});
+const scene = game.add.scene('camera-follow', {load: load, update: update, init: init, size: {width: 1800, height: 1800}});
 scene.layers.get('default').setPreRender(preRender);
 const SPEED = 200;
 let char;
@@ -19,6 +19,8 @@ function init(){
 
     char = scene.add.sprite(0, 0);
     char.enablePhysics(new Engine.Rectangle(0, 0, 32, 32));
+    char.body.clamped = true;
+    char.body.maxSpeed = 500;
     char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
 
     scene.camera.follow(char);
@@ -26,29 +28,41 @@ function init(){
 
 function update(delta){
 
-    char.body.vel.x = 0;
-    char.body.vel.y = 0;
+    // char.body.vel.x = 0;
+    // char.body.vel.y = 0;
 
     if(game.input.keyboard.keys.UP.isDown){
-        char.body.vel.y = -SPEED;
+        char.body.acc.y = -SPEED;
     }
-    if(game.input.keyboard.keys.DOWN.isDown){
-        char.body.vel.y = SPEED;
+    else if(game.input.keyboard.keys.DOWN.isDown){
+        char.body.acc.y = SPEED;
+    }
+    else{
+        char.body.acc.y = 0;
     }
     if(game.input.keyboard.keys.LEFT.isDown){
-        char.body.vel.x = -SPEED;
+        char.body.acc.x = -SPEED;
     }
-    if(game.input.keyboard.keys.RIGHT.isDown){
-        char.body.vel.x = SPEED;
+    else if(game.input.keyboard.keys.RIGHT.isDown){
+        char.body.acc.x = SPEED;
     }
-
-    char.body.pos.clamp(0, scene.world.width - char.body.shape.width, 0, scene.world.height - char.body.shape.height);
+    else{
+        char.body.acc.x = 0;
+    }
 
 }
 
+
+const size = 300;
+const colors = ['lightblue', 'red', 'green', 'yellow', 'maroon', 'blue'];
 function preRender(ctx){
-    ctx.fillStyle = "lightblue";
-    ctx.fillRect(0, 0, 300, 300);
+
+    let i = colors.length;
+    while(i--){
+        ctx.fillStyle = colors[i];
+        ctx.fillRect(i*size, i*size, size, size);
+    }
+
 }
 
 game.play.scene('camera-follow');
