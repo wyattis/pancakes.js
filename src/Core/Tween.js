@@ -6,8 +6,9 @@ Engine.Tween = class Tween{
         this.ref = ref;               // Array of references to the values we want to change
         this.desired = desired; // Array of their desired values
         this.type = type || Engine.Tween.EASE_OUT;
+        this.roundToPixel = false;
         this.finished = false;
-        this.speed = 1/10;
+        this.speed = 1/15;
         this.tolerance = 1e-3;
 
     }
@@ -28,8 +29,14 @@ Engine.Tween = class Tween{
         // Perform the different tweens
         if(this.type === Engine.Tween.EASE_OUT){
 
-            this.ref.x = Engine.Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed);
-            this.ref.y = Engine.Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed);
+            if(this.roundToPixel){
+                this.ref.x = Math.round(Engine.Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed));
+                this.ref.y = Math.round(Engine.Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed));
+            }
+            else{
+                this.ref.x = Engine.Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed);
+                this.ref.y = Engine.Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed);
+            }
 
         }
         else {
@@ -57,6 +64,11 @@ Engine.Tween = class Tween{
     setTo(desired){
 
         this.desired = desired;
+
+        if(this.roundToPixel){
+            this.desired.x = Math.round(this.desired.x);
+            this.desired.y = Math.round(this.desired.y);
+        }
 
     }
 
