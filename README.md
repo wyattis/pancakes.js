@@ -52,7 +52,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
 - [ ] QuadTree
 
 - [ ] Physics
-    - [ ] Allow bodies to specify which other bodies they collide with
+    - [x] Allow bodies to specify which other bodies they collide with
     - [ ] Body
         - [x] Add friction
         - [x] Add max-velocity

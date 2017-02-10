@@ -12,6 +12,7 @@ game.play.scene('keyboard-friction');
 function init(){
 
     player = new Engine.Body(200, 200);
+    player.enabled = true;
     player.friction = 40;
     player.maxSpeed = 200;
     player.addShape(new Engine.Rectangle(200, 200, 10, 10));
@@ -27,6 +28,7 @@ function init(){
     for(let x=0; x<count; x++){
         for(let y=0; y<count; y++){
                 const body = new Engine.Body(x*dx, y*dy, 0, 0);
+                body.enabled = true;
                 body.friction = 30;
                 body.maxSpeed = 100;
                 body.addShape(new Engine.Rectangle(x*dx, y*dy, w, h));
@@ -35,7 +37,11 @@ function init(){
         }
     }
 
+    for(let body of bodies){
+        body.collidesWith(bodies);
+    }
 
+    player.collidesWith(bodies);
 }
 
 function update(delta){

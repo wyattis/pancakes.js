@@ -1,9 +1,10 @@
 /*global Engine*/
 Engine.Sprite = class Sprite{
 
-	constructor(parent, x, y){
+	constructor(scene, world, x, y){
 
-		this.parent = parent;
+		this.scene = scene;
+		this.world = world;
 		this.currentAnimation = null;
 		this.animations = {};
 		this.needsRendered = true;
@@ -45,9 +46,20 @@ Engine.Sprite = class Sprite{
 	enablePhysics(shape){
 
 		this.body.addShape(shape);
-		this.parent.physics.add(this.body);
+		this.world.physics.add(this.body);
 
 	}
+
+
+	/**
+	 * Specify the group or member that this sprite collides with.
+	 */
+	collidesWith(who){
+
+		// TODO:
+
+	}
+
 
 	/**
 	 * Sprite update method for updating relevant
@@ -70,13 +82,13 @@ Engine.Sprite = class Sprite{
 
 		this.needsRendered = false;
 		// Not rounding makes the images appear fuzzy
-		// this.currentAnimation.render(this.parent.ctx, this.pos.x, this.pos.y);
+		// this.currentAnimation.render(this.world.ctx, this.pos.x, this.pos.y);
 
 	}
 
 
 	/**
-	 * Set the position of the sprite. Also lets the parent know that the sprite
+	 * Set the position of the sprite. Also lets the world know that the sprite
 	 * needs to be rendered again.
 	 */
 	setPos(x, y){
