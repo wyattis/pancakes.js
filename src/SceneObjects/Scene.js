@@ -4,7 +4,7 @@
  * @constructor
  * @param {Engine.Game} game reference to the parent game
  * @param {object} opts any scene specific options
- * @returns Engine.Scene
+ * @returns {Engine.Scene} instance
  */
 Engine.Scene = class Scene{
 
@@ -34,8 +34,8 @@ Engine.Scene = class Scene{
         this.loadProgressCB = opts.loadProgress;
 
         // Create layer factory and default layer
-        this.new = new Engine.LayerFactory(this, this.opts);
-        this.new.layer('default');
+        this.new = new Engine.LayerFactory(this);
+        this.new.layer('default', {zIndex: 1000});
 
         // Create the world for this scene
         this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
@@ -92,6 +92,11 @@ Engine.Scene = class Scene{
 
         if(this.opts.useMouse)
             this.game.input.startMouse();
+
+        // Do any layer specific setup
+        for(let layer of this.layers){
+            layer[1].init();
+        }
 
         if(this.initCB) this.initCB();
 

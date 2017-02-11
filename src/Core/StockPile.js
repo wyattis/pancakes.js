@@ -2,7 +2,7 @@
 /**
  * Describes a simple memory cache for resources
  * @constructor
- * @returns Engine.StockPile
+ * @returns {Engine.StockPile} instance
  */
 Engine.StockPile = class StockPile{
 

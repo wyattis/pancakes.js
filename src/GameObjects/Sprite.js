@@ -6,11 +6,14 @@
  * @param {Engine.World} world reference to the parent world
  * @param {float} x the initial x position of the body in pixels
  * @param {float} y the initial y position of the body in pixels
- * @returns Engine.Sprite
+ * @returns {Engine.Sprite} instance
  */
 Engine.Sprite = class Sprite{
 
 	constructor(scene, world, x, y){
+
+		// TODO: how to handle rendering shapes, images, or animations?
+		// TODO: how should we add audio effects to a sprite?
 
 		this.scene = scene;
 		this.world = world;
@@ -19,32 +22,11 @@ Engine.Sprite = class Sprite{
 		this.needsRendered = true;
 		this.body = new Engine.Body(x, y);
 
-		// Add "factory"
-		this.add = {};
-		this.add.animation = (function(name, spritesheetKey, frames, totalTime, options){
-
-			let animation = new Engine.Animation(this, Engine.cache.use(spritesheetKey), frames, totalTime, options);
-
-			this.animations[name] = animation;
-
-			this.currentAnimation = animation;
-			return animation;
-
-		}).bind(this);
-
+		// Add SpriteFactory for handy API
+		this.add = new Engine.SpriteFactory(this);
 
 		// Play handler
-		this.play = {};
-
-		this.play.animation = (function(name){
-
-			// console.error('Playing animations not yet supported');
-			if(this.currentAnimation !== this.animations[name]){
-				this.currentAnimation = this.animations[name];
-				this.currentAnimation.reset(0);
-			}
-
-		}).bind(this);
+		this.play = new Engine.SpriteController(this);
 
 	}
 
@@ -76,7 +58,9 @@ Engine.Sprite = class Sprite{
 	 */
 	update(delta){
 
-		this.currentAnimation.update(delta);
+		if(this.currentAnimation){
+			this.currentAnimation.update(delta);
+		}
 
 	}
 
@@ -86,9 +70,16 @@ Engine.Sprite = class Sprite{
 	 */
 	render(ctx, delta){
 
-		// (0.5 + num) << 0 is a bitwise shift to perform rounding
-		this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
 
+		if(this.currentAnimation){
+			// (0.5 + num) << 0 is a bitwise shift to perform rounding
+			this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+		}
+		else if(this.image){
+
+			ctx.drawImage(this.image, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+
+		}
 		this.needsRendered = false;
 		// Not rounding makes the images appear fuzzy
 		// this.currentAnimation.render(this.world.ctx, this.pos.x, this.pos.y);

@@ -3,7 +3,7 @@
  * Describes a custom event
  * @constructor
  * @param {string} name what kind of event is this?
- * @returns Engine.Event
+ * @returns {Engine.Event} instance
  */
 Engine.Event = class Event{
 

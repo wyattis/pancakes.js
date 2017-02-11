@@ -4,7 +4,7 @@
  * @constructor
  * @param {Engine.Sprite|Object} parent the parent object that the animation has been assigned to. Usually an instance of Engine.Sprite.
  * @param {Engine.Spritesheet} spritesheet reference to the spritesheet used by this animation
- * @returns Engine.Animation
+ * @returns {Engine.Animation} instance
  */
 Engine.Animation = class Animation {
 
@@ -49,6 +49,7 @@ Engine.Animation = class Animation {
     /**
      * Update the animation. Switch frames if enough time has passed since the last
      * change of the frame.
+     * @param {integer} delta - milliseconds since the last update
      */
     update(delta) {
 
@@ -94,12 +95,24 @@ Engine.Animation = class Animation {
 
     }
 
+
+    /**
+     * Resets the animation to the specified index. Resets to the beginning if no index is supplied.
+     * @param {Integer} [index=0] - The frame index to return the animation to. Will return to the beginning if index isn't included.
+     */
     reset(index){
 
-        this.currentIndex = 0;
+        this.currentIndex = index || 0;
 
     }
 
+
+    /**
+     * Called to render the animation
+     * @param {CanvasRenderingContext2D} ctx - the canvas rendering context
+     * @param {float} x - the x position to render the animation
+     * @param {float} y - the y position to render the animation
+     */
     render(ctx, x, y){
 
         this.spritesheet.render(ctx, x, y, this.frames[this.currentIndex], this.options.debug);

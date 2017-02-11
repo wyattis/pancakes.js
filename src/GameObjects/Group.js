@@ -2,15 +2,18 @@
 /**
  * Describes a collection of sprites to perform bulk operations on
  * @constructor
+ * @param {Engine.Scene} scene Reference to the parent scene
+ * @param {Engine.World} world Reference to the parent world
  * @param {array} arr any sprites to add to the Group initially
- * @returns Engine.Group
+ * @returns {Engine.Group} instance
  */
 Engine.Group = class Group{
 
     // TODO: Allow for sprites to be grouped together for rendering, updating, physics, etc.
-    constructor(arr){
+    constructor(scene, world, layer, arr){
 
         this.members = arr || [];
+        this.add = new Engine.GroupFactory(scene, world, layer, this);
 
     }
 

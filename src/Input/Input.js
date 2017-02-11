@@ -3,7 +3,7 @@
  * Describes a object that handles keyboard, mouse and touch input for each scene.
  * @constructor
  * @param {DOMElement} element the DOM node to attach input events to
- * @returns Engine.Input
+ * @returns {Engine.Input} instance
  */
 Engine.Input = class Input{
 

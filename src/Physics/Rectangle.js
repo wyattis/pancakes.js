@@ -6,7 +6,7 @@
  * @param {float} y the y position of the top left corner of a rectangle
  * @param {float} width the width of a rectangle
  * @param {float} height the height of a rectangle
- * @returns Engine.Rectangle
+ * @returns {Engine.Rectangle} instance
  */
 Engine.Rectangle = class Rectangle{
 

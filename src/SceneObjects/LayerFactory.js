@@ -3,7 +3,7 @@
  * A factory used by Scenes to create layers
  * @constructor
  * @param {Engine.Scene} scene the scene to attach layers to
- * @returns Engine.LayerFactory
+ * @returns {Engine.LayerFactory} instance
  */
 Engine.LayerFactory = class LayerFactory{
 
@@ -13,9 +13,9 @@ Engine.LayerFactory = class LayerFactory{
 
     }
 
-    layer(name){
+    layer(name, opts){
 
-        let layer = new Engine.Layer(this.scene);
+        let layer = new Engine.Layer(this.scene, opts);
         this.scene.layers.set(name, layer);
         return layer;
 

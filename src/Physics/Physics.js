@@ -4,7 +4,7 @@
  * @constructor
  * @param {Engine.World} world reference to the parent world
  * @param {object} opts any specific physics options
- * @returns Engine.Physics
+ * @returns {Engine.Physics} instance
  */
 Engine.Physics = class Physics{
 

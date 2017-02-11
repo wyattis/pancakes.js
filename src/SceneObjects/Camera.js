@@ -7,7 +7,7 @@
  * @param {float} y the initial y position of the camera
  * @param {float} width the initial width of the camera
  * @param {float} height the initial height of the camera
- * @returns Engine.Camera
+ * @returns {Engine.Camera} instance
  */
 Engine.Camera = class Camera{
 

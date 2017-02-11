@@ -9,7 +9,7 @@ Engine.C = class C{
      */
     static random(min, max){
 
-        console.log('TODO: C.random');
+        return Math.random() * (max - min + 1) + min;
 
     }
 

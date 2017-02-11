@@ -34,15 +34,17 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
     - [ ] Load from Tiled JSON format
     - [ ] Tiled layers are Layers in the Scene
 - [ ] Group
-    - [ ] enablePhysics()
-    - [ ] collidesWith()
+    - [x] enablePhysics()
+    - [x] collidesWith()
     - [ ] add
-        - [ ] animation
+        - [x] animation
+        - [x] image
         - [ ] sound
-    - [ ] on(event) //callbacks
+    - [ ] on(event) // callbacks
 - [ ] Sprite
     - [x] Enable physics method
-    - [ ] Collides with method
+    - [x] Collides with method
+    - [ ] on(event) // callbacks
 - [ ] World
     - [x] Enable physics method
 - [ ] Scene
@@ -51,7 +53,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
     - [ ] Allow keyframe scenes
     - [ ] Provide scripting objects for completely scripted scenes?
 - [ ] Animation
-    - [ ] Central animation registry in the scene
+    - [ ] Central animation registry in the scene???
     - [x] Callbacks (oncomplete, onstart, onrepeat)
 - [ ] QuadTree
 
@@ -61,6 +63,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
         - [x] Add friction
         - [x] Add max-velocity
         - [x] Add velocity normalization
+        - [ ] Add gravity
         - [ ] Populate touching booleans
         - [ ] Add callbacks for each collision direction
         - [x] Convert to Vectors for holding values

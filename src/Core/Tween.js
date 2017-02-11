@@ -5,7 +5,7 @@
  * @param {Object} ref a reference to the object whose properties should change
  * @param {Object} desired a reference to the desired properties of the object
  * @param {Engine.Tween.EASE_OUT} type the type of easing function to use with this tween
- * @returns Engine.Tween
+ * @returns {Engine.Tween} instance
  */
 Engine.Tween = class Tween{
 

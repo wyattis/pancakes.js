@@ -2,7 +2,7 @@
 /**
  * Custom event registrar. Handles registering and dispatching custom events.
  * @constructor
- * @returns Engine.Reactor
+ * @returns {Engine.Reactor} instance
  */
 Engine.Reactor = class Reactor{
 

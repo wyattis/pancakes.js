@@ -6,7 +6,7 @@
  * @param {float} y the initial y position of the body in pixels
  * @param {float} vx the initial x velocity of the body in units per second
  * @param {float} vy the initial y velocity of the body in units pixels per second
- * @returns Engine.Body
+ * @returns {Engine.Body} instance
  */
 Engine.Body = class Body{
 

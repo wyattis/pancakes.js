@@ -6,7 +6,7 @@
  * @param {integer} tileWidth the width of each tile in pixels
  * @param {integer} tileHeight the height of each tile in pixels
  * @param {integer} tilePadding the padding between each tile in pixels
- * @returns Engine.Body
+ * @returns {Engine.Body} instance
  */
 Engine.Spritesheet = class Spritesheet {
 

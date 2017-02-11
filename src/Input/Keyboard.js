@@ -2,7 +2,7 @@
 /**
  * Abstraction of a Keyboard. Holds keycode information and holdes the state of each key for easy access
  * @constructor
- * @returns Engine.Keyboard
+ * @returns {Engine.Keyboard} instance
  */
 Engine.Keyboard = class Keyboard{
 

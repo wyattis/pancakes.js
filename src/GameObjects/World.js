@@ -5,7 +5,7 @@
  * @param {object} scene reference to the parent scene
  * @param {integer} width The width of the world in number of pixels
  * @param {integer} height The height of the world in number of pixels
- * @returns Engine.World
+ * @returns {Engine.World} instance
  */
 Engine.World = class World{
 
