@@ -1,4 +1,11 @@
 /*global Engine*/
+/**
+ * Handles all physics for a world.
+ * @constructor
+ * @param {Engine.World} world reference to the parent world
+ * @param {object} opts any specific physics options
+ * @returns {Engine.Physics} instance
+ */
 Engine.Physics = class Physics{
 
     constructor(world, options){
@@ -9,18 +16,23 @@ Engine.Physics = class Physics{
         };
         Object.assign(this.options, options);
 
-        this.collisionMemo = new Map();
+
+        // Private Map for memoization when checking collisions. Just used to avoid
+        // instantiating a new Map for each tick.
+        this._collisionMemo = new Map();
         this.bodies = [];
+
         this.tree = new Engine.QuadTree();
 
     }
+
 
     /**
      * Clear all bodies from physics
      */
     clear(){
 
-        this.collisionMemo.clear();
+        this._collisionMemo.clear();
         this.bodies = [];
         this.tree.clear();
 
@@ -32,7 +44,7 @@ Engine.Physics = class Physics{
      */
     add(bodies){
 
-        if (bodies instanceof Engine.Body){
+        if (bodies.pos && bodies.vel){
 
             this.bodies.push(bodies);
 
@@ -50,7 +62,7 @@ Engine.Physics = class Physics{
     tick(delta){
 
         // Clear the memo at the beginning of each tick
-        this.collisionMemo.clear();
+        this._collisionMemo.clear();
 
         // First update the physics bodies
         let i = this.bodies.length;
@@ -80,31 +92,76 @@ Engine.Physics = class Physics{
 
         // Check each body for collision
         // TODO: use a quadtree for this update
-        for(let leftIndex=0; leftIndex<this.bodies.length - 1; leftIndex++){
 
-            for(let rightIndex=leftIndex+1; rightIndex<this.bodies.length; rightIndex++){
+        // for(let leftIndex=0; leftIndex<this.bodies.length - 1; leftIndex++){
 
-                if(this.bodies[leftIndex] === this.bodies[rightIndex] ||
-                    this.collisionMemo.get(this.bodies[leftIndex]) === this.bodies[rightIndex] ||
-                    !this.bodies[leftIndex].enabled || !this.bodies[rightIndex].enabled){
+        //     for(let rightIndex=leftIndex+1; rightIndex<this.bodies.length; rightIndex++){
 
-                    // These bodies have already collided
-                    continue;
+        //         if(this.bodies[leftIndex] === this.bodies[rightIndex] ||
+        //             this._collisionMemo.get(this.bodies[leftIndex]) === this.bodies[rightIndex] ||
+        //             !this.bodies[leftIndex].enabled || !this.bodies[rightIndex].enabled){
+
+        //             // These bodies have already collided
+        //             continue;
+
+        //         }
+        //         else if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
+
+        //             // Check for intersect of these two bodies
+        //             this._collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);    // Record this collision so we don't repeat calculations
+        //             Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
+
+        //         }
+
+        //     }
+
+        // }
+
+
+        let rightIndex = this.bodies.length;
+        let leftIndex = 0;
+        // console.time('collisionCheck');
+        while(rightIndex--){
+
+            leftIndex = 0;
+            while(leftIndex < rightIndex){
+
+                // console.log(leftIndex, rightIndex);
+                if(this.bodies[leftIndex] !== this.bodies[rightIndex] &&
+                    (this.bodies[leftIndex].enabled && this.bodies[rightIndex].enabled)){
+                    // Don't collide with yourself and make sure they are enabled
+
+                    // console.log('body is not itself and both bodies are enabled');
+
+                    if(this.bodies[leftIndex]._collisionBodies.has(this.bodies[rightIndex]) ||
+                        this.bodies[rightIndex]._collisionBodies.has(this.bodies[leftIndex])){
+
+
+                        if(this._collisionMemo.get(this.bodies[leftIndex]) !== this.bodies[rightIndex] ||
+                            this._collisionMemo.get(this.bodies[rightIndex]) !== this.bodies[leftIndex]){
+
+                            // console.log('Can collide');
+                            if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
+                                // TODO: doesn't this form of memoization limit me to one collision per body per update???
+                                this._collisionMemo.set(this.bodies[leftIndex], this.bodies[rightIndex]);
+                                this._collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);
+                                // console.log(leftIndex, rightIndex)
+
+                                Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);
+                            }
+
+                        }
+
+                    }
 
                 }
-                else if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
 
-                    // Check for intersect of these two bodies
-                    this.collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);    // Record this collision so we don't repeat calculations
-                    Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
-
-                }
-
-
+                leftIndex ++;
 
             }
 
         }
+        // console.timeEnd('collisionCheck');
 
     }
 

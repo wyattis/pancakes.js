@@ -1,4 +1,13 @@
 /*global Engine*/
+/**
+ * Describes a physics body
+ * @constructor
+ * @param {float} x the initial x position of the body in pixels
+ * @param {float} y the initial y position of the body in pixels
+ * @param {float} vx the initial x velocity of the body in units per second
+ * @param {float} vy the initial y velocity of the body in units pixels per second
+ * @returns {Engine.Body} instance
+ */
 Engine.Body = class Body{
 
     constructor(x, y, vx, vy){
@@ -19,6 +28,8 @@ Engine.Body = class Body{
         this.alpha = 0;                         // angular acceleration of the body
 
 
+        this._collisionBodies = new Set();      // Holds the bodies that this body collides with
+
         if(vx || vy)
             this.setVel(vx, vy);
 
@@ -27,6 +38,63 @@ Engine.Body = class Body{
 
         // Private values
         this._vel_tol = 1e-2; // The tolerance at which to call a velocity 0
+
+    }
+
+
+    /**
+     * Specify another body that this body collides with. This uses duck typing
+     * to determine if the object/array passed in is valid.
+     */
+    collidesWith(whatWeAreCollidingWith){
+
+        if(!whatWeAreCollidingWith)
+            throw Error('collidesWith must have an argument that is a Body, Sprite, Array or Group');
+
+
+        // This if/else block is used to coerce any of the supported types into a
+        // single body that can be added to the private _collisionBodies Set().
+        // This results in recursive calls for Groups and Arrays that are passed
+        // into this method.
+        if(whatWeAreCollidingWith.pos && whatWeAreCollidingWith.vel){
+            // We have a Body object
+
+            if(whatWeAreCollidingWith !== this)
+                this._collisionBodies.add(whatWeAreCollidingWith);
+
+        }
+        else if(whatWeAreCollidingWith.body && whatWeAreCollidingWith.body.pos && whatWeAreCollidingWith.body.vel){
+            // We have a Sprite instance
+
+            if(whatWeAreCollidingWith.body !== this)
+                this._collisionBodies.add(whatWeAreCollidingWith.body);
+
+        }
+        else if(Array.isArray(whatWeAreCollidingWith.members)){
+            // We have a Group object
+
+            let i=whatWeAreCollidingWith.members.length;
+            while(i--){
+                this.collidesWith(whatWeAreCollidingWith.members[i]);
+            }
+
+        }
+        else if(Array.isArray(whatWeAreCollidingWith)){
+            // We have an Array
+
+            let i=whatWeAreCollidingWith.length;
+            while(i--){
+                this.collidesWith(whatWeAreCollidingWith[i]);
+            }
+
+        }
+        else{
+            // We don't have any of the supported types
+
+            throw Error('collidesWith must be passed a Body, Sprite, Array or Group');
+
+        }
+
 
     }
 

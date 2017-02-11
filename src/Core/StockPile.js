@@ -1,4 +1,9 @@
 /*global Engine*/
+/**
+ * Describes a simple memory cache for resources
+ * @constructor
+ * @returns {Engine.StockPile} instance
+ */
 Engine.StockPile = class StockPile{
 
 	constructor(){

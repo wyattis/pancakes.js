@@ -77,9 +77,16 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
         for(let config of $scope.settings.configs){
 
             let body = new Engine.Body(config.x || 0, config.y || 0, config.vx || 0, config.vy || 0);
+            body.enabled = true;
             body.maxSpeed = config.maxSpeed || 0;
             body.addShape(new Engine.Rectangle(config.x || 0, config.y || 0, config.width || 100, config.height || 100));
             physics.add(body);
+
+        }
+
+        for(let body of physics.bodies){
+
+            body.collidesWith(physics.bodies);
 
         }
 

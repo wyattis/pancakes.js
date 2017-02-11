@@ -1,4 +1,11 @@
 /*global Engine*/
+/**
+ * Describes a 2D vector with x and y points
+ * @constructor
+ * @param {float} x the x dimension of the vector
+ * @param {float} y the y dimension of the vector
+ * @returns {Engine.Vector} instance
+ */
 Engine.Vector = class Vector{
 
     constructor(x, y){

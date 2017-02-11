@@ -2,6 +2,34 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
+const gulpDocumentation = require('gulp-documentation');
+
+
+gulp.task('minify-js', () => {
+
+    return gulp.src('src/**/*.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(uglify())
+        .pipe(concat('pancakes.min.js'))
+        .pipe(gulp.dest('build'));
+
+});
+
+
+gulp.task('es5-js', () => {
+
+    return gulp.src('src/**/*.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(concat('pancakes.es5.js'))
+        .pipe(gulp.dest('build'));
+
+});
 
 gulp.task('js', ()=>{
 
@@ -14,7 +42,7 @@ gulp.task('js', ()=>{
 });
 
 
-gulp.task('build-full', ['build'], ()=>{
+gulp.task('build-test', ['build'], ()=>{
 
     return gulp.src(['tests/strict.js', 'build/pancakes.js', 'tests/export.js'])
         .pipe(concat('pancakes.test.js'))
@@ -22,11 +50,29 @@ gulp.task('build-full', ['build'], ()=>{
 
 });
 
+
+gulp.task('docs', ['build'], ()=>{
+
+    return gulp.src('src/**/*.js')
+        .pipe(gulpDocumentation('html', {}, require('./package')))
+        .pipe(gulp.dest('docs'));
+
+});
+
+
 gulp.task('build', ['js']);
+
+gulp.task('build-full', ['build-test', 'es5-js', 'minify-js']);
+
+gulp.task('watch-full', ()=>{
+
+    gulp.watch('src/**/*.js', ['build-test', 'build-full']);
+
+});
 
 gulp.task('watch', ()=>{
 
-    gulp.watch('src/**/*.js', ['build-full']);
+    gulp.watch('src/**/*.js', ['build-test']);
 
 });
 

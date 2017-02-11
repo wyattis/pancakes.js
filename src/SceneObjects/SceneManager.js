@@ -1,4 +1,10 @@
 /*global Engine*/
+/**
+ * Used to add/remove/change/play/pause scenes
+ * @constructor
+ * @param {Engine.Game} game reference to the parent game
+ * @returns {Engine.SceneManager} manager
+ */
 Engine.SceneManager = class SceneManager{
 
     constructor(game){

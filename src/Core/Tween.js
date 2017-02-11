@@ -1,4 +1,12 @@
 /*global Engine*/
+/**
+ * Describes a Tween object that can be used to change properties of an object using different easing functions
+ * @constructor
+ * @param {Object} ref a reference to the object whose properties should change
+ * @param {Object} desired a reference to the desired properties of the object
+ * @param {Engine.Tween.EASE_OUT} type the type of easing function to use with this tween
+ * @returns {Engine.Tween} instance
+ */
 Engine.Tween = class Tween{
 
     constructor(ref, desired, type){

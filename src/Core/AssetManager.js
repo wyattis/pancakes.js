@@ -1,4 +1,10 @@
 /*global Engine*/
+/**
+ * Describes a tool for loading remote assets like images, audio, video and text bases resources.
+ * @constructor
+ * @param {Engine.StockPile} cache the cache to use to store the loaded resources
+ * @returns {Engine.AssetManager} instance
+ */
 Engine.AssetManager = class AssetManager{
 
 	constructor(cache){

@@ -1,5 +1,7 @@
 /*global Engine*/
-"use strict";
+/**
+ * Holds the static logic for newtonian collision calculations
+ */
 Engine.Collision = class Collision{
 
 

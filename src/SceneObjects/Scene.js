@@ -1,4 +1,11 @@
 /*global Engine*/
+/**
+ * Describes a Scene. Currently only supports programmed games but will support videos and scripted scenes as well.
+ * @constructor
+ * @param {Engine.Game} game reference to the parent game
+ * @param {object} opts any scene specific options
+ * @returns {Engine.Scene} instance
+ */
 Engine.Scene = class Scene{
 
     constructor(game, opts){
@@ -18,8 +25,8 @@ Engine.Scene = class Scene{
         };
         Object.assign(this.opts, opts);
 
-        this.sprites = [];  // Reference to all the sprites in the screen
-        this.layers = new Map();
+        this.animations = [];       // Reference to all of the animations that live within this scene
+        this.layers = new Map();    // Reference to all of the layers within this scene
 
         this.initCB = opts.init;
         this.updateCB = opts.update;
@@ -27,14 +34,14 @@ Engine.Scene = class Scene{
         this.loadProgressCB = opts.loadProgress;
 
         // Create layer factory and default layer
-        this.new = new Engine.LayerFactory(this, this.opts);
-        this.new.layer('default');
+        this.new = new Engine.LayerFactory(this);
+        this.new.layer('default', {zIndex: 1000});
 
         // Create the world for this scene
         this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
 
         // Create object factor instance for API convenience
-        this.add = new Engine.ObjectFactory(this.world, this.layers.get('default'), Engine.cache);
+        this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
 
         // Camera for the scene
         this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
@@ -85,6 +92,11 @@ Engine.Scene = class Scene{
 
         if(this.opts.useMouse)
             this.game.input.startMouse();
+
+        // Do any layer specific setup
+        for(let layer of this.layers){
+            layer[1].init();
+        }
 
         if(this.initCB) this.initCB();
 

@@ -1,4 +1,12 @@
 /*global Engine*/
+/**
+ * Describes a container for all of the game objects in a Scene.
+ * @constructor
+ * @param {object} scene reference to the parent scene
+ * @param {integer} width The width of the world in number of pixels
+ * @param {integer} height The height of the world in number of pixels
+ * @returns {Engine.World} instance
+ */
 Engine.World = class World{
 
     constructor(scene, width, height){
@@ -19,7 +27,8 @@ Engine.World = class World{
 
 
     /**
-     * Update all of the objects in the world :)
+     * Update all of the objects in this world comtainer :)
+     * @param {integer} delta The number of milliseconds that have passed since the last update
      */
     update(delta){
 
@@ -42,6 +51,7 @@ Engine.World = class World{
 
     /**
      * Enable the physics for this world
+     * @param {object} opts Any options for the physics engine
      */
     enablePhysics(opts){
 
