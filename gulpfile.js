@@ -4,6 +4,7 @@ const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
+const gulpDocumentation = require('gulp-documentation');
 
 
 gulp.task('minify-js', () => {
@@ -48,6 +49,16 @@ gulp.task('build-test', ['build'], ()=>{
         .pipe(gulp.dest('build'));
 
 });
+
+
+gulp.task('docs', ['build'], ()=>{
+
+    return gulp.src('src/**/*.js')
+        .pipe(gulpDocumentation('html', {}, require('./package')))
+        .pipe(gulp.dest('docs'));
+
+});
+
 
 gulp.task('build', ['js']);
 

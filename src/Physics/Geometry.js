@@ -1,4 +1,7 @@
 /*global Engine*/
+/**
+ * Holds the static logic for checking intersections
+ */
 Engine.Geometry = class{
 
     static intersects(a, b){

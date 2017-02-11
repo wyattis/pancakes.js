@@ -1,4 +1,11 @@
 /*global Engine*/
+/**
+ * Describes a single sprite based animation
+ * @constructor
+ * @param {Engine.Sprite|Object} parent the parent object that the animation has been assigned to. Usually an instance of Engine.Sprite.
+ * @param {Engine.Spritesheet} spritesheet reference to the spritesheet used by this animation
+ * @returns Engine.Animation
+ */
 Engine.Animation = class Animation {
 
     constructor(parent, spritesheet, frames, animationTime, options) {

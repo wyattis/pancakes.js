@@ -1,4 +1,13 @@
 /*global Engine*/
+/**
+ * Describes a Sprite. Sprites can have animations, physics bodies, etc. TODO
+ * @constructor
+ * @param {Engine.Scene} scene reference to the parent scene
+ * @param {Engine.World} world reference to the parent world
+ * @param {float} x the initial x position of the body in pixels
+ * @param {float} y the initial y position of the body in pixels
+ * @returns Engine.Sprite
+ */
 Engine.Sprite = class Sprite{
 
 	constructor(scene, world, x, y){

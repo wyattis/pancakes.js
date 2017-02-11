@@ -1,4 +1,14 @@
 /*global Engine*/
+/**
+ * Describes the where/how the current world should be displayed
+ * @constructor
+ * @param {Engine.World} world reference to the world the camera is associated with
+ * @param {float} x the initial x position of the camera
+ * @param {float} y the initial y position of the camera
+ * @param {float} width the initial width of the camera
+ * @param {float} height the initial height of the camera
+ * @returns Engine.Camera
+ */
 Engine.Camera = class Camera{
 
     constructor(world, x, y, width, height){
@@ -10,6 +20,9 @@ Engine.Camera = class Camera{
 
         this.desiredPos = new Engine.Tween(this.pos, this.pos);
         this.desiredPos.roundToPixel = true;
+
+        // TODO: How to handle when the camera size is larger than the world?
+        //       Could center world in the camera or just not move the camera?
 
         // Set the bounds for the camera
         this.bounds = {
@@ -58,6 +71,12 @@ Engine.Camera = class Camera{
     update(delta){
 
         // TODO: make the camera frame and follow multiple bodies. Right now it will only follow the first one added.
+
+
+        // TODO: handle apparent shakiness of followed character when tween is maxed out.
+        //       Could potentially have a max rectangle that the camera keeps the
+        //       character within? Or maybe match the camera velocity with the
+        //       velocity of the character?
 
         if(this.followBodies.length){
 

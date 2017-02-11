@@ -1,4 +1,9 @@
 /*global Engine*/
+/**
+ * Custom event registrar. Handles registering and dispatching custom events.
+ * @constructor
+ * @returns Engine.Reactor
+ */
 Engine.Reactor = class Reactor{
 
     constructor(){

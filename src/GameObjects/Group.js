@@ -1,4 +1,10 @@
 /*global Engine*/
+/**
+ * Describes a collection of sprites to perform bulk operations on
+ * @constructor
+ * @param {array} arr any sprites to add to the Group initially
+ * @returns Engine.Group
+ */
 Engine.Group = class Group{
 
     // TODO: Allow for sprites to be grouped together for rendering, updating, physics, etc.

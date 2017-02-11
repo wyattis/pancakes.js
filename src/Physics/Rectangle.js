@@ -1,4 +1,13 @@
 /*global Engine*/
+/**
+ * Abstraction of a rectangle
+ * @constructor
+ * @param {float} x the x position of the top left corner of a rectangle
+ * @param {float} y the y position of the top left corner of a rectangle
+ * @param {float} width the width of a rectangle
+ * @param {float} height the height of a rectangle
+ * @returns Engine.Rectangle
+ */
 Engine.Rectangle = class Rectangle{
 
     constructor(x, y, width, height){

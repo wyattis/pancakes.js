@@ -1,4 +1,11 @@
 /*global Engine*/
+/**
+ * Handles all physics for a world.
+ * @constructor
+ * @param {Engine.World} world reference to the parent world
+ * @param {object} opts any specific physics options
+ * @returns Engine.Physics
+ */
 Engine.Physics = class Physics{
 
     constructor(world, options){

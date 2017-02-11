@@ -4,6 +4,10 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
 
 
 # TODO
+## Tasks
+- [x] Configure documentation generation
+- [ ] Document all existing Classes and methods
+
 ## Dev Env
 - [x] Add babel conversion to es5
 - [x] Add minification

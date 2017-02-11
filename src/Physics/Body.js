@@ -1,4 +1,13 @@
 /*global Engine*/
+/**
+ * Describes a physics body
+ * @constructor
+ * @param {float} x the initial x position of the body in pixels
+ * @param {float} y the initial y position of the body in pixels
+ * @param {float} vx the initial x velocity of the body in units per second
+ * @param {float} vy the initial y velocity of the body in units pixels per second
+ * @returns Engine.Body
+ */
 Engine.Body = class Body{
 
     constructor(x, y, vx, vy){

@@ -1,4 +1,10 @@
 /*global Engine*/
+/**
+ * Abstraction of a render layer. Each layer has its own canvas that is layered on top of the other canvases.
+ * @constructor
+ * @param {Engine.Scene} scene Reference to the parent Engine.Scene
+ * @param {object} opts Options used when creating this Layer
+ */
 Engine.Layer = class Layer{
 
     constructor(scene, opts){
@@ -24,6 +30,7 @@ Engine.Layer = class Layer{
 
     /**
      * Set the context used to draw this layer.
+     * @param {Canvas.Context} ctx Canvas rendering context
      */
     setCtx(ctx){
 

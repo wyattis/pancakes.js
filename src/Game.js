@@ -1,4 +1,11 @@
 /*global Engine*/
+/**
+ * Creates a Game object.
+ * @constructor
+ * @param {Engine} engine a reference to the Engine
+ * @param {Object} [opts] any engine specific options
+ * @returns {Engine.Game} returns a Game object with a reference to the Engine
+ */
 Engine.Game = class Game{
 
     constructor(engine, opts){
@@ -26,6 +33,8 @@ Engine.Game = class Game{
     /**
      * Handles the finding or creation of the container DOM element. Essential
      * for handling input and supporting multiple layers.
+     * @param {DOMelement|id} [container] Allows a user to specify where in the DOM they want the container.
+     * @protected
      */
     _createContainer(container){
 
@@ -53,7 +62,9 @@ Engine.Game = class Game{
 
 
     /**
-     * The main game loop
+     * The main game loop. Has the logic for looping. TODO: improve this.
+     * @param {function} update Function containing the update logic
+     * @param {function} render Function containing the render logic
      */
     loop(update, render){
 
