@@ -53,9 +53,13 @@ gulp.task('build-test', ['build'], ()=>{
 
 gulp.task('docs', ['build'], ()=>{
 
-    return gulp.src('src/**/*.js')
+    gulp.src('src/**/*.js')
         .pipe(gulpDocumentation('html', {}, require('./package')))
-        .pipe(gulp.dest('docs'));
+        .pipe(gulp.dest('docs/public'));
+
+    // gulp.src('src/**/*.js')
+    //     .pipe(gulpDocumentation('html', {access: ['private'], sortOrder: 'alpha'}, require('./package')))
+    //     .pipe(gulp.dest('docs/private'));
 
 });
 

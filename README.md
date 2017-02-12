@@ -15,6 +15,9 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
 - [x] Add gulp
 
 ## Engine
+- [ ] Layer
+    - [ ] Check for differences in the layer before rendering for "static" layers
+    - [ ] Check if sprites are within the viewport before rendering
 - [ ] Vector
     - [x] Normalize
     - [x] Magnitude
@@ -49,6 +52,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
     - [x] Enable physics method
 - [ ] Scene
     - [x] Add World
+    - [ ] Force manual creation of all layers or have option to not create default layer???
     - [ ] Allow video scenes
     - [ ] Allow keyframe scenes
     - [ ] Provide scripting objects for completely scripted scenes?
@@ -63,7 +67,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
         - [x] Add friction
         - [x] Add max-velocity
         - [x] Add velocity normalization
-        - [ ] Add gravity
+        - [x] Add gravity
         - [ ] Populate touching booleans
         - [ ] Add callbacks for each collision direction
         - [x] Convert to Vectors for holding values
