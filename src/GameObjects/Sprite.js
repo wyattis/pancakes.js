@@ -12,7 +12,7 @@ Engine.Sprite = class Sprite{
 
 	constructor(scene, world, x, y){
 
-		// TODO: how to handle rendering shapes, images, or animations?
+		// TODO: how to handle rendering shapes, images, tiles, or animations?
 		// TODO: how should we add audio effects to a sprite?
 
 		this.scene = scene;
@@ -32,22 +32,77 @@ Engine.Sprite = class Sprite{
 
 
 	/**
-	 * Enable physics for this Sprite
+	 * Enable physics for this Sprite. Takes care of adding the body to the sprite.
+	 * @param {object} opts
+	 * @param {float} [opts.mass=100] - The mass to use when bodies collide.
+	 *		Not sure how this number equates to real world mass.
+	 * @param {float} [opts.normalizedMaxSpeed=0] - The maximum, normalized
+	 *		speed of this body. If this value is 0 then the speed unlimited.
+	 * @param {Engine.Vector} [opts.maxSpeed={}] - Direction based max speed
+	 *		for the body.
+	 * @param {Engine.Vector} [opts.friction={}] - Friction to apply to
+	 *		the body.
+	 * @param {Engine.Vector} [opts.gravity={}] - Supplying a Vector will
+	 *		make gravity be applied for the given body.
+	 * @param {boolean} [opts.clamped=false] - If true the Body will be clamped
+	 *		within the bounds of the world.
+	 * @param {boolean} [opts.fixed=false] - If true the Body will not be
+	 *		affected by collisions it is a part of.
+	 * @param {boolean} [opts.enabled=true] - If false then collisions won't
+	 *		happen with this body. This can be changed while the game is running
+	 *		by changing the sprite.body.enabled property.
+	 *
+	 * @param {undefined|string|Engine.Rectangle} [shape] This allows you to set
+	 *		your own geometry for this sprite. If left empty it will assume the
+	 *		shape is a rectangle the size of the image, tile or animation
+	 *		assigned to it.
 	 */
-	enablePhysics(shape){
+	enablePhysics(opts, shape){
 
+		// TODO: add shape based on image, tile or animation if shape is not
+		//		 supplied.
+
+		if(shape){
+			// Do nothing
+		}
+		else if(this.currentAnimation){
+
+			shape =	new Engine.Rectangle(this.body.pos.x, this.body.pos.y, this.currentAnimation.width, this.currentAnimation.height);
+
+		}
+		else if(this.image){
+
+			debugger;
+			shape = new Engine.Rectangle(this.body.pos.x, this.body.pos.y, this.image.width, this.image.height);
+
+		}
+		else if(this.tile){
+
+			console.error('Tiles not supported on Sprites yet');
+			debugger;
+
+		}
+
+
+		// Add whatever shape we decided on
 		this.body.addShape(shape);
+
+		// Add the supplied options to the physics body
+		if(opts)
+			Object.assign(this.body, opts);
+
 		this.world.physics.add(this.body);
 
 	}
 
 
 	/**
-	 * Specify the group or member that this sprite collides with.
+	 * Specify the group, array, sprite or body that this sprite body should collide with. Essentially an alias for Engine.Body.collidesWith.
+	 * @param {Array|Engine.Group|Engine.Body|Engine.Sprite} what - The game object(s) this sprite should collide with.
 	 */
-	collidesWith(who){
+	collidesWith(what){
 
-		// TODO:
+		this.body.collidesWith(what);
 
 	}
 
@@ -55,6 +110,7 @@ Engine.Sprite = class Sprite{
 	/**
 	 * Sprite update method for updating relevant
 	 * animations
+	 * @private
 	 */
 	update(delta){
 
@@ -67,6 +123,7 @@ Engine.Sprite = class Sprite{
 
 	/**
 	 * Render the given sprite
+	 * @private
 	 */
 	render(ctx, delta){
 
@@ -117,6 +174,7 @@ Engine.Sprite = class Sprite{
 	/**
 	 * Let the screen/layer know that this sprite has changed and needs to be
 	 * rendered again.
+	 * @private
 	 */
 	queForRender(){
 
