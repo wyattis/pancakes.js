@@ -40,4 +40,18 @@ Engine.SpriteFactory = class SpriteFactory{
 
     }
 
+
+
+    /**
+     * Add a single tile from a spritesheet to the Sprite
+     * @param {string} spritesheetName The key for the spritesheet
+     * @param {int} tileIndex The index of the tile in the spritesheet
+     */
+    tile(spritesheetName, tileIndex){
+
+        //TODO: How should we handle single tiles?
+
+
+    }
+
 };

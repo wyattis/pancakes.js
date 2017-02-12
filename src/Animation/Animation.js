@@ -42,7 +42,7 @@ Engine.Animation = class Animation {
         this.reactor.register('start');
         this.reactor.register('repeat');
 
-        this.on = this.reactor.on;
+        this.on = this.reactor.on.bind(this.reactor);
     }
 
 
@@ -53,13 +53,14 @@ Engine.Animation = class Animation {
      */
     update(delta) {
 
-        // Dispatch the animation start event
-        this.reactor.dispatch('start');
-
         this.timeSinceLastFrameChange += delta;
 
         // console.log(this.frameTime, this.currentIndex + '/' + this.frames.length, this.timeSinceLastFrameChange, delta);
         if (this.timeSinceLastFrameChange >= this.frameTime) {
+
+            // Dispatch the animation start event
+            if(this.currentIndex === 0)
+                this.reactor.dispatch('start');
 
             // if we are on the last frame then set it to the first frame
             if (this.currentIndex === this.frames.length - 1) {

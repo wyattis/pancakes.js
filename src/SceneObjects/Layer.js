@@ -5,7 +5,7 @@
  * @param {Engine.Scene} scene - Reference to the parent Engine.Scene
  * @param {Object} opts - Options used when creating this Layer
  * @param {integer} [opts.depth=1] - Specifies how much the layer should translate with the camera. Higher depth give the effect of the layer being further away. A depth of 0 indicates the layer should not translate at all. A depth of 1 makes the layer translate an equal amount.
- * @param {boolean} [opts.dynamic=true] - Indicates if the layer should always try to render at 60fps. Setting this to false and making use of multiple layers for primarily static scenes can potentially greatly improve game performance and reduce CPU usage.
+ * @param {boolean} [opts.animated=true] - Indicates if there are any animated or moving sprites in the layer. If this is set to false then the layer will only rerender when changes are made.
  * @param {Integer} [opts.zIndex=0] - Indicate where this layer should render in the z plane.
  */
 Engine.Layer = class Layer{
@@ -13,20 +13,24 @@ Engine.Layer = class Layer{
     constructor(scene, opts){
 
         this.opts = {
-            dynamic: true,
+            animated: true,
             depth: 1,
             zIndex: 0,
         };
 
         Object.assign(this.opts, opts);     // Override default options with user options
 
-        this.scene = scene;
+        this.scene = scene;                 // Reference to the parent scene
         this.ctx;
         this.sprites = [];
         this.groups = [];
         this.add = new Engine.ObjectFactory(this.scene, this.scene.world, this, Engine.cache);
         this.preRenderCB;
         this.postRenderCB;
+
+
+        this._translate = {x: -10000, y: -10000};       // Holds the current translate
+        this._previousTranslate = {x: -1000, y: -1000}; // Holds the previous translate
 
     }
 
@@ -84,49 +88,66 @@ Engine.Layer = class Layer{
      */
     render(delta, translateX, translateY){
 
-        // TODO: dynamically handle different transforms?
+        this._translate.x = Math.round(translateX / this.opts.depth);
+        this._translate.y = Math.round(translateY / this.opts.depth);
 
+        if(this.opts.animated){
+
+            // Render all the time
+            this._redraw(delta);
+
+        }
+        else if(this._translate.x !== this._previousTranslate.x || this._translate.y !== this._previousTranslate.y){
+
+            // We need to only render changes when they happen
+            this._redraw(delta);
+            this._previousTranslate.x = this._translate.x;
+            this._previousTranslate.y = this._translate.y;
+
+        }
+
+    }
+
+
+
+    /**
+     * Actually redraw the canvas. Including the preRender and postRender callbacks
+     */
+    _redraw(delta){
+
+        // Clear the entire canvas
         this.ctx.clearRect(0, 0, this.scene.game.width, this.scene.game.height);
-
         this.ctx.save();
-        if(this.opts.depth)
-            this.ctx.translate(translateX / this.opts.depth, translateY / this.opts.depth);
 
+        // Translate the context if depth is greater than 0
+        if(this.opts.depth)
+            this.ctx.translate(this._translate.x, this._translate.y);
+
+
+        // Call the preRender callback if we have one
         if(this.preRenderCB)
             this.preRenderCB(this.ctx, delta);
 
-        if(this.opts.dynamic){
-            // Always try to render the entire layer at 60fps
 
-            // this.ctx.clearRect(0, 0, this.scene.game.width, this.scene.game.height);
-            let i = this.sprites.length;
-            while(i--){
+        // Render all of the sprites in this layer
+        let i = this.sprites.length;
+        while(i--){
 
-                this.sprites[i].render(this.ctx, delta);
-
-            }
-
-        }
-        else{
-
-            let i = this.sprites.length;
-            // TODO: clear the bounding box before rendering
-            while(i--){
-
-                if(this.sprites[i].needsRendered)
-                    this.sprites[i].render(this.ctx, delta);
-
-            }
+            // TODO: check if the sprite is within the bounds of the camera
+            this.sprites[i].render(this.ctx, delta);
 
         }
 
 
+        // Call the postRender callback if we have one
         if(this.postRenderCB)
             this.postRenderCB(this.ctx, delta);
 
-        this.ctx.restore();
-    }
 
+        // Restore the canvas context
+        this.ctx.restore();
+
+    }
 
 
     /**
