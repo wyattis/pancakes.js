@@ -13,7 +13,7 @@ function init(){
 
     player = new Engine.Body(200, 200);
     player.enabled = true;
-    player.friction = 40;
+    player.friction = new Engine.Vector(40, 40);
     player.maxSpeed = 200;
     player.addShape(new Engine.Rectangle(200, 200, 10, 10));
     physics.add(player);
