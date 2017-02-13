@@ -12,6 +12,7 @@ Engine.Input = class Input{
         // TODO: handle event callbacks for individual keycodes
 
         this.element = element;     // The element to attach events to
+        this.elementRect = element.getBoundingClientRect();
         this.keyboard = undefined;  // Holds keyboard specific logic
         this.reactor = new Engine.Reactor(); // Used to dispatch custom events
 
@@ -30,7 +31,7 @@ Engine.Input = class Input{
      */
     on(eventName, cb, opts){
 
-        this.reactor.addEventListener(eventName, cb, opts);
+        this.reactor.on(eventName, cb, opts);
 
     }
 
@@ -174,9 +175,10 @@ Engine.Input = class Input{
      */
     getMousePosition(event){
 
-        // TODO
-
-
+        return {
+            x: event.clientX - this.elementRect.left,
+            y: event.clientY - this.elementRect.top
+        };
 
     }
 

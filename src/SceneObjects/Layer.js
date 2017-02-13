@@ -15,7 +15,7 @@ Engine.Layer = class Layer{
         this.opts = {
             animated: true,
             depth: 1,
-            zIndex: 0,
+            zIndex: 0
         };
 
         Object.assign(this.opts, opts);     // Override default options with user options
@@ -27,7 +27,6 @@ Engine.Layer = class Layer{
         this.add = new Engine.ObjectFactory(this.scene, this.scene.world, this, Engine.cache);
         this.preRenderCB;
         this.postRenderCB;
-
 
         this._translate = {x: -10000, y: -10000};       // Holds the current translate
         this._previousTranslate = {x: -1000, y: -1000}; // Holds the previous translate

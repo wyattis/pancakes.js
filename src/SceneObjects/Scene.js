@@ -14,15 +14,15 @@ Engine.Scene = class Scene{
         this.cache = game.engine.cache;
         this.load = game.engine.load;
 
-
         this.opts = {
             useKeyboard: true,
             useMouse: true,
             size: {
                 width: 600,
                 height: 400,
-            }
+            },
         };
+
         Object.assign(this.opts, opts);
 
         this.animations = [];       // Reference to all of the animations that live within this scene
@@ -35,13 +35,26 @@ Engine.Scene = class Scene{
 
         // Create layer factory and default layer
         this.new = new Engine.LayerFactory(this);
-        this.new.layer('default', {zIndex: 1000});
+
+        if(this.opts.type === 'gui'){
+            this.new.guiLayer('default', {zIndex: 1000});
+        }
+        else{
+            this.new.layer('default', {zIndex: 1000});
+        }
+
 
         // Create the world for this scene
         this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
 
-        // Create object factor instance for API convenience
-        this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
+        // Create object factory instance for API convenience
+        if(this.opts.type === 'gui'){
+            this.add = new Engine.GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
+        }
+        else{
+            this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
+        }
+
 
         // Camera for the scene
         this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
@@ -92,6 +105,7 @@ Engine.Scene = class Scene{
 
         if(this.opts.useMouse)
             this.game.input.startMouse();
+
 
         // Do any layer specific setup
         for(let layer of this.layers){

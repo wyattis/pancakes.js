@@ -15,9 +15,17 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
 - [x] Add gulp
 
 ## Engine
+- [ ] GUILayer
+    - [ ] Have update method to update button positions
 - [ ] Layer
+    - [ ] Allow for GUI layers
     - [ ] Check for differences in the layer before rendering for "static" layers
     - [ ] Check if sprites are within the viewport before rendering
+- [ ] Button
+    - [ ] Update default styles of buttons to make them prettier
+    - [ ] Allow for custom button styles
+    - [ ] Allow for dynamic positioning of button
+    - [ ] Add update method to change positions if necessary
 - [ ] Vector
     - [x] Normalize
     - [x] Magnitude
@@ -56,6 +64,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
     - [ ] Allow video scenes
     - [ ] Allow keyframe scenes
     - [ ] Provide scripting objects for completely scripted scenes?
+    - [ ] Allow for GUI based menu scenes
 - [ ] Animation
     - [ ] Central animation registry in the scene???
     - [x] Callbacks (oncomplete, onstart, onrepeat)
