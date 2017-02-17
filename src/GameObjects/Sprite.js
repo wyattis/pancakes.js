@@ -130,11 +130,17 @@ Engine.Sprite = class Sprite{
 
 		if(this.currentAnimation){
 			// (0.5 + num) << 0 is a bitwise shift to perform rounding
-			this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+
+			let rInfo = this.currentAnimation.getRenderInfo();
+			// this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+
+			// _width and _height include any scaling associated with the body
+			ctx.drawImage(rInfo.texture, rInfo.sx, rInfo.sy, rInfo.tileWidth, rInfo.tileHeight, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.body.shape._width, this.body.shape._height);
+
 		}
 		else if(this.image){
 
-			ctx.drawImage(this.image, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
+			ctx.drawImage(this.image, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.body.shape._width, this.body.shape._height);
 
 		}
 		this.needsRendered = false;

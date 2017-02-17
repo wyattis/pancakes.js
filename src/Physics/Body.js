@@ -16,19 +16,22 @@ Engine.Body = class Body{
         this.fixed = false;                         // static body not affected by physics
         this.clamped = false;                       // there is a clamp on the bounds of pos?
         this.bouncy = false;                        // should the body bounce when it collides with the world bounds?
+        this.dynamicScale = false;                  // indicates if the width of the shape needs recalculated with each update
         this.mass = 100;                            // mass of the body
         this.maxSpeed = 0;                          // the normalized maximum speed of the body
         this.friction = Object.create(null, {});    // friction of the body
         this.maxSpeed = Object.create(null, {});    // maximum speed of the body after normalization
         this.gravity = Object(null, {});            // vector representing the gravity on this body
 
-        this.pos = new Engine.Vector(0, 0);     // position of the body
-        this.lastPos = new Engine.Vector(0, 0); // last position of the body
-        this.vel = new Engine.Vector(0, 0);     // velocity of the body
-        this.acc = new Engine.Vector(0, 0);     // acceleration of the body
-        this.angle = 0;                         // angle of the body
-        this.omega = 0;                         // angular rotation of the body
-        this.alpha = 0;                         // angular acceleration of the body
+        this.scale = new Engine.Vector(1, 1);       // the x and y scale of the body
+        this.pos = new Engine.Vector(0, 0);         // position of the body
+        this.lastPos = new Engine.Vector(0, 0);     // last position of the body
+        this.vel = new Engine.Vector(0, 0);         // velocity of the body
+        this.acc = new Engine.Vector(0, 0);         // acceleration of the body
+        this.angle = 0;                             // angle of the body
+        this.omega = 0;                             // angular rotation of the body
+        this.alpha = 0;                             // angular acceleration of the body
+
 
 
         this._collisionBodies = new Set();      // Holds the bodies that this body collides with
@@ -108,6 +111,21 @@ Engine.Body = class Body{
     addShape(shape){
 
         this.shape = shape;
+        this._calculateSize();
+
+    }
+
+
+    /**
+     * Recalculate the shape size based on the scale
+     * @private
+     */
+    _calculateSize(){
+
+        this.shape._width = this.shape.width * this.scale.x;
+        this.shape._height = this.shape.height * this.scale.y;
+
+        console.log('width', this.width, 'height', this.height);
 
     }
 
@@ -249,16 +267,26 @@ Engine.Body = class Body{
 
         }
 
-        // move
+
+        // Add the velocity to the position
         if(this.vel.x || this.vel.y){
             this.pos.x += (this.vel.x * delta) / 400;
             this.pos.y += (this.vel.y * delta) / 400;
             this.shape.setPos(this.pos.x, this.pos.y);
         }
 
+
+        if(this.dynamicScale)
+            this._calculateSize();
+
+
         // TODO: apply rotation acceleration
         // TODO: apply rotation
 
+
+        // Normalize the angle
+        if(this.angle)
+            this.angle = this.angle % Math.PI;
     }
 
 };

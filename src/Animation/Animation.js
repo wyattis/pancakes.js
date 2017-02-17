@@ -120,4 +120,15 @@ Engine.Animation = class Animation {
 
     }
 
+
+
+    /**
+     * Get the spritesheet info for the current frame
+     */
+    getRenderInfo(){
+
+        return this.spritesheet.getRenderInfo(this.frames[this.currentIndex]);
+
+    }
+
 };

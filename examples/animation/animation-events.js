@@ -23,7 +23,7 @@ function init(){
 
 
     // Currently need to enable physics after the animations are added.
-    player.enablePhysics({bouncy: false, clamped: true, gravity: new Engine.Vector(0, 98), friction: new Engine.Vector(100, 20), maxSpeed: new Engine.Vector(110, 0)});
+    player.enablePhysics({bouncy: false, clamped: true, gravity: new Engine.Vector(0, 98), friction: new Engine.Vector(100, 20), maxSpeed: new Engine.Vector(110, 0), dynamicScale: true});
 
     walking.on('start', function(){
 
@@ -39,6 +39,8 @@ function init(){
 
     jumping.on('complete', function(){
 
+        player.body.scale.x = player.body.scale.x === 1 ? 2 : 1;
+        player.body.scale.y = player.body.scale.y === 1 ? 2 : 1;
         player.play.animation('walking');
 
     });
