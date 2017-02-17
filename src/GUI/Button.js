@@ -47,7 +47,7 @@ Engine.Button = class Button{
         });
 
         // Create alias for the event handler
-        this.on = this.reactor.on.bind(this);
+        this.on = this.reactor.on.bind(this.reactor);
 
         this._hasChanged = true;        // Make sure we render right away
 
@@ -63,6 +63,7 @@ Engine.Button = class Button{
         ctx.font = this.opts.font;
         let measurement = ctx.measureText(this.content);
         let height = 48;
+        this.setPos(this.pos.x - this.opts.padding.left, this.pos.y - this.opts.padding.top);
         this.shape.setSize(measurement.width + this.opts.padding.left + this.opts.padding.right, height + this.opts.padding.top + this.opts.padding.bottom);
 
     }
@@ -107,7 +108,7 @@ Engine.Button = class Button{
      */
     clear(ctx){
 
-        // Handle circles as well
+        // TODO: Handle circles as well
         ctx.clearRect(this.shape.x, this.shape.y, this.shape.width, this.shape.height);
 
     }

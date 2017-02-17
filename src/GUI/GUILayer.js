@@ -17,6 +17,8 @@ Engine.GUILayer = class GUILayer{
         this.scene = scene;                 // Reference to the parent scene
         this.ctx;
         this.buttons = [];
+        this.bars = [];
+        this.texts = [];
         this.add = new Engine.GUIFactory(this.scene, this, Engine.cache);
         this.preRenderCB;
         this.postRenderCB;
@@ -166,6 +168,7 @@ Engine.GUILayer = class GUILayer{
 
         if(this._mayHaveChanged){
 
+            // Render buttons
             let i = this.buttons.length;
             while(i--){
 
@@ -173,6 +176,24 @@ Engine.GUILayer = class GUILayer{
                     this.buttons[i].clear(this.ctx);
                     this.buttons[i].render(this.ctx);
                 }
+
+            }
+
+
+            // Render progress bars
+            i = this.bars.length;
+            while(i--){
+
+                this.bars[i].render(this.ctx);
+
+            }
+
+
+            // Render text updates
+            i = this.texts.length;
+            while(i--){
+
+                this.texts[i].render(this.ctx);
 
             }
 

@@ -26,11 +26,36 @@ Engine.GUIFactory = class GUIFactory{
 
 
     /**
+     * Add a progress bar.
+     * @param {float} x - X position of the progressBar
+     * @param {float} y - Y position of the progressBar
+     * @param {object} opts
+     * @param {float} [opts.max=1]- Indicates the maximum value of the progress bar
+     * @param {float} [opts.value] - The current value of the progress bar
+     * @param {reference} [opts.ref] - The object which holds the value you want to associate with this progress bar. Must be used in conjunction with opts.refKey
+     * @param {string} [opts.refKey] - The property name which holds the value we want to "watch"
+     */
+    progressBar(x, y, opts){
+
+        let bar = new Engine.ProgressBar(x, y, opts);
+        this.layer.bars.push(bar);
+        return bar;
+
+    }
+
+
+    /**
      * Add text to the layer.
+     * @param {float} x - X position of the text
+     * @param {float} y - Y position of the text
+     * @param {string} textContent - The contents of the text object
+     * @param {object} opts
      */
     text(x, y, textContent, opts){
 
-        // TODO:
+        let text = new Engine.Text(x, y, textContent, opts);
+        this.layer.texts.push(text);
+        return text;
 
     }
 
