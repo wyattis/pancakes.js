@@ -19,6 +19,13 @@ Engine.Rectangle = class Rectangle{
 
     }
 
+
+    /**
+     * Set the position of the Rectangle and update all of the other properties
+     * related to the position.
+     * @param {float} x - X position
+     * @param {float} y - Y position
+     */
     setPos(x, y){
 
         this.x = x;
@@ -27,6 +34,26 @@ Engine.Rectangle = class Rectangle{
         this.left = x;
         this.right = x + this.width;
         this.bottom = y + this.height;
+        this.centerX = (this.left + this.right) / 2;
+        this.centerY = (this.top + this.bottom) / 2;
+        this.diagSqrd = this.width ^ 2 + this.height ^ 2;
+
+    }
+
+
+
+    /**
+     * Set the size of the Rectangle and update all of the other related
+     * properties.
+     * @param {float} width - Width of the rectangle
+     * @param {float} height - Height of the rectangle
+     */
+    setSize(width, height){
+
+        this.width = width;
+        this.height = height;
+        this.right = this.x + this.width;
+        this.bottom = this.y + this.height;
         this.centerX = (this.left + this.right) / 2;
         this.centerY = (this.top + this.bottom) / 2;
         this.diagSqrd = this.width ^ 2 + this.height ^ 2;

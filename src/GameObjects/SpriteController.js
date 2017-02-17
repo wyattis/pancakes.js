@@ -15,10 +15,11 @@ Engine.SpriteController = class SpriteController{
     /**
      * Play the animation specified.
      * @param {string} name - The name of the animation that was previously created.
+     * @param {boolean} shouldResetCurrent - If this is true then it will restart the current animation if it's the same animation you're trying to play.
      */
-    animation(name){
+    animation(name, shouldResetCurrent){
 
-        if(this.sprite.currentAnimation === this.sprite.animations[name]){
+        if(shouldResetCurrent && this.sprite.currentAnimation === this.sprite.animations[name]){
 
             this.sprite.currentAnimation.reset();
 

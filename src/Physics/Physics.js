@@ -29,6 +29,7 @@ Engine.Physics = class Physics{
 
     /**
      * Clear all bodies from physics
+     * @private
      */
     clear(){
 
@@ -59,6 +60,10 @@ Engine.Physics = class Physics{
     }
 
 
+    /**
+     * The physics logic
+     * @private
+     */
     tick(delta){
 
         // Clear the memo at the beginning of each tick
@@ -75,12 +80,22 @@ Engine.Physics = class Physics{
                 // Reverse velocities if we've hit the sides
                 if(this.bodies[i].pos.x + this.bodies[i].shape.width > this.world.width || this.bodies[i].pos.x < 0){
 
-                    this.bodies[i].vel.x = -this.bodies[i].vel.x;
+                    if(this.bodies[i].bouncy)
+                        this.bodies[i].vel.x = -this.bodies[i].vel.x;
+                    else
+                        this.bodies[i].vel.x = 0;
+
+                    this.bodies[i].acc.x = 0;
 
                 }
                 if(this.bodies[i].pos.y + this.bodies[i].shape.height > this.world.height || this.bodies[i].pos.y < 0){
 
-                    this.bodies[i].vel.y = -this.bodies[i].vel.y;
+                    if(this.bodies[i].bouncy)
+                        this.bodies[i].vel.y = -this.bodies[i].vel.y;
+                    else
+                        this.bodies[i].vel.y = 0;
+
+                    this.bodies[i].acc.y = 0;
 
                 }
 

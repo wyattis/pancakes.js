@@ -18,11 +18,9 @@ function init(){
     scene.add.spritesheet('characters', 'characterImage', 32, 32);
 
     char = scene.add.sprite(0, 0);
-    char.enablePhysics(new Engine.Rectangle(0, 0, 32, 32));
-    char.body.clamped = true;
-    char.body.maxSpeed = 500;
     char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
 
+    char.enablePhysics({clamped: true, maxSpeed: 500});
     scene.camera.follow(char);
 }
 

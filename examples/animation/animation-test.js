@@ -23,11 +23,11 @@
         let dx = 32;
         let dy = 32;
 
-        let num = 15;
+        let num = 20;
         for (let x = 0; x < num; x++) {
             for (let y = 0; y < num; y++) {
 
-                let character = firstScene.add.sprite((x * dx) % 640, (y * dy) % 640);
+                let character = firstScene.add.sprite((x * dx) % 800, (y * dy) % 800);
 
                 character.add.animation('knightJumping', 'characters', Engine.C.range(27, 31), 800);
                 character.add.animation('knightWalking', 'characters', Engine.C.range(23, 27), 800);

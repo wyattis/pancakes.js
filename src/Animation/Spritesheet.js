@@ -59,4 +59,14 @@ Engine.Spritesheet = class Spritesheet {
 
 	}
 
+
+	/**
+	 * Get the properties for the current frame
+	 */
+	getRenderInfo(index){
+
+		return {texture: this.texture, sx: this.spritePositions[index][0], sy: this.spritePositions[index][1], tileWidth: this.tileWidth, tileHeight: this.tileHeight};
+
+	}
+
 };

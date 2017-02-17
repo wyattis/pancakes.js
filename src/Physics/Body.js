@@ -12,20 +12,26 @@ Engine.Body = class Body{
 
     constructor(x, y, vx, vy){
 
-        this.enabled = false;   // physics are enabled
-        this.fixed = false;     // static body not affected by physics
-        this.clamped = false;   // there is a clamp on the bounds of pos?
-        this.mass = 100;        // mass of the body
-        this.friction = 0;      // friction of the body
-        this.maxSpeed = 0;      // maximum speed of the body after normalization
+        this.enabled = false;                       // physics are enabled
+        this.fixed = false;                         // static body not affected by physics
+        this.clamped = false;                       // there is a clamp on the bounds of pos?
+        this.bouncy = false;                        // should the body bounce when it collides with the world bounds?
+        this.dynamicScale = false;                  // indicates if the width of the shape needs recalculated with each update
+        this.mass = 100;                            // mass of the body
+        this.maxSpeed = 0;                          // the normalized maximum speed of the body
+        this.friction = Object.create(null, {});    // friction of the body
+        this.maxSpeed = Object.create(null, {});    // maximum speed of the body after normalization
+        this.gravity = Object(null, {});            // vector representing the gravity on this body
 
-        this.pos = new Engine.Vector(0, 0);     // position of the body
-        this.lastPos = new Engine.Vector(0, 0); // last position of the body
-        this.vel = new Engine.Vector(0, 0);     // velocity of the body
-        this.acc = new Engine.Vector(0, 0);     // acceleration of the body
-        this.angle = 0;                         // angle of the body
-        this.omega = 0;                         // angular rotation of the body
-        this.alpha = 0;                         // angular acceleration of the body
+        this.scale = new Engine.Vector(1, 1);       // the x and y scale of the body
+        this.pos = new Engine.Vector(0, 0);         // position of the body
+        this.lastPos = new Engine.Vector(0, 0);     // last position of the body
+        this.vel = new Engine.Vector(0, 0);         // velocity of the body
+        this.acc = new Engine.Vector(0, 0);         // acceleration of the body
+        this.angle = 0;                             // angle of the body
+        this.omega = 0;                             // angular rotation of the body
+        this.alpha = 0;                             // angular acceleration of the body
+
 
 
         this._collisionBodies = new Set();      // Holds the bodies that this body collides with
@@ -105,6 +111,21 @@ Engine.Body = class Body{
     addShape(shape){
 
         this.shape = shape;
+        this._calculateSize();
+
+    }
+
+
+    /**
+     * Recalculate the shape size based on the scale
+     * @private
+     */
+    _calculateSize(){
+
+        this.shape._width = this.shape.width * this.scale.x;
+        this.shape._height = this.shape.height * this.scale.y;
+
+        console.log('width', this.width, 'height', this.height);
 
     }
 
@@ -147,68 +168,125 @@ Engine.Body = class Body{
 
     /**
      * Update the position of the body
+     * @private
      */
     update(delta){
 
         // accelerate or apply friction
         if(this.acc.x || this.acc.y){
+
             this.vel.x += (this.acc.x * delta) / 400;
             this.vel.y += (this.acc.y * delta) / 400;
+
         }
         else{
 
-            const FC = (this.friction * delta);
-            if(this.vel.x > 0){
-                this.vel.x -= FC / 400;
+            // Apply friction in the x and y directions
+            if(this.friction.x){
 
-                if(this.vel.x < this._vel_tol)
-                    this.vel.x = 0;
+                const FCX = (this.friction.x * delta);
+                if(this.vel.x > 0){
+                    this.vel.x -= FCX / 400;
+
+                    if(this.vel.x < this._vel_tol)
+                        this.vel.x = 0;
+                }
+                else{
+                    this.vel.x += FCX / 400;
+
+                    if(this.vel.x > -this._vel_tol)
+                        this.vel.x = 0;
+                }
+
             }
-            else{
-                this.vel.x += FC / 400;
 
-                if(this.vel.x > -this._vel_tol)
-                    this.vel.x = 0;
-            }
+            if(this.friction.y){
 
-            if(this.vel.y > 0){
-                this.vel.y -= FC / 400;
+                const FCY = (this.friction.y * delta);
 
-                if(this.vel.y < this._vel_tol)
-                    this.vel.y = 0;
-            }
-            else{
-                this.vel.y += FC / 400;
+                if(this.vel.y > 0){
+                    this.vel.y -= FCY / 400;
 
-                if(this.vel.y > -this._vel_tol)
-                    this.vel.y = 0;
+                    if(this.vel.y < this._vel_tol)
+                        this.vel.y = 0;
+                }
+                else{
+                    this.vel.y += FCY / 400;
+
+                    if(this.vel.y > -this._vel_tol)
+                        this.vel.y = 0;
+                }
+
             }
 
         }
+
+
+        // Apply gravity
+        if(this.gravity.x){
+
+            this.vel.x += this.gravity.x * delta / 400;
+
+        }
+        if(this.gravity.y){
+
+            this.vel.y += this.gravity.y * delta / 400;
+
+        }
+
 
         // Normalize velocity and apply maximum speed
-        if(this.maxSpeed){
+        if(this.normalizedMaxSpeed){
 
             const mag = this.vel.mag();
-            if(mag > this.maxSpeed){
+            if(mag > this.normalizedMaxSpeed){
 
-                this.vel.x *= this.maxSpeed / mag;
-                this.vel.y *= this.maxSpeed / mag;
+                this.vel.x *= this.normalizedMaxSpeed / mag;
+                this.vel.y *= this.normalizedMaxSpeed / mag;
 
             }
 
         }
 
-        // move
+
+        // Direction specific maxSpeeds
+        if(this.maxSpeed.x){
+
+            if(this.vel.x > this.maxSpeed.x)
+                this.vel.x = this.maxSpeed.x;
+            else if(this.vel.x < -this.maxSpeed.x)
+                this.vel.x = -this.maxSpeed.x;
+
+        }
+        if(this.maxSpeed.y){
+
+            if(this.vel.y > this.maxSpeed.y)
+                this.vel.y = this.maxSpeed.y;
+            else if(this.vel.y < -this.maxSpeed.y)
+                this.vel.y = -this.maxSpeed.y;
+
+        }
+
+
+        // Add the velocity to the position
         if(this.vel.x || this.vel.y){
             this.pos.x += (this.vel.x * delta) / 400;
             this.pos.y += (this.vel.y * delta) / 400;
             this.shape.setPos(this.pos.x, this.pos.y);
         }
 
+
+        if(this.dynamicScale)
+            this._calculateSize();
+
+
         // TODO: apply rotation acceleration
         // TODO: apply rotation
 
+
+        // Normalize the angle
+        if(this.angle)
+            this.angle = this.angle % Math.PI;
     }
 
 };

@@ -27,6 +27,11 @@ Engine.Game = class Game{
         // Container setup
         this.width = (opts && opts.width) || this.container.clientWidth;
         this.height = (opts && opts.height) || this.container.clientHeight;
+
+
+        // Keep track of the state of the engine
+        this.state = Engine.Game.STOPPED;
+        this._animationRequest;
     }
 
 
@@ -70,19 +75,80 @@ Engine.Game = class Game{
 
         const tick = (timestamp) => {
 
-            requestAnimationFrame(tick);
+            Engine.measure.end('tick');
+
+            if(this.state === Engine.Game.STOPPED)
+                return;
+
+            this._animationRequest = window.requestAnimationFrame(tick);
 
             const delta = timestamp - this.lastTimestamp;
 
-            update(delta);
-            render(delta);
+            // console.log(delta);
+
+            Engine.measure.begin('update');
+                update(delta);
+            Engine.measure.end('update');
+
+            Engine.measure.begin('render');
+                render(delta);
+            Engine.measure.end('render');
+
+
+            Engine.measure.log('update', 240);
+            Engine.measure.log('render', 240);
+            Engine.measure.log('tick', 240);
 
             this.lastTimestamp = timestamp;
+            Engine.measure.begin('tick');
         };
 
+        // let timestamp = performance.now();
+        // const tick = () => {
+
+        //     loops = 0;
+
+        //     while ((new Date).getTime() > nextGameTick) {
+        //         update();
+        //         nextGameTick += skipTicks;
+        //         loops++;
+        //     }
+
+        //     if (!loops) {
+        //         render((nextGameTick - (new Date).getTime()) / skipTicks);
+        //     }
+        //     else {
+        //         render(0);
+        //     }
+
+        //     tick();
+        // };
+
         this.lastTimestamp = performance.now();
-        requestAnimationFrame(tick);
+        Engine.measure.begin('tick');
+        this._animationRequest = window.requestAnimationFrame(tick);
+        this.state = Engine.Game.PLAYING;
 
     }
 
+
+
+    /**
+     * Stop the current game loop completely.
+     */
+    stop(){
+
+        if(this._animationRequest !== undefined)
+            window.cancelAnimationFrame(this._animationRequest);
+
+        this.state = Engine.Game.STOPPED;
+
+    }
+
+
 };
+
+
+Engine.Game.STOPPED = 0;
+Engine.Game.PLAYING = 1;
+Engine.Game.PAUSED = 2;

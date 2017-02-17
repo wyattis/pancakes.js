@@ -1,11 +1,11 @@
 /*global Engine*/
 const game = Engine.game();
-const scene = game.add.scene('parallax-layers', {load: load, update: update, init: init, size: {width: 4800, height: 400}});
+const scene = game.add.scene('parallax-layers', {load: load, update: update, init: init, size: {width: game.width * 3, height: game.height}});
 // scene.layers.get('default').setPreRender(preRender);
 scene.layers.get('default').opts.depth = 1;
-const cloudLayerFront = scene.new.layer('cloudsFront', {zIndex: 3});
-const pillarLayer = scene.new.layer('pillars', {zIndex: 2});
-const cloudLayerBack = scene.new.layer('cloudsBack', {zIndex: 1});
+const cloudLayerFront = scene.new.layer('cloudsFront', {zIndex: 3, animated: false});
+const pillarLayer = scene.new.layer('pillars', {zIndex: 2, animated: false});
+const cloudLayerBack = scene.new.layer('cloudsBack', {zIndex: 1, animated: false});
 const SPEED = 200;
 let char;
 let clouds = [];
@@ -29,10 +29,8 @@ function init(){
     let platforms = scene.add.group();
 
     char = scene.add.sprite(0, 0);
-    char.enablePhysics(new Engine.Rectangle(0, 0, 32, 32));
-    char.body.clamped = true;
-    char.body.maxSpeed = 500;
     char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
+    char.enablePhysics({clamped: true, maxSpeed: 500});
 
 
     // Create the platforms
@@ -47,7 +45,7 @@ function init(){
 
     // Create clouds in the cloud layer
     cloudLayerBack.setDepth(3);
-    cloudLayerFront.setDepth(1.3);
+    cloudLayerFront.setDepth(1.6);
     for(let i=0; i<80; i++){
         let cloud = cloudLayerBack.add.sprite(Engine.C.randomInt(0, scene.world.width), Engine.C.randomInt(0, scene.world.height - 100));
         let cloud2 = cloudLayerFront.add.sprite(Engine.C.randomInt(0, scene.world.width), Engine.C.randomInt(0, scene.world.height - 100));
