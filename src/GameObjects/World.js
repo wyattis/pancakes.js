@@ -58,4 +58,15 @@ Engine.World = class World{
         this.physics = new Engine.Physics(this, opts);
 
     }
+
+
+    /**
+     * Destroy the world.
+     */
+    destroy(){
+
+        this.sprites = [];
+        this.physics = undefined;
+
+    }
 };

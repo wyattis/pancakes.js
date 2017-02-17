@@ -35,12 +35,23 @@ Engine.Layer = class Layer{
 
 
     /**
-     * Initialize the layer.
+     * Boot the layer.
      */
-    init(){
+    boot(){
 
         if(this.opts.zIndex)
             this.ctx.canvas.style.zIndex = this.opts.zIndex;
+
+    }
+
+
+
+    /**
+     * Initialize the layer
+     */
+    init(){
+
+        // Does anything need to happen here?
 
     }
 
@@ -155,6 +166,22 @@ Engine.Layer = class Layer{
      */
     setDepth(depth){
         this.opts.depth = depth;
+    }
+
+
+
+    /**
+     * Destroy the layer.
+     * @private
+     */
+    destroy(){
+
+        this.sprites = [];
+        this.groups = [];
+        this.ctx = null;
+        this._translate = {x: -10000, y: -10000};
+        this._previousTranslate = {x: -1000, y: -1000};
+
     }
 
 };

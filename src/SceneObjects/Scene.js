@@ -36,25 +36,10 @@ Engine.Scene = class Scene{
         // Create layer factory and default layer
         this.new = new Engine.LayerFactory(this);
 
-        if(this.opts.type === 'gui'){
-            this.new.guiLayer('default', {zIndex: 1000});
-        }
-        else{
-            this.new.layer('default', {zIndex: 1000});
-        }
-
+        this._createDefaultLayer();
 
         // Create the world for this scene
         this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
-
-        // Create object factory instance for API convenience
-        if(this.opts.type === 'gui'){
-            this.add = new Engine.GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
-        }
-        else{
-            this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
-        }
-
 
         // Camera for the scene
         this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
@@ -63,11 +48,28 @@ Engine.Scene = class Scene{
 
 
     /**
+     * Creates the default layers.
+     */
+    _createDefaultLayer(){
+
+        if(this.opts.type === 'gui'){
+            this.new.guiLayer('default', {zIndex: 1000});
+            this.add = new Engine.GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
+        }
+        else{
+            this.new.layer('default', {zIndex: 1000});
+            this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
+        }
+
+    }
+
+    /**
      * Actually load the assets that are queued via the .load interface.
      */
     _performLoad(){
 
-        if(this.loadCB) this.loadCB();
+        if(this.loadCB)
+            this.loadCB(this);
 
         this.game.engine.assetManager.go((completed, total) => {
 
@@ -109,10 +111,17 @@ Engine.Scene = class Scene{
 
         // Do any layer specific setup
         for(let layer of this.layers){
-            layer[1].init();
+            layer[1].boot(this);
         }
 
-        if(this.initCB) this.initCB();
+        if(this.initCB)
+            this.initCB(this);
+
+        for(let layer of this.layers){
+            layer[1].init(this);
+        }
+
+        // TODO: Send a single update -> http://stackoverflow.com/a/22986867/5551941
 
         this.game.loop(this.update.bind(this), this.render.bind(this));
 
@@ -159,5 +168,33 @@ Engine.Scene = class Scene{
         this._performLoad();
 
     }
+
+
+
+    /**
+     * Destroy any unecessary parts of the scene
+     */
+    destroy(){
+
+        // Stop the game input
+        this.game.input.stopKeyboard();
+        this.game.input.stopMouse();
+
+        this.animations = [];
+
+        for(let layer of this.layers){
+
+            layer[1].destroy();
+
+        }
+
+        this.world.destroy();
+
+
+        this.layers = new Map();
+        this._createDefaultLayer();
+
+    }
+
 
 };

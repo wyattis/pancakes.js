@@ -101,9 +101,9 @@ Engine.GUILayer = class GUILayer{
 
 
     /**
-     * Initialize the layer.
+     * Boot the layer.
      */
-    init(){
+    boot(){
 
         if(this.opts.zIndex)
             this.ctx.canvas.style.zIndex = this.opts.zIndex;
@@ -114,16 +114,30 @@ Engine.GUILayer = class GUILayer{
         this.scene.game.input.on('mousedown', this._handleMouseDown.bind(this));
         this.scene.game.input.on('mouseup', this._handleMouseUp.bind(this));
 
+    }
 
-        let i=this.buttons.length;
-        while(i--){
 
-            this.buttons[i]._calculateSize(this.ctx);
+
+    /**
+     * Intialize the layer.
+     */
+    init(){
+
+
+        for(let button of this.buttons){
+
+            button._calculateSize(this.ctx);
+
+        }
+
+
+        for(let t of this.texts){
+
+            t._calculateSize(this.ctx);
 
         }
 
     }
-
 
 
     /**
@@ -199,6 +213,20 @@ Engine.GUILayer = class GUILayer{
 
             this._mayHaveChanged = false;
         }
+
+    }
+
+
+
+    /**
+     * Destroy the current layer.
+     */
+    destroy(){
+
+        this.buttons = [];
+        this.bars = [];
+        this.texts = [];
+        this._mayHaveChanged = true;
 
     }
 

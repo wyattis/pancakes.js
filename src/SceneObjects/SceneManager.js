@@ -52,7 +52,12 @@ Engine.SceneManager = class SceneManager{
      */
     _stop(){
 
-        // TODO: Remove any references used in the current screen.
+        // Stop the loop in the game
+        this.game.stop();
+
+        // Remove any references used in the current screen.
+        if(this.currentScene)
+            this.currentScene.destroy();
         // TODO: Stop playing any music associated with the current screen, etc.
         //       What are these things exactly?
         this.game.container.innerHTML = "";

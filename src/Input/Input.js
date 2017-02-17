@@ -23,6 +23,14 @@ Engine.Input = class Input{
             }
         };
 
+
+        this._handleMouseDown = this._handleMouseDown.bind(this);
+        this._handleMouseUp = this._handleMouseUp.bind(this);
+        this._handleMouseMove = this._handleMouseMove.bind(this);
+
+        this._handleKeyDown = this._handleKeyDown.bind(this);
+        this._handleKeyUp = this._handleKeyUp.bind(this);
+
     }
 
 
@@ -78,8 +86,8 @@ Engine.Input = class Input{
 
         this.keyboard = new Engine.Keyboard();
         console.log('keyboard defined', this.keyboard);
-        this.element.addEventListener('keydown', this._handleKeyDown.bind(this));
-        this.element.addEventListener('keyup', this._handleKeyUp.bind(this));
+        this.element.addEventListener('keydown', this._handleKeyDown);
+        this.element.addEventListener('keyup', this._handleKeyUp);
 
         this.isListening.keyboard.down = true;
         this.isListening.keyboard.up = true;
@@ -147,9 +155,9 @@ Engine.Input = class Input{
         this.reactor.register('mousedown');
         this.reactor.register('mouseup');
 
-        this.element.addEventListener('mousemove', this._handleMouseMove.bind(this));
-        this.element.addEventListener('mousedown', this._handleMouseDown.bind(this));
-        this.element.addEventListener('mouseup', this._handleMouseUp.bind(this));
+        this.element.addEventListener('mousemove', this._handleMouseMove);
+        this.element.addEventListener('mousedown', this._handleMouseDown);
+        this.element.addEventListener('mouseup', this._handleMouseUp);
 
     }
 
@@ -163,9 +171,9 @@ Engine.Input = class Input{
         this.reactor.unregister('mousedown');
         this.reactor.unregister('mouseup');
 
-        this.element.removeEventListener('mousemove', this._handleMouseMove.bing(this));
-        this.element.removeEventListener('mousedown', this._handleMouseDown.bind(this));
-        this.element.removeEventListener('mouseup', this._handleMouseUp.bind(this));
+        this.element.removeEventListener('mousemove', this._handleMouseMove);
+        this.element.removeEventListener('mousedown', this._handleMouseDown);
+        this.element.removeEventListener('mouseup', this._handleMouseUp);
 
     }
 
