@@ -77,7 +77,16 @@ gulp.task('sass', () => {
 });
 
 
-gulp.task('build', ['sass', 'js']);
+
+gulp.task('static', () => {
+
+    gulp.src(['static/**/*', '!static/**/*.{sass,scss,css}'])
+        .pipe(gulp.dest('public'));
+
+});
+
+
+gulp.task('build', ['sass', 'js', 'static']);
 
 gulp.task('build-full', ['build-test', 'es5-js', 'minify-js']);
 

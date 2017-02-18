@@ -25,17 +25,22 @@ Engine.AssetManager = class AssetManager{
 		let urlParts = AssetManager.formatLink(url);
 		let ext = urlParts.extension;
 
-		if(AssetManager.imageExtensions.indexOf(ext) > -1){
+		if(AssetManager.imageExtensions.has(ext)){
 
 			item.type = 'image';
 
 		}
-		else if(AssetManager.videoExtensions.indexOf(ext) > -1){
+		else if(AssetManager.videoExtensions.has(ext)){
 
 			item.type = 'video';
 
 		}
-		else if(AssetManager.textExtensions.indexOf(ext) > -1){
+		else if(ext === 'json'){
+
+			item.type = 'json';
+
+		}
+		else if(AssetManager.textExtensions.has(ext)){
 
 			item.type = 'text';
 
@@ -67,6 +72,16 @@ Engine.AssetManager = class AssetManager{
 				this._loadImage(item.key, item.url);
 
 			}
+			else if(item.type === 'json'){
+
+				this._loadJSON(item.key, item.url);
+
+			}
+			else if(item.type === 'text'){
+
+				this._loadText(item.key, item.url);
+
+			}
 			else{
 
 				console.error(`No support for loading ${item.type} files yet`);
@@ -78,6 +93,9 @@ Engine.AssetManager = class AssetManager{
 	}
 
 
+	/**
+	 * Load an image.
+	 */
 	_loadImage(cacheKey, url){
 
 		let img = new Image();
@@ -96,6 +114,53 @@ Engine.AssetManager = class AssetManager{
 
 	}
 
+
+
+	/**
+	 * Load generic text file.
+	 */
+	_loadText(cacheKey, url){
+
+		Engine.HTTP({url: url}, (r) => {
+
+			console.log('Successfully loaded from', r.responseURL);
+			this.cache.add(cacheKey, r.responseText);
+			this._updateProgress();
+
+		}, (err) => {
+
+			console.error(err);
+
+		});
+
+	}
+
+
+	/**
+	 * Load a JSON file.
+	 */
+	_loadJSON(cacheKey, url){
+
+		Engine.HTTP({url: url}, (r) => {
+
+
+			this.cache.add(cacheKey, JSON.parse(r.responseText));
+			this._updateProgress();
+
+
+		}, (err) => {
+
+			console.error(err);
+
+		});
+
+	}
+
+
+
+	/**
+	 * Update the progress state of the loader.
+	 */
 	_updateProgress(err){
 
 		this.numCompleted ++;
@@ -130,11 +195,11 @@ Engine.AssetManager = class AssetManager{
 };
 
 
-Engine.AssetManager.imageExtensions = ['png', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'gif'];
+Engine.AssetManager.imageExtensions = new Set(['png', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'gif']);
 
-Engine.AssetManager.textExtensions = ['txt', 'json', 'js', 'doc'];
+Engine.AssetManager.textExtensions = new Set(['txt', 'js', 'doc']);
 
-Engine.AssetManager.videoExtensions = ['mp4', 'avi', 'mvk', 'mov'];
+Engine.AssetManager.videoExtensions = new Set(['mp4', 'avi', 'mvk', 'mov']);
 
-Engine.AssetManager.audioExtensions = ['mp3', 'wma', 'wav'];
+Engine.AssetManager.audioExtensions = new Set(['mp3', 'wma', 'wav']);
 
