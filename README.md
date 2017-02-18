@@ -20,7 +20,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
     - [x] Add game states of playing, paused, stopped
     - [x] Keep track of requestAnimationFrame ids to cancel if necessary
 - [ ] GUILayer
-    - [ ] Have update method to update button positions
+    - [ ] Have update method to update components that need it
     - [ ] ProgressBar
         - [ ] Add update to check for changes to value
     - [ ] Button

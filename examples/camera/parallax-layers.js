@@ -41,6 +41,8 @@ function init(){
     }
 
     platforms.add.image('platform');
+    platforms.enablePhysics({fixed: true});
+    platforms.collidesWith(char);
 
 
     // Create clouds in the cloud layer
