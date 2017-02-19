@@ -10,9 +10,25 @@ Engine.Collision = class Collision{
      */
     static collision(a, b){
 
+        // TODO: Handle collisions that aren't fully elastic
+
         if(a.shape.type === Engine.RECTANGLE && b.shape.type === Engine.RECTANGLE){
 
-            return Collision.rectangleCollision(a, b);
+            if(a.fixed){
+
+                return Collision._fixedRectangleCollision(b, a);
+
+            }
+            else if(b.fixed){
+
+                return Collision._fixedRectangleCollision(a, b);
+
+            }
+            else{
+
+                return Collision._rectangleCollision(a, b);
+
+            }
 
         }
 
@@ -21,9 +37,10 @@ Engine.Collision = class Collision{
 
 
     /**
-     * Calculate the final velocity and position of two rectangles colliding
+     * Calculate the final velocity and position of two non-fixed rectangles colliding
+     * @private
      */
-    static rectangleCollision(a, b){
+    static _rectangleCollision(a, b){
 
         let dxPos = a.shape.centerX - b.shape.centerX;
         let dyPos = a.shape.centerY - b.shape.centerY;
@@ -31,13 +48,12 @@ Engine.Collision = class Collision{
         let dyVel = a.vel.y - b.vel.y;
 
 
-
         if(a.shape.left < b.shape.right && a.shape.right > b.shape.left){
             // React in X direction because that the is the direction the rectangles
             // must be colliding in.
 
             // Calculate the final velocities of the rectangles
-            let vels = Collision.elasticParticleCollision1D(a.vel.x, a.mass, b.vel.x, b.mass);
+            let vels = Collision._elasticParticleCollision1D(a.vel.x, a.mass, b.vel.x, b.mass);
             a.vel.x = vels[0];
             b.vel.x = vels[1];
 
@@ -65,7 +81,7 @@ Engine.Collision = class Collision{
             // is colliding.
 
             // Calculate the final velocities of the rectangles
-            let vels = Collision.elasticParticleCollision1D(a.vel.y, a.mass, b.vel.y, b.mass);
+            let vels = Collision._elasticParticleCollision1D(a.vel.y, a.mass, b.vel.y, b.mass);
             a.vel.y = vels[0];
             b.vel.y = vels[1];
 
@@ -92,10 +108,30 @@ Engine.Collision = class Collision{
     }
 
 
-    /*
-     *  Calculates final velocities for 1D elastic particle collision
+
+    /**
+     * Calculate rectangle collision where one body is fixed.
+     * @param {Engine.Rectangle} dRect - Dynamic rectangle in collision
+     * @param {Engine.Rectangle} fRect - Fixed rectangle in collision
+     * @private
      */
-    static elasticParticleCollision1D(v_1, m_1, v_2, m_2){
+    static _fixedRectangleCollision(dRect, fRect){
+
+        let dxPos = dRect.shape.centerX - fRect.shape.centerX;
+        let dyPos = dRect.shape.centerY - fRect.shape.centerY;
+
+        // TODO: how do they collide?
+        console.log('fixedRectangleCollision not supported yet');
+
+    }
+
+
+
+    /**
+     * Calculates final velocities for 1D elastic particle collision
+     * @private
+     */
+    static _elasticParticleCollision1D(v_1, m_1, v_2, m_2){
 
 
         let v_1_f = v_1 * ((m_1 - m_2) / (m_1 + m_2)) +
@@ -110,14 +146,15 @@ Engine.Collision = class Collision{
     }
 
 
-    /*
-     *  Returns the final velocities for two particles SLAMMING
+    /**
+     * Returns the final velocities for two particles SLAMMING
+     * @private
      */
-    static elasticParticleCollision2D(v_1, m_1, v_2, m_2){
+    static _elasticParticleCollision2D(v_1, m_1, v_2, m_2){
 
-        let v_f_x = Collision.elasticParticleCollision1D(v_1.x, m_1, v_2.x, m_2);
+        let v_f_x = Collision._elasticParticleCollision1D(v_1.x, m_1, v_2.x, m_2);
 
-        let v_f_y = Collision.elasticParticleCollision1D(v_1.y, m_1, v_2.y, m_2);
+        let v_f_y = Collision._elasticParticleCollision1D(v_1.y, m_1, v_2.y, m_2);
 
         return [v_f_x, v_f_y];
 

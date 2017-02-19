@@ -8,7 +8,7 @@ let player;
 
 function load(){
 
-    scene.load('charactersImage', '../img/characters.png');
+    scene.load('charactersImage', '/img/characters.png');
 
 }
 

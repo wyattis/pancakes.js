@@ -13,11 +13,11 @@ let pillars = [];
 
 function load(){
 
-    scene.load('cloud', '../img/cloud.png');
-    scene.load('cloud-back', '../img/cloud-back.png');
-    scene.load('pillar', '../img/pillar.png');
-    scene.load('platform', '../img/platform.png');
-    scene.load('characterImage', '../img/characters.png');
+    scene.load('cloud', '/img/cloud.png');
+    scene.load('cloud-back', '/img/cloud-back.png');
+    scene.load('pillar', '/img/pillar.png');
+    scene.load('platform', '/img/platform.png');
+    scene.load('characterImage', '/img/characters.png');
 
 }
 

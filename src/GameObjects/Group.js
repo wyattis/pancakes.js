@@ -21,11 +21,13 @@ Engine.Group = class Group{
     /**
      * Enable physics on all members
      */
-    enablePhysics(){
+    enablePhysics(opts, shape){
 
         let i = this.members.length;
         while(i--){
-            this.members[i].enablePhysics();
+
+            this.members[i].enablePhysics(opts, shape);
+
         }
 
     }

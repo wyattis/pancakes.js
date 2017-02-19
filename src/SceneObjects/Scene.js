@@ -36,13 +36,14 @@ Engine.Scene = class Scene{
         // Create layer factory and default layer
         this.new = new Engine.LayerFactory(this);
 
-        this._createDefaultLayer();
-
         // Create the world for this scene
         this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
 
         // Camera for the scene
         this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
+
+        // Create the default layer
+        this._createDefaultLayer();
 
     }
 
@@ -55,6 +56,7 @@ Engine.Scene = class Scene{
         if(this.opts.type === 'gui'){
             this.new.guiLayer('default', {zIndex: 1000});
             this.add = new Engine.GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
+
         }
         else{
             this.new.layer('default', {zIndex: 1000});

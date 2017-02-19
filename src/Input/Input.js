@@ -51,13 +51,19 @@ Engine.Input = class Input{
     _handleKeyDown(event){
 
         let key = this.keyboard.keys[Engine.Keyboard.keyCodes[event.keyCode]];
-        if(key.isDown)
-            key.isHeld = true;
 
-        key.isDown = true;
-        key.isUp = false;
+        if(key){
 
-        event.preventDefault();
+            if(key.isDown)
+                key.isHeld = true;
+
+            key.isDown = true;
+            key.isUp = false;
+
+            event.preventDefault();
+
+        }
+
 
     }
 

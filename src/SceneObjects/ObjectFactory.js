@@ -28,7 +28,7 @@ Engine.ObjectFactory = class ObjectFactory{
 	 */
 	sprite(x, y){
 
-		let sprite = new Engine.Sprite(this.scene, this.world, x, y);
+		let sprite = new Engine.Sprite(this.world, x, y);
 		this.world.sprites.push(sprite);
 		this.layer.sprites.push(sprite);
 		return sprite;
@@ -45,9 +45,9 @@ Engine.ObjectFactory = class ObjectFactory{
 	 * @link {Engine.Spritesheet}
 	 * @returns {Engine.Spritesheet}
 	 */
-	spritesheet(cacheKey, imageKey, tileWidth, tileHeight, tilePadding){
+	spritesheet(cacheKey, imageKey, tileWidth, tileHeight, tilePadding, tileMargin){
 
-		let spritesheet = new Engine.Spritesheet(this.cache.use(imageKey), tileWidth, tileHeight, tilePadding);
+		let spritesheet = new Engine.Spritesheet(this.cache.use(imageKey), tileWidth, tileHeight, tilePadding, tileMargin);
 		this.cache.add(cacheKey, spritesheet);
 		return spritesheet;
 

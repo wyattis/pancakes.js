@@ -10,17 +10,17 @@
  */
 Engine.Sprite = class Sprite{
 
-	constructor(scene, world, x, y){
+	constructor(world, x, y){
 
 		// TODO: how to handle rendering shapes, images, tiles, or animations?
 		// TODO: how should we add audio effects to a sprite?
 
-		this.scene = scene;
 		this.world = world;
 		this.currentAnimation = null;
 		this.animations = {};
 		this.needsRendered = true;
 		this.body = new Engine.Body(x, y);
+		this.debug = false;
 
 		// Add SpriteFactory for handy API
 		this.add = new Engine.SpriteFactory(this);
@@ -72,7 +72,6 @@ Engine.Sprite = class Sprite{
 		}
 		else if(this.image){
 
-			debugger;
 			shape = new Engine.Rectangle(this.body.pos.x, this.body.pos.y, this.image.width, this.image.height);
 
 		}
@@ -92,6 +91,7 @@ Engine.Sprite = class Sprite{
 			Object.assign(this.body, opts);
 
 		this.world.physics.add(this.body);
+		this.body.enabled = true;
 
 	}
 
@@ -136,6 +136,11 @@ Engine.Sprite = class Sprite{
 
 			// _width and _height include any scaling associated with the body
 			ctx.drawImage(rInfo.texture, rInfo.sx, rInfo.sy, rInfo.tileWidth, rInfo.tileHeight, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.body.shape._width, this.body.shape._height);
+
+			if(this.debug){
+				ctx.fillStyle = 'rgba(0, 150, 0, .3)';
+				ctx.fillRect((0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.body.shape._width, this.body.shape._height);
+			}
 
 		}
 		else if(this.image){

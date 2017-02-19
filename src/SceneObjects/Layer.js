@@ -25,6 +25,7 @@ Engine.Layer = class Layer{
         this.sprites = [];
         this.groups = [];
         this.add = new Engine.ObjectFactory(this.scene, this.scene.world, this, Engine.cache);
+        this.tilesheet = new Engine.TilesheetLoader(this.add, this.scene.cache);
         this.preRenderCB;
         this.postRenderCB;
 

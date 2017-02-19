@@ -28,7 +28,7 @@ Engine.GroupFactory = class GroupFactory{
      */
     sprite(x, y){
 
-        let sprite = new Engine.Sprite(this.scene, this.world, x, y);
+        let sprite = new Engine.Sprite(this.world, x, y);
 		this.world.sprites.push(sprite);
 		this.layer.sprites.push(sprite);
         this.group.members.push(sprite);

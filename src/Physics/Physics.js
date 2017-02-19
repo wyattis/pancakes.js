@@ -108,29 +108,6 @@ Engine.Physics = class Physics{
         // Check each body for collision
         // TODO: use a quadtree for this update
 
-        // for(let leftIndex=0; leftIndex<this.bodies.length - 1; leftIndex++){
-
-        //     for(let rightIndex=leftIndex+1; rightIndex<this.bodies.length; rightIndex++){
-
-        //         if(this.bodies[leftIndex] === this.bodies[rightIndex] ||
-        //             this._collisionMemo.get(this.bodies[leftIndex]) === this.bodies[rightIndex] ||
-        //             !this.bodies[leftIndex].enabled || !this.bodies[rightIndex].enabled){
-
-        //             // These bodies have already collided
-        //             continue;
-
-        //         }
-        //         else if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
-
-        //             // Check for intersect of these two bodies
-        //             this._collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);    // Record this collision so we don't repeat calculations
-        //             Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);       // Calculate the collision of these bodies
-
-        //         }
-
-        //     }
-
-        // }
 
 
         let rightIndex = this.bodies.length;
@@ -157,6 +134,7 @@ Engine.Physics = class Physics{
 
                             // console.log('Can collide');
                             if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
+
                                 // TODO: doesn't this form of memoization limit me to one collision per body per update???
                                 this._collisionMemo.set(this.bodies[leftIndex], this.bodies[rightIndex]);
                                 this._collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);
