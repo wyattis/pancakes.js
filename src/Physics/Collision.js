@@ -60,20 +60,9 @@ Engine.Collision = class Collision{
             // Move the rectangles so that they don't accidentally collide on the next tick
             const fullWidth = (a.shape.width + b.shape.width)/2;
             const widthDiff = ((fullWidth - Math.abs(dxPos))/2) + .01;
-            // console.log('X collision:', fullWidth, dxPos, widthDiff);
-            if(widthDiff > 1){
-                // console.log('X error');
-                // console.dir(a);
-                // console.dir(b);
-            }
-            // if(a.vel.x > 0){
             a.pos.x -= widthDiff;
             b.pos.x += widthDiff;
-            // }
-            // else if(a.vel.x < 0){
-            //     a.pos.x += widthDiff;
-            //     b.pos.x -= widthDiff;
-            // }
+
         }
         else{
             // React in Y direction because the rectangles must be hitting in the
@@ -88,20 +77,8 @@ Engine.Collision = class Collision{
             // Move the rectangles so that they don't accidentally collide on the next tick
             const fullHeight = (a.shape.height + b.shape.height)/2;
             const heightDiff = (((fullHeight - Math.abs(dyPos))/2) >> 0);
-            // console.log('Y collision:', fullHeight, dyPos, heightDiff);
-            if(heightDiff > 1){
-                // console.log('Y error');
-                // console.dir(a);
-                // console.dir(b);
-            }
-            // if(a.vel.y > 0){
             a.pos.y -= heightDiff;
             b.pos.y += heightDiff;
-            // }
-            // else if(a.vel.y < 0){
-            //     a.pos.y += heightDiff;
-            //     b.pos.y -= heightDiff;
-            // }
 
         }
 
@@ -121,10 +98,80 @@ Engine.Collision = class Collision{
         let dyPos = dRect.shape.centerY - fRect.shape.centerY;
 
         // TODO: how do they collide?
-        console.log('fixedRectangleCollision not supported yet');
+        // console.log('fixedRectangleCollision not supported yet', dxPos, dyPos);
+
+        if(Math.abs(dxPos) > Math.abs(dyPos)){
+
+            // Fix the position of the dynamic body so it isn't colliding with the fixed body anymore
+            if(dRect.vel.x > 0){
+
+                dRect.pos.x = fRect.pos.x - dRect.shape._width - 1;
+
+            }
+            else if(dRect.vel.x < 0){
+
+                dRect.pos.x = fRect.pos.x + fRect.shape._width + 1;
+
+            }
+
+            // Reverse the velocity if it should bounce. Otherwise set it to 0.
+            if(dRect.bouncy){
+                dRect.vel.x = -dRect.vel.x;
+            }
+            else{
+                dRect.vel.x = 0;
+            }
+
+        }
+        else if(Math.abs(dyPos) > Math.abs(dxPos)){
+
+            // Fix the position of the dynamic body so it isn't colliding with the fixed body anymore
+            if(dRect.vel.y > 0){
+
+                dRect.pos.y = fRect.pos.y - dRect.shape._height;
+
+            }
+            else if(dRect.vel.y < 0){
+
+                dRect.pos.y = fRect.pos.y + fRect.shape._height;
+
+            }
+
+            // Reverse the velocity if it should bounce. Otherwise set it to 0
+            if(dRect.bouncy){
+                dRect.vel.y = -dRect.vel.y;
+            }
+            else{
+                dRect.vel.y = 0;
+            }
+
+        }
+        else{
+
+            // Fix the position of the dynamic body so it isn't colliding with the fixed body anymore
+            if(dRect.vel.y > 0)
+                dRect.pos.y = fRect.pos.y - dRect.shape._height;
+            else
+                dRect.pos.y = fRect.pos.y + fRect.shape._height;
+            if(dRect.vel.x > 0)
+                dRect.pos.x = fRect.pos.x - dRect.shape._width;
+            else
+                dRect.pos.x = fRect.pos.x + fRect.shape._width;
+
+
+
+            if(dRect.bouncy){
+                dRect.vel.x = -dRect.vel.x;
+                dRect.vel.y = -dRect.vel.y;
+            }
+            else{
+                dRect.vel.x = 0;
+                dRect.vel.y = 0;
+            }
+
+        }
 
     }
-
 
 
     /**
