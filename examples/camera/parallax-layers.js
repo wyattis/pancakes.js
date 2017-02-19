@@ -1,5 +1,5 @@
 /*global Engine*/
-const game = Engine.game();
+const game = Engine.game({container: 'pncks'});
 const scene = game.add.scene('parallax-layers', {load: load, update: update, init: init, size: {width: game.width * 3, height: game.height}});
 // scene.layers.get('default').setPreRender(preRender);
 scene.layers.get('default').opts.depth = 1;

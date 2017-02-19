@@ -1,5 +1,5 @@
 /*global Engine*/
-const game = Engine.game();
+const game = Engine.game({container: 'pncks'});
 const physics = new Engine.Physics();
 const ACC = 150;
 let player;

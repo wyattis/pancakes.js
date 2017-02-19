@@ -1,5 +1,5 @@
 /*global Engine*/
-const game = Engine.game();
+const game = Engine.game({container: 'pncks'});
 const tiledScene = game.add.scene('tiled', {load: load, update: update, init: init, size: {width: game.width * 3, height: game.height}});
 const layer = tiledScene.layers.get('default');
 let player;
@@ -20,12 +20,8 @@ function init(scene){
     scene.add.spritesheet('mario-character', 'mario-character-texture', 17, 27, 2, 2);
     const groups = layer.tilesheet.fromTiled('mario-tilesheet', 'mario-tiles');
     groups.forEach(group => {
-        // groups.forEach(group2 => {
-        //     group.collidesWith(group2);
-        // });
         group.members.forEach(sprite => {
-            sprite.fixed = true;
-            sprite.debug = true;
+            sprite.body.fixed = true;
         });
     });
     player = scene.add.sprite(100, 100);
@@ -33,7 +29,7 @@ function init(scene){
     player.add.animation('standing', 'mario-character', [0], 100000);
     player.enablePhysics({gravity: new Engine.Vector(0, 98), clamped: true, friction: new Engine.Vector(200, 0), maxSpeed: new Engine.Vector(200, 200)});
     player.collidesWith(groups);
-    player.debug = true;
+    // player.debug = true;
 
     scene.camera.follow(player);
 }

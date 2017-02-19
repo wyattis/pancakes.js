@@ -1,6 +1,6 @@
 /*global Engine*/
 "use strict";
-let game = Engine.game({container: 'pancakes'});
+let game = Engine.game({container: 'pncks'});
 let bodies = [];
 let physics = new Engine.Physics();
 

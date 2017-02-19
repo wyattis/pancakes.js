@@ -1,5 +1,5 @@
 /*global Engine*/
-const game = Engine.game();
+const game = Engine.game({container: 'pncks'});
 const scene = game.add.scene('keyboard-input-test', {update: update});
 const SPEED = 5;
 let char = new Engine.Rectangle(0, 0, 100, 100);

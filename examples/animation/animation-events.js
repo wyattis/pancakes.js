@@ -1,5 +1,5 @@
 /*global Engine*/
-const game = Engine.game({container: 'pancakes'});
+const game = Engine.game({container: 'pncks'});
 const scene = game.add.scene('animation-events', {init: init, load: load, update: update, size: {width: game.width, height: game.height}});
 scene.world.enablePhysics();
 const SPEED = 200;

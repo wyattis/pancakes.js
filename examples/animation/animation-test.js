@@ -4,7 +4,7 @@
     let updateCount = 0;
     let characters = [];
     let platforms;
-    let Game = Engine.game({container: 'pancakes'});
+    let Game = Engine.game({container: 'pncks'});
     let firstScene;
 
     function load() {

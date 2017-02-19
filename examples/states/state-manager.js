@@ -1,6 +1,6 @@
 /*global Engine*/
 // TODO: change states
-const game = Engine.game();
+const game = Engine.game({container: 'pncks'});
 const scenes = ['main-menu', 'second', 'third'];
 let currentScene = 0;
 

@@ -1,5 +1,5 @@
 /*global Engine*/
-const game = Engine.game();
+const game = Engine.game({container: 'pncks'});
 const scene = game.add.scene('camera-follow', {load: load, update: update, init: init, size: {width: 1800, height: 1800}});
 scene.layers.get('default').setPreRender(preRender);
 const SPEED = 200;
