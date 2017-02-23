@@ -7,6 +7,10 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
 ## Tasks
 - [x] Configure documentation generation
 - [ ] Document all existing Classes and methods
+- [ ] Remove tight coupling of physics colliders and the base sprite object
+    - [ ] Allow for colliders to exist without sprites
+    - [ ] Allow for sprites to exist without colliders
+    - [ ] Allow sprites and collides to share references to any shared properties
 
 ## Dev Env
 - [x] Add babel conversion to es5

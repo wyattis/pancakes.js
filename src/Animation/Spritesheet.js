@@ -20,15 +20,16 @@ Engine.Spritesheet = class Spritesheet {
 		this.padding = padding || 0;
 		this.margin = margin || 0;
 
-		this.calculatePositions();
+		this._calculatePositions();
 
 	}
 
 
 	/**
-	 * Create the indexes.
+	 * Calculate the position of each tile index within the sheet.
+	 * @private
 	 */
-	calculatePositions() {
+	_calculatePositions() {
 
 		let y = 0;
 		while(y * (this.padding + this.tileHeight) < this.texture.height - this.margin * 2){
@@ -49,7 +50,11 @@ Engine.Spritesheet = class Spritesheet {
 
 
 	/**
-	 * Render frame
+	 * Render a single frame of the spritesheet.
+	 * @param {CanvasRenderingContext2D} ctx
+	 * @param {float} x - X position to draw the tile
+	 * @param {float} y - Y position to draw the tile
+	 * @param {integer} index - The tile index to render
 	 */
 	render(ctx, x, y, index, debug) {
 
@@ -67,7 +72,8 @@ Engine.Spritesheet = class Spritesheet {
 
 
 	/**
-	 * Get the properties for the current frame
+	 * Get the properties to use to render the specified tile.
+	 * @param {integer} index - The tile index to calculate info on.
 	 */
 	getRenderInfo(index){
 
