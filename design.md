@@ -1,3 +1,37 @@
+# Refractor Plan
+## Game
+	Game handles the overall state, the main loop, user input and the current scene.
+	### state
+	States should be STOPPED, PLAYING, PAUSED for the game. When the game is paused UI based components should still update and render.
+	### Loop
+	Should handle failures and be able to skip frames if the updates are taking too long
+
+## Scene
+	Creates the relationship between the game and the rendering. The scene must have a camera, at least one rendering layer and optionally have a "Container" and physics object. Layers can be one of 3 types: GUI, Video, and game.
+
+
+	### Container
+	Containers hold sprites and other containers. Each member is positioned relative to the parent container. This can be updated recursively.
+
+
+	### Sprite
+	Holds the information related to rendering of a Sprite: relative position, renderMethod, real position, angle, and scale.
+
+
+	### Collider
+	Holds the information that is used by the physics engine. Can share properties with a Sprite: position, scale, and angle.
+
+
+## GUI
+	
+	### ProgressBar
+	The default rendering style for this will be to just crop an image based on the current progress of the bar. The alternative will be to override the render method with whatever type of rendering you want to do.
+
+	### Text
+	Can be optimized by only rendering raw text when there are changes to the text. Otherwise a cached version should be used
+
+
+# Old Info
 Engine
 	game(opts)
 
