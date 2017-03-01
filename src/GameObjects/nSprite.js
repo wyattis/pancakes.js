@@ -11,7 +11,7 @@ Engine.nSprite = class nSprite{
 
 		this.position = new Engine.Vector(x, y);	// Relative position
 		this._position = this.position.clone();		// Real position
-		this._relativeTo = new Vector(0, 0);		// The position this is relative to
+		this._relativeTo = new Engine.Vector(0, 0);	// The position this is relative to
 
 	}
 
@@ -29,7 +29,7 @@ Engine.nSprite = class nSprite{
 
 	/**
 	 * Update the real position of the sprite.
-	 * @param  {Engine.Vector} relativeTo - The position to calculate the position 
+	 * @param  {Engine.Vector} relativeTo - The position to calculate the position
 	 * relative to.
 	 * @private
 	 */
@@ -52,4 +52,4 @@ Engine.nSprite = class nSprite{
 
 	}
 
-}
+};

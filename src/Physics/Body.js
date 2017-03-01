@@ -21,7 +21,7 @@ Engine.Body = class Body{
         this.maxSpeed = 0;                          // the normalized maximum speed of the body
         this.friction = Object.create(null, {});    // friction of the body
         this.maxSpeed = Object.create(null, {});    // maximum speed of the body after normalization
-        this.gravity = Object(null, {});            // vector representing the gravity on this body
+        this.gravity = Object.create(null, {});     // vector representing the gravity on this body
 
         this.scale = new Engine.Vector(1, 1);       // the x and y scale of the body
         this.pos = new Engine.Vector(0, 0);         // position of the body
