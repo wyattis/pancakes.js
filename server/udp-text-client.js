@@ -16,7 +16,7 @@ function start(){
 function handleInput(data){
 
 	let text = data.toString();
-	text = text.substr(0, text.length - 2); // remove the newline at the end of each input statement
+	text = text.replace(/\r?\n|\r/, ''); // remove the newline at the end of each input statement
 	if(text == 'q'){
 		close();
 	}
@@ -28,11 +28,13 @@ function handleInput(data){
 
 function close(){
 	console.log('closing');
-	client.close();
-	process.exit();	
+	send('Closing connection', function(){
+		client.close();
+		process.exit();
+	});
 }
 
-function send(data){
+function send(data, cb){
 	message = new Buffer(data);
 	client.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
 	    if (err) {
@@ -40,6 +42,8 @@ function send(data){
 	    	throw err;
 	    }
 	    console.log('UDP message sent to ' + HOST +':'+ PORT);
+	    if(cb)
+	    	cb();
 	});
 
 }
