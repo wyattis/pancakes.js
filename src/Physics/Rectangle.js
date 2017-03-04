@@ -12,10 +12,17 @@ Engine.Rectangle = class Rectangle{
 
     constructor(x, y, width, height){
 
-        this.type = Engine.RECTANGLE;
-        this.width = width;
-        this.height = height;
-        this.setPos(x, y);
+        if(arguments.length === 4){
+            this.type = Engine.RECTANGLE;
+            this.width = width;
+            this.height = height;
+            this.setPos(x, y);
+        }
+        else{
+            this.setPos(0, 0);
+            this.width = x;
+            this.height = y;
+        }
 
     }
 

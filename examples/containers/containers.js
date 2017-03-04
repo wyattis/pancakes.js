@@ -11,7 +11,7 @@ base.add(sprite);
 function tick(timestamp){
 
     requestAnimationFrame(tick);
-    base.updatePosition();
+    base.update();
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     sprite.render(ctx);

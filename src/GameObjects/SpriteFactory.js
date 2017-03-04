@@ -37,7 +37,9 @@ Engine.SpriteFactory = class SpriteFactory{
     image(cacheKey){
 
     	this.sprite.image = Engine.cache.use(cacheKey);
-    	this.sprite.body.addShape(new Engine.Rectangle(this.sprite.body.pos.x, this.sprite.body.pos.y, this.sprite.image.width, this.sprite.image.height));
+    // 	this.sprite.body.addShape(new Engine.Rectangle(this.sprite.body.pos.x, this.sprite.body.pos.y, this.sprite.image.width, this.sprite.image.height));
+
+        // TODO: Should we infer the size of this sprite from the image?
 
     }
 

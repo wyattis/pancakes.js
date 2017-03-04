@@ -51,7 +51,7 @@ Engine.Container = class Container{
 	 * @param  {Engine.Vector} relativeTo - The position that this container should be
 	 * calculated relative to.
 	 */
-	updatePosition(){
+	update(delta){
 
 		if(this._needsUpdated){
 
@@ -67,7 +67,7 @@ Engine.Container = class Container{
 			if(this._needsUpdated){
 				this.members[i].setRelativeTo(this._position);
 			}
-			this.members[i].updatePosition();
+			this.members[i].update(delta);
 
 		}
 

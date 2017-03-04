@@ -12,6 +12,7 @@ Engine.Group = class Group{
     // TODO: Allow for sprites to be grouped together for rendering, updating, physics, etc.
     constructor(scene, world, layer, arr){
 
+        this.scene = scene;
         this.members = arr || [];
         this.add = new Engine.GroupFactory(scene, world, layer, this);
 
@@ -26,7 +27,7 @@ Engine.Group = class Group{
         let i = this.members.length;
         while(i--){
 
-            this.members[i].enablePhysics(opts, shape);
+            this.scene.physics.add(this.members[i], opts, shape);
 
         }
 

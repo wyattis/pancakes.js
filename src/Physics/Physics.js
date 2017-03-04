@@ -42,19 +42,29 @@ Engine.Physics = class Physics{
 
     /**
      * Add a single body to the physics
+     *
+     * @param {Engine.Sprite|Engine.Body|Engine.Collider} obj - The sprite, body or collider to add.
+     * @param {object} opts - The options to include when adding the sprite.
      */
-    add(bodies){
+    add(obj, opts){
 
-        if (bodies.pos && bodies.vel){
-
-            this.bodies.push(bodies);
-
+        // Slow check to see if Sprite, Body or Collider
+        if(obj instanceof Engine.Sprite){
+            // TODO: Create a body and link it to this sprite
+            let body = new Engine.Body(obj.position.x, obj.position.y);
+            obj.addBody(body);
+            // body.reference(obj);
+            this.bodies.push(body);
+        }
+        else if(obj instanceof Engine.Body){
+            // TODO: Add this body
+            this.bodies.push(obj);
+        }
+        else if(obj instanceof Engine.Collider){
+            // TODO: Add this collider
         }
         else{
-
-            for(let body of this.bodies)
-                this.bodies.push(body);
-
+            console.error("can't add this type to the physics engine");
         }
 
     }
@@ -78,7 +88,7 @@ Engine.Physics = class Physics{
              if(this.bodies[i].clamped){
 
                 // Reverse velocities if we've hit the sides
-                if(this.bodies[i].pos.x + this.bodies[i].shape.width > this.world.width || this.bodies[i].pos.x < 0){
+                if(this.bodies[i].position.x + this.bodies[i].shape.width > this.world.width || this.bodies[i].position.x < 0){
 
                     if(this.bodies[i].bouncy)
                         this.bodies[i].vel.x = -this.bodies[i].vel.x;
@@ -88,7 +98,7 @@ Engine.Physics = class Physics{
                     this.bodies[i].acc.x = 0;
 
                 }
-                if(this.bodies[i].pos.y + this.bodies[i].shape.height > this.world.height || this.bodies[i].pos.y < 0){
+                if(this.bodies[i].position.y + this.bodies[i].shape.height > this.world.height || this.bodies[i].position.y < 0){
 
                     if(this.bodies[i].bouncy)
                         this.bodies[i].vel.y = -this.bodies[i].vel.y;
@@ -99,7 +109,7 @@ Engine.Physics = class Physics{
 
                 }
 
-                this.bodies[i].pos.clamp(0, this.world.width - this.bodies[i].shape.width, 0, this.world.height - this.bodies[i].shape.height);
+                this.bodies[i].position.clamp(0, this.world.width - this.bodies[i].shape.width, 0, this.world.height - this.bodies[i].shape.height);
 
              }
         }

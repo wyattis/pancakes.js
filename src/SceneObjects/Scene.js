@@ -37,7 +37,14 @@ Engine.Scene = class Scene{
         this.new = new Engine.LayerFactory(this);
 
         // Create the world for this scene
-        this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
+        // this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
+        this.world = new Engine.Container();
+
+        // Defines the physics engine for this scene
+        this.physics = undefined;
+
+        // Define the scene boundaries
+        this.bounds = new Engine.Rectangle(0, 0, this.game.width, this.game.height);
 
         // Camera for the scene
         this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
@@ -55,15 +62,16 @@ Engine.Scene = class Scene{
 
         if(this.opts.type === 'gui'){
             this.new.guiLayer('default', {zIndex: 1000});
-            this.add = new Engine.GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
+            this.add = new Engine.GUIFactory(this, this.layers.get('default'), Engine.cache);
 
         }
         else{
             this.new.layer('default', {zIndex: 1000});
-            this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
+            this.add = new Engine.ObjectFactory(this, this.world, this.layers.get('default'), Engine.cache);
         }
 
     }
+
 
     /**
      * Actually load the assets that are queued via the .load interface.
@@ -136,12 +144,16 @@ Engine.Scene = class Scene{
     update(delta){
 
         // Perform user supplied updates first
-        if(this.updateCB) this.updateCB(delta);
+        if(this.updateCB)
+            this.updateCB(delta);
 
 
-        // This call updates each sprite in the world and performs any physics
-        // that are necessary.
+        // This call updates each sprite in the world container
         this.world.update(delta);
+
+        // This updates any physics colliders that are registered
+        // in the physics engine
+        this.physics.tick(delta);
 
         // Always update the camera last
         this.camera.update(delta);
@@ -195,6 +207,16 @@ Engine.Scene = class Scene{
 
         this.layers = new Map();
         this._createDefaultLayer();
+
+    }
+
+
+    /**
+     * Enable Physics for the scene.
+     */
+    enablePhysics(){
+
+        this.physics = new Engine.Physics();
 
     }
 

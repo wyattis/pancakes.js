@@ -24,7 +24,7 @@ Engine.Body = class Body{
         this.gravity = Object.create(null, {});     // vector representing the gravity on this body
 
         this.scale = new Engine.Vector(1, 1);       // the x and y scale of the body
-        this.pos = new Engine.Vector(0, 0);         // position of the body
+        this.position = new Engine.Vector(0, 0);         // position of the body
         this.lastPos = new Engine.Vector(0, 0);     // last position of the body
         this.vel = new Engine.Vector(0, 0);         // velocity of the body
         this.acc = new Engine.Vector(0, 0);         // acceleration of the body
@@ -44,6 +44,18 @@ Engine.Body = class Body{
 
         // Private values
         this._vel_tol = 1e-2; // The tolerance at which to call a velocity 0
+
+    }
+
+
+    /**
+     * Use the position and other relevant properties from the Sprite.
+     * @param {Engine.Sprite} sprite - The sprite share references with.
+     */
+    reference(sprite){
+
+        this.position = sprite._position;
+        this.scale = sprite.scale;
 
     }
 
@@ -135,9 +147,10 @@ Engine.Body = class Body{
      */
     setPos(x, y){
 
-        this.pos.x = x;
-        this.pos.y = y;
-        if(this.shape) this.shape.setPos(x, y);
+        this.position.x = x;
+        this.position.y = y;
+        if(this.shape)
+            this.shape.setPos(x, y);
 
     }
 
@@ -270,9 +283,10 @@ Engine.Body = class Body{
 
         // Add the velocity to the position
         if(this.vel.x || this.vel.y){
-            this.pos.x += (this.vel.x * delta) / 400;
-            this.pos.y += (this.vel.y * delta) / 400;
-            this.shape.setPos(this.pos.x, this.pos.y);
+            this.position.x += (this.vel.x * delta) / 400;
+            this.position.y += (this.vel.y * delta) / 400;
+            if(this.shape0)
+                this.shape.setPos(this.position.x, this.position.y);
         }
 
 

@@ -23,15 +23,16 @@ function load(){
 
 function init(){
 
-    scene.world.enablePhysics();
+    scene.enablePhysics();
 
     scene.add.spritesheet('characters', 'characterImage', 32, 32);
     let platforms = scene.add.group();
 
     char = scene.add.sprite(0, 0);
     char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
-    char.enablePhysics({clamped: true, maxSpeed: 500});
+    // char.enablePhysics({clamped: true, maxSpeed: 500});
 
+    scene.physics.add(char, {clamped: true, maxSpeed: 500});
 
     // Create the platforms
     for(let i=0; i<80; i++){
@@ -42,7 +43,7 @@ function init(){
 
     platforms.add.image('platform');
     platforms.enablePhysics({fixed: true});
-    platforms.collidesWith(char);
+    // platforms.collidesWith(char);
 
 
     // Create clouds in the cloud layer
@@ -64,7 +65,7 @@ function init(){
         pillar.add.image('pillar');
     }
 
-    scene.camera.follow(char);
+    // scene.camera.follow(char);
 }
 
 function update(delta){

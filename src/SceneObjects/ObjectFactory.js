@@ -28,8 +28,8 @@ Engine.ObjectFactory = class ObjectFactory{
 	 */
 	sprite(x, y){
 
-		let sprite = new Engine.Sprite(this.world, x, y);
-		this.world.sprites.push(sprite);
+		let sprite = new Engine.Sprite(x, y);
+		this.world.add(sprite);
 		this.layer.sprites.push(sprite);
 		return sprite;
 

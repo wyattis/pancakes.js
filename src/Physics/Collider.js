@@ -41,6 +41,7 @@ Engine.Collider = class Collider{
 
     }
 
+
     /**
      * Have this collider use the sprite position and scale vectors instead of its own.
      * @param  {Engine.Sprite} sprite - The sprite that this collider should reference.
@@ -51,6 +52,7 @@ Engine.Collider = class Collider{
     	this.scale = sprite.scale;
 
     }
+
 
     /**
      * Perform classical mechanics on this collider.
