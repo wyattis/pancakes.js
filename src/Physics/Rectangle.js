@@ -15,6 +15,8 @@ Engine.Rectangle = class Rectangle{
         this.type = Engine.RECTANGLE;
         this.width = width;
         this.height = height;
+        this.w = this.width;
+        this.h = this.height;
         this.setPos(x, y);
 
     }
@@ -52,6 +54,8 @@ Engine.Rectangle = class Rectangle{
 
         this.width = width;
         this.height = height;
+        this.w = width;
+        this.h = height;
         this.right = this.x + this.width;
         this.bottom = this.y + this.height;
         this.centerX = (this.left + this.right) / 2;

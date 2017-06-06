@@ -132,8 +132,7 @@ Engine.Physics = class Physics{
                         if(this._collisionMemo.get(this.bodies[leftIndex]) !== this.bodies[rightIndex] ||
                             this._collisionMemo.get(this.bodies[rightIndex]) !== this.bodies[leftIndex]){
 
-                            // console.log('Can collide');
-                            if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
+                            if(Engine.Geometry.intersects(this.bodies[leftIndex].shape, this.bodies[rightIndex].shape)){
 
                                 // TODO: doesn't this form of memoization limit me to one collision per body per update???
                                 this._collisionMemo.set(this.bodies[leftIndex], this.bodies[rightIndex]);

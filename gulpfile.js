@@ -46,7 +46,7 @@ gulp.task('js', ()=>{
 
 gulp.task('build-test', ['build'], ()=>{
 
-    return gulp.src(['tests/strict.js', 'build/pancakes.js', 'tests/export.js'])
+    return gulp.src(['tests/strict.js', 'public/build/pancakes.js', 'tests/export.js'])
         .pipe(concat('pancakes.test.js'))
         .pipe(gulp.dest(buildPath));
 

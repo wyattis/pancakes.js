@@ -11,7 +11,7 @@ Engine.Tween = class Tween{
 
     constructor(ref, desired, type){
 
-        this.ref = ref;               // Array of references to the values we want to change
+        this.ref = ref;         // Array of references to the values we want to change
         this.desired = desired; // Array of their desired values
         this.type = type || Engine.Tween.EASE_OUT;
         this.roundToPixel = false;

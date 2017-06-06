@@ -19,6 +19,7 @@ Engine.Camera = class Camera{
         this.size = {width: width, height: height};
 
         this.desiredPos = new Engine.Tween(this.pos, this.pos);
+        this.desiredPos.tolerance = 2;
         this.desiredPos.roundToPixel = true;
 
         // TODO: How to handle when the camera size is larger than the world?

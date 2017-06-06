@@ -45,6 +45,8 @@ function update(delta){
     else if(game.input.keyboard.keys.RIGHT.isDown)
         player.body.vel.x = 100;
 
+
+    console.log('Mario pos:', player.body.pos);
 }
 
 
