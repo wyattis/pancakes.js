@@ -1,8 +1,10 @@
-/*global Engine*/
+import Animation from '../Animation/Animation';
+import Engine from '../Engine';
+
 /**
  * Factory for adding animations, images and audio to a Sprite.
  */
-Engine.SpriteFactory = class SpriteFactory{
+class SpriteFactory{
 
     constructor(sprite){
 
@@ -21,7 +23,7 @@ Engine.SpriteFactory = class SpriteFactory{
      */
     animation(name, spritesheetKey, frames, totalTime, options){
 
-		let animation = new Engine.Animation(this.sprite, Engine.cache.use(spritesheetKey), frames, totalTime, options);
+		let animation = new Animation(this.sprite, Engine.cache.use(spritesheetKey), frames, totalTime, options);
 		this.sprite.animations[name] = animation;
 		this.sprite.currentAnimation = animation;
 		return animation;
@@ -54,4 +56,6 @@ Engine.SpriteFactory = class SpriteFactory{
 
     }
 
-};
+}
+
+export default SpriteFactory;

@@ -1,4 +1,5 @@
-/*global Engine*/
+import Physics from '../Physics/Physics';
+
 /**
  * Describes a container for all of the game objects in a Scene.
  * @constructor
@@ -7,7 +8,7 @@
  * @param {integer} height The height of the world in number of pixels
  * @returns {Engine.World} instance
  */
-Engine.World = class World{
+class World{
 
     constructor(scene, width, height){
 
@@ -55,7 +56,7 @@ Engine.World = class World{
      */
     enablePhysics(opts){
 
-        this.physics = new Engine.Physics(this, opts);
+        this.physics = new Physics(this, opts);
 
     }
 
@@ -69,4 +70,7 @@ Engine.World = class World{
         this.physics = undefined;
 
     }
-};
+}
+
+
+export default World;

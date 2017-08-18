@@ -1,16 +1,16 @@
-/*global Engine*/
+import Reactor from '../Core/Reactor';
 /**
  * Describes a single sprite based animation
  * @constructor
- * @param {Engine.Sprite|Object} parent the parent object that the animation has been assigned to. Usually an instance of Engine.Sprite.
- * @param {Engine.Spritesheet} spritesheet reference to the spritesheet used by this animation
- * @returns {Engine.Animation} instance
+ * @param {Sprite|Object} parent the parent object that the animation has been assigned to. Usually an instance of Sprite.
+ * @param {Spritesheet} spritesheet reference to the spritesheet used by this animation
+ * @returns {Animation} instance
  */
-Engine.Animation = class Animation {
+class Animation {
 
     constructor(parent, spritesheet, frames, animationTime, options) {
 
-        this.reactor = new Engine.Reactor();
+        this.reactor = new Reactor();
         this.parent = parent;
         this.currentIndex = 0;
         this.frames = frames;
@@ -131,4 +131,7 @@ Engine.Animation = class Animation {
 
     }
 
-};
+}
+
+
+export default Animation;

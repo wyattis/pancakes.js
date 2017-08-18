@@ -1,4 +1,5 @@
-/*global Engine*/
+import QuadTree from './QuadTree';
+
 /**
  * Handles all physics for a world.
  * @constructor
@@ -6,7 +7,7 @@
  * @param {object} opts any specific physics options
  * @returns {Engine.Physics} instance
  */
-Engine.Physics = class Physics{
+class Physics{
 
     constructor(world, options){
 
@@ -22,7 +23,7 @@ Engine.Physics = class Physics{
         this._collisionMemo = new Map();
         this.bodies = [];
 
-        this.tree = new Engine.QuadTree();
+        this.tree = new QuadTree();
 
     }
 
@@ -180,4 +181,6 @@ Engine.Physics = class Physics{
 
     }
 
-};
+}
+
+export default Physics;

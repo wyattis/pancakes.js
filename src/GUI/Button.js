@@ -1,15 +1,18 @@
-/*global Engine*/
+import Vector from '../Core/Vector';
+import Rectangle from '../Physics/Rectangle';
+import Reactor from '../Core/Reactor';
+
 /**
  * Create a Button on the current layer.
  */
-Engine.Button = class Button{
+class Button{
 
     constructor(x, y, content, opts){
 
-        this.pos = new Engine.Vector(x, y);
+        this.pos = new Vector(x, y);
         this.content = content;
-        this.state = Engine.Button.DEFAULT;
-        this.shape = new Engine.Rectangle(x, y, 100, 50);
+        this.state = Button.DEFAULT;
+        this.shape = new Rectangle(x, y, 100, 50);
 
         this.opts = {
             textStyle: "black",
@@ -21,7 +24,7 @@ Engine.Button = class Button{
 
         Object.assign(this.opts, opts);
 
-        this.reactor = new Engine.Reactor();
+        this.reactor = new Reactor();
 
         this.reactor.register('hover');
         this.reactor.register('out');
@@ -30,19 +33,19 @@ Engine.Button = class Button{
 
         // Change the state of the button depending on the events fired
         this.reactor.on('hover', () => {
-            this.state = Engine.Button.HOVER;
+            this.state = Button.HOVER;
             this._hasChanged = true;
         });
         this.reactor.on('out', () => {
-            this.state = Engine.Button.DEFAULT;
+            this.state = Button.DEFAULT;
             this._hasChanged = true;
         });
         this.reactor.on('click', () => {
-            this.state = Engine.Button.ACTIVE;
+            this.state = Button.ACTIVE;
             this._hasChanged = true;
         });
         this.reactor.on('release', () => {
-            this.state = Engine.Button.HOVER;
+            this.state = Button.HOVER;
             this._hasChanged = true;
         });
 
@@ -79,7 +82,7 @@ Engine.Button = class Button{
         ctx.font = this.opts.font;
         ctx.textBaseline = "hanging";
 
-        if(this.state === Engine.Button.DEFAULT){
+        if(this.state === Button.DEFAULT){
             ctx.fillStyle = 'green';
             ctx.fillRect(this.shape.x, this.shape.y, this.shape.width, this.shape.height);
 
@@ -128,9 +131,11 @@ Engine.Button = class Button{
 
     }
 
-};
+}
 
 
-Engine.Button.DEFAULT = 0;
-Engine.Button.HOVER = 1;
-Engine.Button.ACTIVE = 2;
+Button.DEFAULT = 0;
+Button.HOVER = 1;
+Button.ACTIVE = 2;
+
+export default Button;

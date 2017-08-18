@@ -1,11 +1,14 @@
-/*global Engine*/
+import Reactor from '../Core/Reactor';
+import Keyboard from './Keyboard';
+
+
 /**
  * Describes a object that handles keyboard, mouse and touch input for each scene.
  * @constructor
  * @param {DOMElement} element the DOM node to attach input events to
- * @returns {Engine.Input} instance
+ * @returns {Input} instance
  */
-Engine.Input = class Input{
+class Input{
 
     constructor(element){
 
@@ -14,7 +17,7 @@ Engine.Input = class Input{
         this.element = element;     // The element to attach events to
         this.elementRect = element.getBoundingClientRect();
         this.keyboard = undefined;  // Holds keyboard specific logic
-        this.reactor = new Engine.Reactor(); // Used to dispatch custom events
+        this.reactor = new Reactor(); // Used to dispatch custom events
 
         this.isListening = {
             keyboard: {
@@ -50,7 +53,7 @@ Engine.Input = class Input{
      */
     _handleKeyDown(event){
 
-        let key = this.keyboard.keys[Engine.Keyboard.keyCodes[event.keyCode]];
+        let key = this.keyboard.keys[Keyboard.keyCodes[event.keyCode]];
         if(key.isDown)
             key.isHeld = true;
 
@@ -68,7 +71,7 @@ Engine.Input = class Input{
      */
     _handleKeyUp(event){
 
-        let key = this.keyboard.keys[Engine.Keyboard.keyCodes[event.keyCode]];
+        let key = this.keyboard.keys[Keyboard.keyCodes[event.keyCode]];
         key.isHeld = false;
         key.isDown = false;
         key.isUp = true;
@@ -84,7 +87,7 @@ Engine.Input = class Input{
      */
     startKeyboard(){
 
-        this.keyboard = new Engine.Keyboard();
+        this.keyboard = new Keyboard();
         console.log('keyboard defined', this.keyboard);
         this.element.addEventListener('keydown', this._handleKeyDown);
         this.element.addEventListener('keyup', this._handleKeyUp);
@@ -190,4 +193,7 @@ Engine.Input = class Input{
 
     }
 
-};
+}
+
+
+export default Input;

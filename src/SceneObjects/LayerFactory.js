@@ -1,11 +1,13 @@
-/*global Engine*/
+import Layer from './Layer';
+import GUILayer from '../GUI/GUILayer';
+
 /**
  * A factory used by Scenes to create layers
  * @constructor
  * @param {Engine.Scene} scene the scene to attach layers to
  * @returns {Engine.LayerFactory} instance
  */
-Engine.LayerFactory = class LayerFactory{
+class LayerFactory{
 
     constructor(scene){
 
@@ -22,7 +24,7 @@ Engine.LayerFactory = class LayerFactory{
      */
     layer(name, opts){
 
-        let layer = new Engine.Layer(this.scene, opts);
+        let layer = new Layer(this.scene, opts);
         this.scene.layers.set(name, layer);
         return layer;
 
@@ -36,10 +38,12 @@ Engine.LayerFactory = class LayerFactory{
      */
     guiLayer(name, opts){
 
-        let layer = new Engine.GUILayer(this.scene, opts);
+        let layer = new GUILayer(this.scene, opts);
         this.scene.layers.set(name, layer);
         return layer;
 
     }
 
-};
+}
+
+export default LayerFactory;

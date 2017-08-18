@@ -1,8 +1,12 @@
-/*global Engine*/
+import GUIFactory from './GUIFactory';
+import Geometry from '../Physics/Geometry';
+import Button from './Button';
+import Engine from '../Engine';
+
 /**
  * A layer used for handling
  */
-Engine.GUILayer = class GUILayer{
+class GUILayer{
 
     constructor(scene, opts){
 
@@ -19,7 +23,7 @@ Engine.GUILayer = class GUILayer{
         this.buttons = [];
         this.bars = [];
         this.texts = [];
-        this.add = new Engine.GUIFactory(this.scene, this, Engine.cache);
+        this.add = new GUIFactory(this.scene, this, Engine.cache);
         this.preRenderCB;
         this.postRenderCB;
 
@@ -36,7 +40,7 @@ Engine.GUILayer = class GUILayer{
         let i = this.buttons.length;
         while(i--){
 
-            if(Engine.Geometry.rectContains(pos, this.buttons[i].shape)){
+            if(Geometry.rectContains(pos, this.buttons[i].shape)){
 
                 this.buttons[i].reactor.dispatch('click');
                 this._mayHaveChanged = true;
@@ -58,7 +62,7 @@ Engine.GUILayer = class GUILayer{
         let i = this.buttons.length;
         while(i--){
 
-            if(Engine.Geometry.rectContains(pos, this.buttons[i].shape)){
+            if(Geometry.rectContains(pos, this.buttons[i].shape)){
 
                 this.buttons[i].reactor.dispatch('release');
                 this._mayHaveChanged = true;
@@ -80,13 +84,13 @@ Engine.GUILayer = class GUILayer{
         let i = this.buttons.length;
         while(i--){
 
-            if(Engine.Geometry.rectContains(pos, this.buttons[i].shape)){
+            if(Geometry.rectContains(pos, this.buttons[i].shape)){
 
                 this.buttons[i].reactor.dispatch('hover');
                 this._mayHaveChanged = true;
 
             }
-            else if(this.buttons[i].state === Engine.Button.HOVER || this.buttons[i].state === Engine.Button.ACTIVE){
+            else if(this.buttons[i].state === Button.HOVER || this.buttons[i].state === Button.ACTIVE){
 
                 this.buttons[i].reactor.dispatch('out');
                 this._mayHaveChanged = true;
@@ -230,7 +234,7 @@ Engine.GUILayer = class GUILayer{
 
     }
 
-};
+}
 
 /**
  * Function that gets called either before or after the layer has rendered
@@ -238,3 +242,6 @@ Engine.GUILayer = class GUILayer{
  * @param {CanvasRenderingContext2D} ctx - rendering context for this layer
  * @param {integer} delta - the amount of time since the last render
  */
+
+
+export default GUILayer;

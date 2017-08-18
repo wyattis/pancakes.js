@@ -1,17 +1,20 @@
-/*global Engine*/
+import SceneManager from './SceneObjects/SceneManager';
+import Input from './Input/Input';
+import Engine from './Engine';
+
 /**
  * Creates a Game object.
  * @constructor
  * @param {Engine} engine a reference to the Engine
  * @param {Object} [opts] any engine specific options
- * @returns {Engine.Game} returns a Game object with a reference to the Engine
+ * @returns {Game} returns a Game object with a reference to the Engine
  */
-Engine.Game = class Game{
+class Game{
 
     constructor(engine, opts){
 
         this.engine = engine;
-		this.play = new Engine.SceneManager(this);
+		this.play = new SceneManager(this);
 		this.add = this.play.add;
 
 
@@ -21,7 +24,7 @@ Engine.Game = class Game{
 
 
         // Create the input object for this game
-        this.input = new Engine.Input(this.container);
+        this.input = new Input(this.container);
 
 
         // Container setup
@@ -30,7 +33,7 @@ Engine.Game = class Game{
 
 
         // Keep track of the state of the engine
-        this.state = Engine.Game.STOPPED;
+        this.state = Game.STOPPED;
         this._animationRequest;
     }
 
@@ -77,7 +80,7 @@ Engine.Game = class Game{
 
             Engine.measure.end('tick');
 
-            if(this.state === Engine.Game.STOPPED)
+            if(this.state === Game.STOPPED)
                 return;
 
             this._animationRequest = window.requestAnimationFrame(tick);
@@ -127,7 +130,7 @@ Engine.Game = class Game{
         this.lastTimestamp = performance.now();
         Engine.measure.begin('tick');
         this._animationRequest = window.requestAnimationFrame(tick);
-        this.state = Engine.Game.PLAYING;
+        this.state = Game.PLAYING;
 
     }
 
@@ -141,14 +144,16 @@ Engine.Game = class Game{
         if(this._animationRequest !== undefined)
             window.cancelAnimationFrame(this._animationRequest);
 
-        this.state = Engine.Game.STOPPED;
+        this.state = Game.STOPPED;
 
     }
 
 
-};
+}
 
 
-Engine.Game.STOPPED = 0;
-Engine.Game.PLAYING = 1;
-Engine.Game.PAUSED = 2;
+Game.STOPPED = 0;
+Game.PLAYING = 1;
+Game.PAUSED = 2;
+
+export default Game;

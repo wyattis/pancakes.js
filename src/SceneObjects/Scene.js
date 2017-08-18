@@ -1,12 +1,19 @@
-/*global Engine*/
+import GUIFactory from '../GUI/GUIFactory';
+import ObjectFactory from '../GameObjects/ObjectFactory';
+import LayerFactory from './LayerFactory';
+import Camera from './Camera';
+import World from '../GameObjects/World';
+
+import Engine from '../Engine';
+
 /**
  * Describes a Scene. Currently only supports programmed games but will support videos and scripted scenes as well.
  * @constructor
- * @param {Engine.Game} game reference to the parent game
+ * @param {Game} game reference to the parent game
  * @param {object} opts any scene specific options
- * @returns {Engine.Scene} instance
+ * @returns {Scene} instance
  */
-Engine.Scene = class Scene{
+class Scene{
 
     constructor(game, opts){
 
@@ -34,15 +41,17 @@ Engine.Scene = class Scene{
         this.loadProgressCB = opts.loadProgress;
 
         // Create layer factory and default layer
-        this.new = new Engine.LayerFactory(this);
-
-        this._createDefaultLayer();
+        this.new = new LayerFactory(this);
 
         // Create the world for this scene
-        this.world = new Engine.World(this, this.opts.size.width, this.opts.size.height);
+        this.world = new World(this, this.opts.size.width, this.opts.size.height);
+
 
         // Camera for the scene
-        this.camera = new Engine.Camera(this.world, 0, 0, this.game.width, this.game.height);
+        this.camera = new Camera(this.world, 0, 0, this.game.width, this.game.height);
+
+
+        this._createDefaultLayer();
 
     }
 
@@ -54,11 +63,11 @@ Engine.Scene = class Scene{
 
         if(this.opts.type === 'gui'){
             this.new.guiLayer('default', {zIndex: 1000});
-            this.add = new Engine.GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
+            this.add = new GUIFactory(this.scene, this.layers.get('default'), Engine.cache);
         }
         else{
             this.new.layer('default', {zIndex: 1000});
-            this.add = new Engine.ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
+            this.add = new ObjectFactory(this.scene, this.world, this.layers.get('default'), Engine.cache);
         }
 
     }
@@ -197,4 +206,6 @@ Engine.Scene = class Scene{
     }
 
 
-};
+}
+
+export default Scene;

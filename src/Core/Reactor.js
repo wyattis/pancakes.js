@@ -1,10 +1,11 @@
-/*global Engine*/
+import Event from './Event';
+
 /**
  * Custom event registrar. Handles registering and dispatching custom events.
  * @constructor
- * @returns {Engine.Reactor} instance
+ * @returns {Reactor} instance
  */
-Engine.Reactor = class Reactor{
+class Reactor{
 
     constructor(){
 
@@ -28,7 +29,7 @@ Engine.Reactor = class Reactor{
      */
     register(eventName){
 
-        let event = new Engine.Event(eventName);
+        let event = new Event(eventName);
         this.events.set(eventName, event);
 
     }
@@ -57,4 +58,7 @@ Engine.Reactor = class Reactor{
 
     }
 
-};
+}
+
+
+export default Reactor;

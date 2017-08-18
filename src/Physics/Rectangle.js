@@ -1,4 +1,5 @@
-/*global Engine*/
+import Engine from '../Engine';
+
 /**
  * Abstraction of a rectangle
  * @constructor
@@ -8,7 +9,7 @@
  * @param {float} height the height of a rectangle
  * @returns {Engine.Rectangle} instance
  */
-Engine.Rectangle = class Rectangle{
+class Rectangle{
 
     constructor(x, y, width, height){
 
@@ -60,4 +61,6 @@ Engine.Rectangle = class Rectangle{
 
     }
 
-};
+}
+
+export default Rectangle;

@@ -1,4 +1,5 @@
-/*global Engine*/
+import GroupFactory from './GroupFactory';
+
 /**
  * Describes a collection of sprites to perform bulk operations on
  * @constructor
@@ -7,13 +8,13 @@
  * @param {array} arr any sprites to add to the Group initially
  * @returns {Engine.Group} instance
  */
-Engine.Group = class Group{
+class Group{
 
     // TODO: Allow for sprites to be grouped together for rendering, updating, physics, etc.
     constructor(scene, world, layer, arr){
 
         this.members = arr || [];
-        this.add = new Engine.GroupFactory(scene, world, layer, this);
+        this.add = new GroupFactory(scene, world, layer, this);
 
     }
 
@@ -44,4 +45,6 @@ Engine.Group = class Group{
     }
 
 
-};
+}
+
+export default Group;

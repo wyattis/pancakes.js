@@ -1,11 +1,10 @@
-/*global Engine*/
 /**
  * Describes a custom event
  * @constructor
  * @param {string} name what kind of event is this?
- * @returns {Engine.Event} instance
+ * @returns {Event} instance
  */
-Engine.Event = class Event{
+class Event{
 
     constructor(name){
         this.name = name;
@@ -23,4 +22,6 @@ Engine.Event = class Event{
 
     }
 
-};
+}
+
+export default Event;

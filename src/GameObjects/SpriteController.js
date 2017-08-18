@@ -1,9 +1,9 @@
-/*global Engine*/
+
 /**
  * Allow Sprites to use the `play` keyword to control audio and animations
  * @param {Engine.Sprite} sprite - The sprite instance associated with this controller.
  */
-Engine.SpriteController = class SpriteController{
+class SpriteController{
 
     constructor(sprite){
 
@@ -33,4 +33,6 @@ Engine.SpriteController = class SpriteController{
 
     }
 
-};
+}
+
+export default SpriteController;

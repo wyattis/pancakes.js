@@ -1,8 +1,9 @@
-/*global Engine*/
+import Engine from '../Engine';
+
 /**
  * Holds the static logic for checking intersections
  */
-Engine.Geometry = class{
+class Geometry{
 
 
     /**
@@ -49,4 +50,6 @@ Engine.Geometry = class{
 
     }
 
-};
+}
+
+export default Geometry;

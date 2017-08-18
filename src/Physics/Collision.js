@@ -1,8 +1,9 @@
-/*global Engine*/
+import Engine from './Engine';
+
 /**
  * Holds the static logic for newtonian collision calculations
  */
-Engine.Collision = class Collision{
+class Collision{
 
 
     /**
@@ -123,4 +124,7 @@ Engine.Collision = class Collision{
 
     }
 
-};
+}
+
+
+export default Collision;
