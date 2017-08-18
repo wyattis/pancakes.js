@@ -1,0 +1,29 @@
+{
+  "name": "pancakes.js",
+  "version": "1.0.0",
+  "description": "A JavaScript game engine.",
+  "author": "wyattis <wyattisrael@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "node build/dev-server.js",
+    "start": "node build/dev-server.js",
+    "build": "node build/build.js",
+    "lint": "eslint --ext .js,.vue src"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "docco": "^0.7.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.1"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
