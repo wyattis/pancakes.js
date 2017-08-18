@@ -1,4 +1,5 @@
-/*global Engine*/
+import Sprite from './Sprite';
+
 /**
  * Essentially mirror the API of the Engine.Sprite object to provide a simple way
  * to make changes to the entire group.
@@ -8,7 +9,7 @@
  * @param {Layer} layer - The parent layer
  * @param {Group} group - The parent group
  */
-Engine.GroupFactory = class GroupFactory{
+class GroupFactory{
 
 
     constructor(scene, world, layer, group){
@@ -28,7 +29,7 @@ Engine.GroupFactory = class GroupFactory{
      */
     sprite(x, y){
 
-        let sprite = new Engine.Sprite(this.scene, this.world, x, y);
+        let sprite = new Sprite(this.scene, this.world, x, y);
 		this.world.sprites.push(sprite);
 		this.layer.sprites.push(sprite);
         this.group.members.push(sprite);
@@ -68,4 +69,7 @@ Engine.GroupFactory = class GroupFactory{
 
     }
 
-};
+}
+
+
+export default GroupFactory;

@@ -1,3 +1,9 @@
+import StockPile from './Core/StockPile';
+import AssetManager from './Core/AssetManager';
+import Game from './Game';
+import C from './Core/C';
+import Measure from './Core/Measure';
+
 /*
  * Base object for pancakes.js
  */
@@ -24,9 +30,9 @@ let Engine = {
 	 */
 	game: (opts) => {
 
-		Engine.cache = Engine.cache || new Engine.StockPile();
-		Engine.assetManager = Engine.assetManager || new Engine.AssetManager(Engine.cache);
-		return new Engine.Game(Engine, opts);
+		Engine.cache = Engine.cache || new StockPile();
+		Engine.assetManager = Engine.assetManager || new AssetManager(Engine.cache);
+		return new Game(Engine, opts);
 
 	},
 
@@ -36,3 +42,7 @@ let Engine = {
 };
 
 Engine.FPS = 0;
+Engine.C = C;
+Engine.measure = new Measure();
+
+export default Engine;

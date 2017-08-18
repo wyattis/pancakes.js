@@ -1,4 +1,3 @@
-/*global Engine*/
 /**
  * Describes a Tween object that can be used to change properties of an object using different easing functions
  * @constructor
@@ -7,13 +6,13 @@
  * @param {Engine.Tween.EASE_OUT} type the type of easing function to use with this tween
  * @returns {Engine.Tween} instance
  */
-Engine.Tween = class Tween{
+class Tween{
 
     constructor(ref, desired, type){
 
         this.ref = ref;               // Array of references to the values we want to change
         this.desired = desired; // Array of their desired values
-        this.type = type || Engine.Tween.EASE_OUT;
+        this.type = type || Tween.EASE_OUT;
         this.roundToPixel = false;
         this.finished = false;
         this.speed = 1/15;
@@ -35,15 +34,15 @@ Engine.Tween = class Tween{
 
 
         // Perform the different tweens
-        if(this.type === Engine.Tween.EASE_OUT){
+        if(this.type === Tween.EASE_OUT){
 
             if(this.roundToPixel){
-                this.ref.x = Math.round(Engine.Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed));
-                this.ref.y = Math.round(Engine.Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed));
+                this.ref.x = Math.round(Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed));
+                this.ref.y = Math.round(Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed));
             }
             else{
-                this.ref.x = Engine.Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed);
-                this.ref.y = Engine.Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed);
+                this.ref.x = Tween.easeOut(this.ref.x, this.desired.x, diffX, this.speed);
+                this.ref.y = Tween.easeOut(this.ref.y, this.desired.y, diffY, this.speed);
             }
 
         }
@@ -90,7 +89,10 @@ Engine.Tween = class Tween{
 
     }
 
-};
+}
 
 
-Engine.Tween.EASE_OUT = 0;
+Tween.EASE_OUT = 0;
+
+
+export default Tween;

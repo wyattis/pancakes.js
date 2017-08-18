@@ -1,8 +1,7 @@
-/*global Engine*/
 /**
  * This is a mathematics helper class
  */
-Engine.C = class C{
+class C{
 
     /**
      * Returns a random value between min (inclusive) and max (inclusive)
@@ -37,4 +36,6 @@ Engine.C = class C{
     }
 
 
-};
+}
+
+export default C;

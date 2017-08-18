@@ -7,6 +7,7 @@ arcade style physics, layering, I/O, states, animation and rendering. The goal o
 ## Tasks
 - [x] Configure documentation generation
 - [ ] Document all existing Classes and methods
+- [ ] Build with webpack
 
 ## Dev Env
 - [x] Add babel conversion to es5

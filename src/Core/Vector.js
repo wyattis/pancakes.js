@@ -1,4 +1,3 @@
-/*global Engine*/
 /**
  * Describes a 2D vector with x and y points
  * @constructor
@@ -6,7 +5,7 @@
  * @param {float} y the y dimension of the vector
  * @returns {Engine.Vector} instance
  */
-Engine.Vector = class Vector{
+class Vector{
 
     constructor(x, y){
 
@@ -70,7 +69,7 @@ Engine.Vector = class Vector{
      */
     clone(){
 
-        return new Engine.Vector(this.x, this.y);
+        return new Vector(this.x, this.y);
 
     }
 
@@ -118,4 +117,7 @@ Engine.Vector = class Vector{
 
     }
 
-};
+}
+
+
+export default Vector;

@@ -1,14 +1,18 @@
-/*global Engine*/
+import Body from '../Physics/Body';
+import SpriteFactory from './SpriteFactory';
+import SpriteController from './SpriteController';
+import Rectangle from '../Physics/Rectangle';
+
 /**
  * Describes a Sprite. Sprites can have animations, physics bodies, etc. TODO
  * @constructor
- * @param {Engine.Scene} scene reference to the parent scene
- * @param {Engine.World} world reference to the parent world
+ * @param {Scene} scene reference to the parent scene
+ * @param {World} world reference to the parent world
  * @param {float} x the initial x position of the body in pixels
  * @param {float} y the initial y position of the body in pixels
- * @returns {Engine.Sprite} instance
+ * @returns {Sprite} instance
  */
-Engine.Sprite = class Sprite{
+class Sprite{
 
 	constructor(scene, world, x, y){
 
@@ -20,13 +24,13 @@ Engine.Sprite = class Sprite{
 		this.currentAnimation = null;
 		this.animations = {};
 		this.needsRendered = true;
-		this.body = new Engine.Body(x, y);
+		this.body = new Body(x, y);
 
 		// Add SpriteFactory for handy API
-		this.add = new Engine.SpriteFactory(this);
+		this.add = new SpriteFactory(this);
 
 		// Play handler
-		this.play = new Engine.SpriteController(this);
+		this.play = new SpriteController(this);
 
 	}
 
@@ -38,11 +42,11 @@ Engine.Sprite = class Sprite{
 	 *		Not sure how this number equates to real world mass.
 	 * @param {float} [opts.normalizedMaxSpeed=0] - The maximum, normalized
 	 *		speed of this body. If this value is 0 then the speed unlimited.
-	 * @param {Engine.Vector} [opts.maxSpeed={}] - Direction based max speed
+	 * @param {Vector} [opts.maxSpeed={}] - Direction based max speed
 	 *		for the body.
-	 * @param {Engine.Vector} [opts.friction={}] - Friction to apply to
+	 * @param {Vector} [opts.friction={}] - Friction to apply to
 	 *		the body.
-	 * @param {Engine.Vector} [opts.gravity={}] - Supplying a Vector will
+	 * @param {Vector} [opts.gravity={}] - Supplying a Vector will
 	 *		make gravity be applied for the given body.
 	 * @param {boolean} [opts.clamped=false] - If true the Body will be clamped
 	 *		within the bounds of the world.
@@ -52,7 +56,7 @@ Engine.Sprite = class Sprite{
 	 *		happen with this body. This can be changed while the game is running
 	 *		by changing the sprite.body.enabled property.
 	 *
-	 * @param {undefined|string|Engine.Rectangle} [shape] This allows you to set
+	 * @param {undefined|string|Rectangle} [shape] This allows you to set
 	 *		your own geometry for this sprite. If left empty it will assume the
 	 *		shape is a rectangle the size of the image, tile or animation
 	 *		assigned to it.
@@ -67,13 +71,14 @@ Engine.Sprite = class Sprite{
 		}
 		else if(this.currentAnimation){
 
-			shape =	new Engine.Rectangle(this.body.pos.x, this.body.pos.y, this.currentAnimation.width, this.currentAnimation.height);
+			shape =	new Rectangle(this.body.pos.x, this.body.pos.y, this.currentAnimation.width, this.currentAnimation.height);
 
 		}
 		else if(this.image){
 
 			debugger;
-			shape = new Engine.Rectangle(this.body.pos.x, this.body.pos.y, this.image.width, this.image.height);
+			// shape = new Rectangle(this.body.pos.x, this.body.pos.y, this.image.width, this.image.height);
+			shape = new Rectangle(this.body.pos.x, this.body.pos.y, 100, 100);
 
 		}
 		else if(this.tile){
@@ -97,8 +102,8 @@ Engine.Sprite = class Sprite{
 
 
 	/**
-	 * Specify the group, array, sprite or body that this sprite body should collide with. Essentially an alias for Engine.Body.collidesWith.
-	 * @param {Array|Engine.Group|Engine.Body|Engine.Sprite} what - The game object(s) this sprite should collide with.
+	 * Specify the group, array, sprite or body that this sprite body should collide with. Essentially an alias for Body.collidesWith.
+	 * @param {Array|Group|Body|Sprite} what - The game object(s) this sprite should collide with.
 	 */
 	collidesWith(what){
 
@@ -188,4 +193,6 @@ Engine.Sprite = class Sprite{
 
 	}
 
-};
+}
+
+export default Sprite;

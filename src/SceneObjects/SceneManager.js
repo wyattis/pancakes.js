@@ -1,11 +1,12 @@
-/*global Engine*/
+import Scene from './Scene';
+
 /**
  * Used to add/remove/change/play/pause scenes
  * @constructor
  * @param {Engine.Game} game reference to the parent game
  * @returns {Engine.SceneManager} manager
  */
-Engine.SceneManager = class SceneManager{
+ class SceneManager{
 
     constructor(game){
 
@@ -16,7 +17,7 @@ Engine.SceneManager = class SceneManager{
         this.add = {};
         this.add.scene = (function(name, opts){
 
-            let scene = new Engine.Scene(this.game, opts);
+            let scene = new Scene(this.game, opts);
             this.scenes.set(name, scene);
             return scene;
 
@@ -90,4 +91,7 @@ Engine.SceneManager = class SceneManager{
 
     }
 
-};
+}
+
+
+export default SceneManager;

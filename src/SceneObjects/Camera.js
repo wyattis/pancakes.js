@@ -1,4 +1,6 @@
-/*global Engine*/
+import Vector from '../Core/Vector';
+import Tween from '../Core/Tween';
+
 /**
  * Describes the where/how the current world should be displayed
  * @constructor
@@ -9,16 +11,16 @@
  * @param {float} height the initial height of the camera
  * @returns {Engine.Camera} instance
  */
-Engine.Camera = class Camera{
+class Camera{
 
     constructor(world, x, y, width, height){
 
         this.world = world;         // Reference to the world
         this.followBodies = [];     // Array of the bodies it should follow
-        this.pos = new Engine.Vector(x || 0, y || 0);
+        this.pos = new Vector(x || 0, y || 0);
         this.size = {width: width, height: height};
 
-        this.desiredPos = new Engine.Tween(this.pos, this.pos);
+        this.desiredPos = new Tween(this.pos, this.pos);
         this.desiredPos.roundToPixel = true;
 
         // TODO: How to handle when the camera size is larger than the world?
@@ -93,4 +95,7 @@ Engine.Camera = class Camera{
     }
 
 
-};
+}
+
+
+export default Camera;

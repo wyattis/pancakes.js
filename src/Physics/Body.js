@@ -1,4 +1,5 @@
-/*global Engine*/
+import Vector from '../Core/Vector';
+
 /**
  * Describes a physics body
  * @constructor
@@ -8,7 +9,7 @@
  * @param {float} vy the initial y velocity of the body in units pixels per second
  * @returns {Engine.Body} instance
  */
-Engine.Body = class Body{
+class Body{
 
     constructor(x, y, vx, vy){
 
@@ -23,11 +24,11 @@ Engine.Body = class Body{
         this.maxSpeed = Object.create(null, {});    // maximum speed of the body after normalization
         this.gravity = Object(null, {});            // vector representing the gravity on this body
 
-        this.scale = new Engine.Vector(1, 1);       // the x and y scale of the body
-        this.pos = new Engine.Vector(0, 0);         // position of the body
-        this.lastPos = new Engine.Vector(0, 0);     // last position of the body
-        this.vel = new Engine.Vector(0, 0);         // velocity of the body
-        this.acc = new Engine.Vector(0, 0);         // acceleration of the body
+        this.scale = new Vector(1, 1);              // the x and y scale of the body
+        this.pos = new Vector(0, 0);                // position of the body
+        this.lastPos = new Vector(0, 0);            // last position of the body
+        this.vel = new Vector(0, 0);                // velocity of the body
+        this.acc = new Vector(0, 0);                // acceleration of the body
         this.angle = 0;                             // angle of the body
         this.omega = 0;                             // angular rotation of the body
         this.alpha = 0;                             // angular acceleration of the body
@@ -289,4 +290,7 @@ Engine.Body = class Body{
             this.angle = this.angle % Math.PI;
     }
 
-};
+}
+
+
+export default Body;

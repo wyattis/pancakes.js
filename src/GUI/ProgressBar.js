@@ -1,9 +1,10 @@
-/*global Engine*/
-Engine.ProgressBar = class ProgressBar{
+import Vector from '../Core/Vector';
+
+class ProgressBar{
 
     constructor(x, y, opts){
 
-        this.pos = new Engine.Vector(x, y);
+        this.pos = new Vector(x, y);
 
         this.max = 1;               // The max value of the progress bar
         this.width = 100;           // The width of the progress bar
@@ -38,4 +39,6 @@ Engine.ProgressBar = class ProgressBar{
 
     }
 
-};
+}
+
+export default ProgressBar;

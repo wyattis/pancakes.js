@@ -2,9 +2,9 @@
 /**
  * Describes a simple memory cache for resources
  * @constructor
- * @returns {Engine.StockPile} instance
+ * @returns {StockPile} instance
  */
-Engine.StockPile = class StockPile{
+class StockPile{
 
 	constructor(){
 
@@ -24,4 +24,7 @@ Engine.StockPile = class StockPile{
 
 	}
 
-};
+}
+
+
+export default StockPile;

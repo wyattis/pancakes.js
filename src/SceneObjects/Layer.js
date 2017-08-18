@@ -1,4 +1,6 @@
-/*global Engine*/
+import ObjectFactory from '../GameObjects/ObjectFactory';
+import Engine from '../Engine';
+
 /**
  * Abstraction of a render layer. Each layer has its own canvas that is layered on top of the other canvases.
  * @constructor
@@ -8,7 +10,7 @@
  * @param {boolean} [opts.animated=true] - Indicates if there are any animated or moving sprites in the layer. If this is set to false then the layer will only rerender when changes are made.
  * @param {Integer} [opts.zIndex=0] - Indicate where this layer should render in the z plane.
  */
-Engine.Layer = class Layer{
+class Layer{
 
     constructor(scene, opts){
 
@@ -24,7 +26,7 @@ Engine.Layer = class Layer{
         this.ctx;
         this.sprites = [];
         this.groups = [];
-        this.add = new Engine.ObjectFactory(this.scene, this.scene.world, this, Engine.cache);
+        this.add = new ObjectFactory(this.scene, this.scene.world, this, Engine.cache);
         this.preRenderCB;
         this.postRenderCB;
 
@@ -184,7 +186,7 @@ Engine.Layer = class Layer{
 
     }
 
-};
+}
 
 /**
  * Function that gets called either before or after the layer has rendered
@@ -192,3 +194,6 @@ Engine.Layer = class Layer{
  * @param {CanvasRenderingContext2D} ctx - rendering context for this layer
  * @param {integer} delta - the amount of time since the last render
  */
+
+
+export default Layer;

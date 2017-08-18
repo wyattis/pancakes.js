@@ -1,4 +1,4 @@
-/*global Engine*/
+
 /**
  * Describes a Spritesheet
  * @constructor
@@ -8,7 +8,7 @@
  * @param {integer} tilePadding the padding between each tile in pixels
  * @returns {Engine.Body} instance
  */
-Engine.Spritesheet = class Spritesheet {
+class Spritesheet {
 
 	constructor(texture, tileWidth, tileHeight, tilePadding) {
 
@@ -69,4 +69,6 @@ Engine.Spritesheet = class Spritesheet {
 
 	}
 
-};
+}
+
+export default Spritesheet;

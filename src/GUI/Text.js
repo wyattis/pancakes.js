@@ -1,12 +1,13 @@
-/*global Engine*/
+import Vector from '../Core/Vector';
+
 /**
  * An abstract text object on the display.
  */
-Engine.Text = class Text{
+class Text{
 
     constructor(x, y, content, opts){
 
-        this.pos = new Engine.Vector(x, y);
+        this.pos = new Vector(x, y);
         this.content = content;
 
         this.opts = {
@@ -53,4 +54,6 @@ Engine.Text = class Text{
 
     }
 
-};
+}
+
+export default Text;

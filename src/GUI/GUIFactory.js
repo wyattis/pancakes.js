@@ -1,8 +1,11 @@
-/*global Engine*/
+import Button from './Button';
+import Text from './Text';
+import ProgressBar from './ProgressBar';
+
 /**
  * Factory for adding GUI elements to a GUI layer.
  */
-Engine.GUIFactory = class GUIFactory{
+class GUIFactory{
 
     constructor(scene, layer, cache){
 
@@ -18,7 +21,7 @@ Engine.GUIFactory = class GUIFactory{
      */
     button(x, y, content, opts){
 
-        let button = new Engine.Button(x, y, content, opts);
+        let button = new Button(x, y, content, opts);
         this.layer.buttons.push(button);
         return button;
 
@@ -37,7 +40,7 @@ Engine.GUIFactory = class GUIFactory{
      */
     progressBar(x, y, opts){
 
-        let bar = new Engine.ProgressBar(x, y, opts);
+        let bar = new ProgressBar(x, y, opts);
         this.layer.bars.push(bar);
         return bar;
 
@@ -53,10 +56,13 @@ Engine.GUIFactory = class GUIFactory{
      */
     text(x, y, textContent, opts){
 
-        let text = new Engine.Text(x, y, textContent, opts);
+        let text = new Text(x, y, textContent, opts);
         this.layer.texts.push(text);
         return text;
 
     }
 
-};
+}
+
+
+export default GUIFactory;
