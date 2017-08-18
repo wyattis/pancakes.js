@@ -1,15 +1,40 @@
 /*global Engine*/
+/**
+ * Holds the static logic for checking intersections
+ */
 Engine.Geometry = class{
 
+
+    /**
+     * Generic method to take two objects of any type and see if they intersect.
+     */
     static intersects(a, b){
 
-        if(a.geometry.type === Engine.RECTANGLE && b.geometry.type === Engine.RECTANGLE)
-            return Engine.Geometry.rectsIntersect(a.geometry, b.geometry);
-        else
-            console.log('Unsupported geometry type');
-
+        if(a.shape.type === Engine.RECTANGLE && b.shape.type === Engine.RECTANGLE){
+            return Engine.Geometry.rectsIntersect(a.shape, b.shape);
+        }
+        else{
+            console.error('Unsupported shape type');
+        }
 
     }
+
+
+
+    /**
+     * Check if a rectangle contains a point.
+     * @param {{x,y}} point - Holds the x and y positions for the point.
+     * @param {Engine.Rectangle} rect - Holds the rectangle to check.
+     */
+    static rectContains(point, rect){
+
+        return  point.x > rect.left &&
+                point.x < rect.right &&
+                point.y > rect.top &&
+                point.y < rect.bottom;
+
+    }
+
 
 
     /**

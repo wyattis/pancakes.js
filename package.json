@@ -1,29 +1,45 @@
 {
   "name": "pancakes.js",
-  "version": "1.0.0",
-  "description": "A JavaScript game engine.",
-  "author": "wyattis <wyattisrael@gmail.com>",
-  "private": true,
-  "scripts": {
-    "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+  "version": "0.0.1",
+  "description": "Simple 2D game engine.",
+  "main": "build/pancakes.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
   },
-  "dependencies": {},
   "devDependencies": {
-    "docco": "^0.7.0",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "chai": "^3.5.0",
+    "express": "^4.14.1",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
-    "gulp-sourcemaps": "^2.6.1"
+    "gulp-documentation": "^3.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.0",
+    "gulp-uglify": "^2.0.1",
+    "mocha": "^3.2.0"
   },
-  "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyattis/pancakes.js.git"
+  },
+  "keywords": [
+    "pancakes",
+    "2d",
+    "game",
+    "engine",
+    "canvas"
+  ],
+  "author": "Wyatt Israel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyattis/pancakes.js/issues"
+  },
+  "homepage": "https://github.com/wyattis/pancakes.js#readme"
 }

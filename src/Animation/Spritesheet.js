@@ -1,4 +1,14 @@
-class Spritesheet {
+/*global Engine*/
+/**
+ * Describes a Spritesheet
+ * @constructor
+ * @param {Image} texture the texture to use when rendering this sheet
+ * @param {integer} tileWidth the width of each tile in pixels
+ * @param {integer} tileHeight the height of each tile in pixels
+ * @param {integer} tilePadding the padding between each tile in pixels
+ * @returns {Engine.Body} instance
+ */
+Engine.Spritesheet = class Spritesheet {
 
 	constructor(texture, tileWidth, tileHeight, tilePadding) {
 
@@ -36,7 +46,7 @@ class Spritesheet {
 	 * Render frame
 	 */
 	render(ctx, x, y, index, debug) {
-		
+
 		if(debug){
             ctx.fillStyle = 'lightblue';
             ctx.fillRect(x, y, this.tileWidth, this.tileHeight);
@@ -49,4 +59,14 @@ class Spritesheet {
 
 	}
 
-}
+
+	/**
+	 * Get the properties for the current frame
+	 */
+	getRenderInfo(index){
+
+		return {texture: this.texture, sx: this.spritePositions[index][0], sy: this.spritePositions[index][1], tileWidth: this.tileWidth, tileHeight: this.tileHeight};
+
+	}
+
+};

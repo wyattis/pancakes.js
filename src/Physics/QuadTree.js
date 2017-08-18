@@ -1,10 +1,21 @@
-class QuadTree{
+/*global Engine*/
+/**
+ * Will someday help simplify collision checking by minimizing the number of checks we are making
+ * @constructor
+ */
+Engine.QuadTree = class QuadTree{
 
-    constructor(currentLevel, bounds){
+    constructor(){
 
-        this.bounds = bounds;
-        // this.nodes = new QuadTree(currentLevel);
 
     }
 
-}
+
+    /**
+     * Clear the QuadTree
+     */
+    clear(){
+
+    }
+
+};

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Physics Test|Pancakes</title>
+    <link rel="stylesheet" href="../test.css" type="text/css" />
+</head>
+
+<body>
+    <div class="controls" ng-app="playground" ng-controller="ctrlCtrl">
+        <div class="row">
+            <div class="group" ng-repeat="(name, val) in settings.gui">
+                <label for="{{name}}">{{name}}</label>
+                <input type="checkbox" name="{{name}}" ng-model="settings.gui[name]">
+            </div>
+            <div class="group">
+                <select ng-model="settings.currentCase" ng-change="loadConfig()">
+                    <option ng-repeat="(name, val) in settings.cases" value="{{name}}">{{name}}</option>
+                </select>
+            </div>
+            <div class="group">
+                <label for="playbackspeed">Playback Speed</label><input type="number" step=".02" ng-model="settings.playbackSpeedRatio">
+            </div>
+            <div class="group">
+                <button ng-click="settings.state='playing'" ng-show="settings.state==='paused'">Play</button>
+                <button ng-click="settings.state='paused'" ng-show="settings.state==='playing'">Pause</button>
+            </div>
+            <div class="group">
+                <button ng-click="run()">Reset</button>
+            </div>
+        </div>
+        <div class="row" ng-repeat="config in settings.configs">
+            <div class="group" ng-repeat="(name, val) in config">
+                <label>{{name}}</label>
+                <input type="number" ng-model="config[name]">
+            </div>
+        </div>
+    </div>
+    <div class="game">
+        <div id="pancakes"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script type="text/javascript" src="../../build/pancakes.js"></script>
+    <script type="text/javascript" src="physics-playground.js"></script>
+</body>
+
+</html>

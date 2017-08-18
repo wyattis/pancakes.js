@@ -1,4 +1,11 @@
-class AssetManager{
+/*global Engine*/
+/**
+ * Describes a tool for loading remote assets like images, audio, video and text bases resources.
+ * @constructor
+ * @param {Engine.StockPile} cache the cache to use to store the loaded resources
+ * @returns {Engine.AssetManager} instance
+ */
+Engine.AssetManager = class AssetManager{
 
 	constructor(cache){
 
@@ -120,14 +127,14 @@ class AssetManager{
 
 	}
 
-}
+};
 
 
-AssetManager.imageExtensions = ['png', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'gif'];
+Engine.AssetManager.imageExtensions = ['png', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'gif'];
 
-AssetManager.textExtensions = ['txt', 'json', 'js', 'doc'];
+Engine.AssetManager.textExtensions = ['txt', 'json', 'js', 'doc'];
 
-AssetManager.videoExtensions = ['mp4', 'avi', 'mvk', 'mov'];
+Engine.AssetManager.videoExtensions = ['mp4', 'avi', 'mvk', 'mov'];
 
-AssetManager.audioExtensions = ['mp3', 'wma', 'wav'];
+Engine.AssetManager.audioExtensions = ['mp3', 'wma', 'wav'];
 
