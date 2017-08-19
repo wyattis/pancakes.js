@@ -93,7 +93,7 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
     };
 
 
-    const game = pancakes.Engine.game();
+    const game = pancakes.Engine.game({container: 'playground'});
     const physics = new pancakes.Physics();
     let bodies = [];
     let scene = game.add.scene('keyboard-friction', {init: $scope.run, update: update});
