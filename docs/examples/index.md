@@ -13,7 +13,7 @@ layout: default
 - [keyboard](input/keyboard-input.html)
 
 ### Physics
-- [playground](physics/keyboard-playground.html)
+- [playground](physics/physics-playground.html)
 - [friction](physics/keyboard-friction.html)
 - [rectangle collision](physics/rectangle-collision.html)
 
