@@ -1,1 +1,5 @@
 theme: jekyll-theme-midnight
+title: [pancakes.js]
+description: [A JavaScript game engine experiment]
+show_downloads: true
+google_analytics: UA-101009611-2

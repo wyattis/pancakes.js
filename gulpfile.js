@@ -58,7 +58,7 @@ gulp.task('docs', ['build'], ()=>{
 
     gulp.src('src/main.js')
         .pipe(gulpDocumentation('html', {}, require('./package')))
-        .pipe(gulp.dest('docs'));
+        .pipe(gulp.dest('docs/documentation'));
 
     // gulp.src('src/**/*.js')
     //     .pipe(gulpDocumentation('html', {access: ['private'], sortOrder: 'alpha'}, require('./package')))
