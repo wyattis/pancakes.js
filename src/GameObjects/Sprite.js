@@ -66,31 +66,14 @@ class Sprite{
 		// TODO: add shape based on image, tile or animation if shape is not
 		//		 supplied.
 
+
 		if(shape){
-			// Do nothing
-		}
-		else if(this.currentAnimation){
-
-			shape =	new Rectangle(this.body.pos.x, this.body.pos.y, this.currentAnimation.width, this.currentAnimation.height);
-
-		}
-		else if(this.image){
-
-			debugger;
-			// shape = new Rectangle(this.body.pos.x, this.body.pos.y, this.image.width, this.image.height);
-			shape = new Rectangle(this.body.pos.x, this.body.pos.y, 100, 100);
-
-		}
-		else if(this.tile){
-
-			console.error('Tiles not supported on Sprites yet');
-			debugger;
-
+			// Override the physics shape. Sprite shape stays the same for rendering purposes.
+			this.body.addShape(shape);
+		} else {
+			this.body.addShape(this.shape);
 		}
 
-
-		// Add whatever shape we decided on
-		this.body.addShape(shape);
 
 		// Add the supplied options to the physics body
 		if(opts)
@@ -140,12 +123,16 @@ class Sprite{
 			// this.currentAnimation.render(ctx, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0);
 
 			// _width and _height include any scaling associated with the body
-			ctx.drawImage(rInfo.texture, rInfo.sx, rInfo.sy, rInfo.tileWidth, rInfo.tileHeight, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.body.shape._width, this.body.shape._height);
+			ctx.drawImage(rInfo.texture, rInfo.sx, rInfo.sy, rInfo.tileWidth, rInfo.tileHeight, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.shape.width, this.shape.height);
 
 		}
-		else if(this.image){
+		else if(this.image && this.body.shape){
 
-			ctx.drawImage(this.image, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.body.shape._width, this.body.shape._height);
+			ctx.drawImage(this.image, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.shape.width, this.shape.height);
+
+		} else {
+
+			ctx.drawImage(this.image, (0.5 + this.body.pos.x) << 0, (0.5 + this.body.pos.y) << 0, this.shape.width, this.shape.height);
 
 		}
 		this.needsRendered = false;

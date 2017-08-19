@@ -1,5 +1,5 @@
-/*global Engine*/
-const game = Engine.game();
+/*global pancakes*/
+const game = pancakes.Engine.game();
 const scene = game.add.scene('parallax-layers', {load: load, update: update, init: init, size: {width: game.width * 3, height: game.height}});
 // scene.layers.get('default').setPreRender(preRender);
 scene.layers.get('default').opts.depth = 1;
@@ -29,7 +29,7 @@ function init(){
     let platforms = scene.add.group();
 
     char = scene.add.sprite(0, 0);
-    char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
+    char.add.animation('walking', 'characters', pancakes.C.range(27, 31), 800);
     char.enablePhysics({clamped: true, maxSpeed: 500});
 
 
@@ -47,8 +47,8 @@ function init(){
     cloudLayerBack.setDepth(3);
     cloudLayerFront.setDepth(1.6);
     for(let i=0; i<80; i++){
-        let cloud = cloudLayerBack.add.sprite(Engine.C.randomInt(0, scene.world.width), Engine.C.randomInt(0, scene.world.height - 100));
-        let cloud2 = cloudLayerFront.add.sprite(Engine.C.randomInt(0, scene.world.width), Engine.C.randomInt(0, scene.world.height - 100));
+        let cloud = cloudLayerBack.add.sprite(pancakes.C.randomInt(0, scene.world.width), pancakes.C.randomInt(0, scene.world.height - 100));
+        let cloud2 = cloudLayerFront.add.sprite(pancakes.C.randomInt(0, scene.world.width), pancakes.C.randomInt(0, scene.world.height - 100));
 
         cloud.add.image('cloud-back');
         cloud2.add.image('cloud');
@@ -58,7 +58,7 @@ function init(){
     // Create pillars in the pillar layer
     pillarLayer.setDepth(2);
     for(let i=0; i<40; i++){
-        let pillar = pillarLayer.add.sprite(Engine.C.randomInt(0, scene.world.width), Engine.C.randomInt(scene.world.height - 200, scene.world.height - 100));
+        let pillar = pillarLayer.add.sprite(pancakes.C.randomInt(0, scene.world.width), pancakes.C.randomInt(scene.world.height - 200, scene.world.height - 100));
         pillar.add.image('pillar');
     }
 

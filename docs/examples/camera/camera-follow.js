@@ -1,5 +1,5 @@
-/*global Engine*/
-const game = Engine.game();
+/*global pancakes*/
+const game = pancakes.Engine.game();
 const scene = game.add.scene('camera-follow', {load: load, update: update, init: init, size: {width: 1800, height: 1800}});
 scene.layers.get('default').setPreRender(preRender);
 const SPEED = 200;
@@ -18,7 +18,7 @@ function init(){
     scene.add.spritesheet('characters', 'characterImage', 32, 32);
 
     char = scene.add.sprite(0, 0);
-    char.add.animation('walking', 'characters', Engine.C.range(27, 31), 800);
+    char.add.animation('walking', 'characters', pancakes.C.range(27, 31), 800);
 
     char.enablePhysics({clamped: true, maxSpeed: 500});
     scene.camera.follow(char);

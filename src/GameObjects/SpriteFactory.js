@@ -1,5 +1,6 @@
 import Animation from '../Animation/Animation';
 import Engine from '../Engine';
+import Rectangle from '../Physics/Rectangle';
 
 /**
  * Factory for adding animations, images and audio to a Sprite.
@@ -26,6 +27,7 @@ class SpriteFactory{
 		let animation = new Animation(this.sprite, Engine.cache.use(spritesheetKey), frames, totalTime, options);
 		this.sprite.animations[name] = animation;
 		this.sprite.currentAnimation = animation;
+		this.sprite.shape = new Rectangle(0, 0, animation.width, animation.height);
 		return animation;
 
     }
@@ -33,12 +35,13 @@ class SpriteFactory{
 
 
     /**
-     * Add a single image to the Sprite.
+     * Add a single image to the Sprite. This also defines the sprite shape.
      * @param {string} cacheKey - The name of the image in the game cache.
      */
     image(cacheKey){
 
     	this.sprite.image = Engine.cache.use(cacheKey);
+    	this.sprite.shape = new Rectangle(0, 0, this.sprite.image.width, this.sprite.image.height);
 
     }
 

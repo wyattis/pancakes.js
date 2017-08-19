@@ -1,6 +1,6 @@
-/*global Engine*/
+/*global pancakes*/
 // TODO: change states
-const game = Engine.game();
+const game = pancakes.Engine.game();
 const scenes = ['main-menu', 'second', 'third'];
 let currentScene = 0;
 

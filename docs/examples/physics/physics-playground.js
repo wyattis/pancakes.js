@@ -1,4 +1,4 @@
-/*global Engine angular*/
+/*global pancakes angular*/
 angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($scope){
 
     $scope.settings = {
@@ -76,10 +76,10 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
 
         for(let config of $scope.settings.configs){
 
-            let body = new Engine.Body(config.x || 0, config.y || 0, config.vx || 0, config.vy || 0);
+            let body = new pancakes.Body(config.x || 0, config.y || 0, config.vx || 0, config.vy || 0);
             body.enabled = true;
             body.maxSpeed = config.maxSpeed || 0;
-            body.addShape(new Engine.Rectangle(config.x || 0, config.y || 0, config.width || 100, config.height || 100));
+            body.addShape(new pancakes.Rectangle(config.x || 0, config.y || 0, config.width || 100, config.height || 100));
             physics.add(body);
 
         }
@@ -93,8 +93,8 @@ angular.module('playground', []).controller('ctrlCtrl', ['$scope', function($sco
     };
 
 
-    const game = Engine.game();
-    const physics = new Engine.Physics();
+    const game = pancakes.Engine.game();
+    const physics = new pancakes.Physics();
     let bodies = [];
     let scene = game.add.scene('keyboard-friction', {init: $scope.run, update: update});
     let layer = scene.layers.get('default');

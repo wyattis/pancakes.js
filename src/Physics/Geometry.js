@@ -12,7 +12,7 @@ class Geometry{
     static intersects(a, b){
 
         if(a.shape.type === Engine.RECTANGLE && b.shape.type === Engine.RECTANGLE){
-            return Engine.Geometry.rectsIntersect(a.shape, b.shape);
+            return Geometry.rectsIntersect(a.shape, b.shape);
         }
         else{
             console.error('Unsupported shape type');

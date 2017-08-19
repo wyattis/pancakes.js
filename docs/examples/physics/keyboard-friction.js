@@ -1,6 +1,6 @@
-/*global Engine*/
-const game = Engine.game();
-const physics = new Engine.Physics();
+/*global pancakes*/
+const game = pancakes.Engine.game();
+const physics = new pancakes.Physics();
 const ACC = 150;
 let player;
 let bodies = [];
@@ -11,11 +11,11 @@ game.play.scene('keyboard-friction');
 
 function init(){
 
-    player = new Engine.Body(200, 200);
+    player = new pancakes.Body(200, 200);
     player.enabled = true;
-    player.friction = new Engine.Vector(40, 40);
+    player.friction = new pancakes.Vector(40, 40);
     player.maxSpeed = 200;
-    player.addShape(new Engine.Rectangle(200, 200, 10, 10));
+    player.addShape(new pancakes.Rectangle(200, 200, 10, 10));
     physics.add(player);
 
 
@@ -27,11 +27,11 @@ function init(){
 
     for(let x=0; x<count; x++){
         for(let y=0; y<count; y++){
-                const body = new Engine.Body(x*dx, y*dy, 0, 0);
+                const body = new pancakes.Body(x*dx, y*dy, 0, 0);
                 body.enabled = true;
                 body.friction = 30;
                 body.maxSpeed = 100;
-                body.addShape(new Engine.Rectangle(x*dx, y*dy, w, h));
+                body.addShape(new pancakes.Rectangle(x*dx, y*dy, w, h));
                 physics.add(body);
                 bodies.push(body);
         }

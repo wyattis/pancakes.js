@@ -1,0 +1,25 @@
+html, body{
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+#pancakes{
+    width: 600px;
+    height: 400px;
+    position: absolute !important;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.row{
+    display: flex;
+    overflow: auto;
+}
+
+.row .group{
+    flex-grow: 1;
+}

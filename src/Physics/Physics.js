@@ -1,11 +1,13 @@
 import QuadTree from './QuadTree';
+import Geometry from './Geometry';
+import Collision from './Collision';
 
 /**
  * Handles all physics for a world.
  * @constructor
- * @param {Engine.World} world reference to the parent world
+ * @param {World} world reference to the parent world
  * @param {object} opts any specific physics options
- * @returns {Engine.Physics} instance
+ * @returns {Physics} instance
  */
 class Physics{
 
@@ -157,13 +159,13 @@ class Physics{
                             this._collisionMemo.get(this.bodies[rightIndex]) !== this.bodies[leftIndex]){
 
                             // console.log('Can collide');
-                            if(Engine.Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
+                            if(Geometry.intersects(this.bodies[leftIndex], this.bodies[rightIndex])){
                                 // TODO: doesn't this form of memoization limit me to one collision per body per update???
                                 this._collisionMemo.set(this.bodies[leftIndex], this.bodies[rightIndex]);
                                 this._collisionMemo.set(this.bodies[rightIndex], this.bodies[leftIndex]);
                                 // console.log(leftIndex, rightIndex)
 
-                                Engine.Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);
+                                Collision.collision(this.bodies[leftIndex], this.bodies[rightIndex]);
                             }
 
                         }

@@ -1,8 +1,8 @@
-/*global Engine*/
-const game = Engine.game();
+/*global pancakes*/
+const game = pancakes.Engine.game();
 const scene = game.add.scene('keyboard-input-test', {update: update});
 const SPEED = 5;
-let char = new Engine.Rectangle(0, 0, 100, 100);
+let char = new pancakes.Rectangle(0, 0, 100, 100);
 scene.layers.get('default').setRender(render);
 game.play.scene('keyboard-input-test');
 

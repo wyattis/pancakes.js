@@ -1,5 +1,5 @@
-/*global Engine*/
-const game = Engine.game({container: 'pancakes'});
+/*global pancakes*/
+const game = pancakes.Engine.game({container: 'pancakes'});
 const scene = game.add.scene('animation-events', {init: init, load: load, update: update, size: {width: game.width, height: game.height}});
 scene.world.enablePhysics();
 const SPEED = 200;
@@ -18,12 +18,12 @@ function init(){
 
     player = scene.add.sprite(scene.world.width / 3, scene.world.height * 2 / 3);
 
-    let jumping = player.add.animation('jumping', 'characters', Engine.C.range(28, 32), 2000, {infinite: false});
-    let walking = player.add.animation('walking', 'characters', Engine.C.range(23, 27), 800);
+    let jumping = player.add.animation('jumping', 'characters', pancakes.C.range(28, 32), 2000, {infinite: false});
+    let walking = player.add.animation('walking', 'characters', pancakes.C.range(23, 27), 800);
 
 
     // Currently need to enable physics after the animations are added.
-    player.enablePhysics({bouncy: false, clamped: true, gravity: new Engine.Vector(0, 98), friction: new Engine.Vector(100, 20), maxSpeed: new Engine.Vector(110, 0), dynamicScale: true});
+    player.enablePhysics({bouncy: false, clamped: true, gravity: new pancakes.Vector(0, 98), friction: new pancakes.Vector(100, 20), maxSpeed: new pancakes.Vector(110, 0), dynamicScale: true});
 
     walking.on('start', function(){
 

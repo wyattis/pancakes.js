@@ -1,4 +1,4 @@
-import Engine from './Engine';
+import Engine from '../Engine';
 
 /**
  * Holds the static logic for newtonian collision calculations

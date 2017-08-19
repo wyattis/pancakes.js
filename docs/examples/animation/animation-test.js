@@ -1,10 +1,10 @@
-/*global Engine*/
+/*global pancakes*/
 (function() {
 
     let updateCount = 0;
     let characters = [];
     let platforms;
-    let Game = Engine.game({container: 'pancakes'});
+    let Game = pancakes.Engine.game({container: 'pancakes'});
     let firstScene;
 
     function load() {
@@ -29,25 +29,25 @@
 
                 let character = firstScene.add.sprite((x * dx) % 800, (y * dy) % 800);
 
-                character.add.animation('knightJumping', 'characters', Engine.C.range(27, 31), 800);
-                character.add.animation('knightWalking', 'characters', Engine.C.range(23, 27), 800);
+                character.add.animation('knightJumping', 'characters', pancakes.C.range(27, 31), 800);
+                character.add.animation('knightWalking', 'characters', pancakes.C.range(23, 27), 800);
 
                 // Texture swapping
-                switch (Engine.C.randomInt(0, 3)) {
+                switch (pancakes.C.randomInt(0, 3)) {
 
                     case 0:
-                        character.add.animation('running', 'biped', Engine.C.range(0, 36), 1200);
+                        character.add.animation('running', 'biped', pancakes.C.range(0, 36), 1200);
                         break;
                     case 1:
-                        character.add.animation('climbing', 'biped', Engine.C.range(37, 48), 1200, {
+                        character.add.animation('climbing', 'biped', pancakes.C.range(37, 48), 1200, {
                             backAndForth: true
                         });
                         break;
                     case 2:
-                        character.add.animation('knightWalking', 'characters', Engine.C.range(23, 27), 800);
+                        character.add.animation('knightWalking', 'characters', pancakes.C.range(23, 27), 800);
                         break;
                     case 3:
-                        character.add.animation('knightJumping', 'characters', Engine.C.range(27, 31), 800);
+                        character.add.animation('knightJumping', 'characters', pancakes.C.range(27, 31), 800);
                         break;
 
                 }
@@ -56,16 +56,16 @@
                 // switch(C.randomInt(0, 1)){
 
                 // 	case 0:
-                // 		character.add.animation('knightWalking', 'characters', Engine.C.range(23, 27), 800);
+                // 		character.add.animation('knightWalking', 'characters', pancakes.C.range(23, 27), 800);
                 // 		break;
                 // 	case 1:
-                // 		character.add.animation('knightJumping', 'characters', Engine.C.range(27, 31), 800);
+                // 		character.add.animation('knightJumping', 'characters', pancakes.C.range(27, 31), 800);
                 // 		break;
                 // }
                 // character.play.animation('running');
 
                 // All same animation
-                // console.log('Is just a reference?', character.animations['knightWalking'].spritesheet.texture === Engine.cache.items['charactersImage']);
+                // console.log('Is just a reference?', character.animations['knightWalking'].spritesheet.texture === pancakes.cache.items['charactersImage']);
                 characters.push(character);
             }
         }

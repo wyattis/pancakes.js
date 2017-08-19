@@ -1,8 +1,8 @@
-/*global Engine*/
+/*global pancakes*/
 "use strict";
-let game = Engine.game({container: 'pancakes'});
+let game = pancakes.Engine.game({container: 'pancakes'});
 let bodies = [];
-let physics = new Engine.Physics();
+let physics = new pancakes.Physics();
 
 function init(){
 
@@ -16,13 +16,20 @@ function init(){
 
         for(let y=0; y<numSide; y++){
 
-            const rectangle = new Engine.Rectangle(x*dx, y*dy, w, h);
-            const body = new Engine.Body(x*dx, y*dy, Engine.C.randomInt(0, 50), Engine.C.randomInt(0, 50));
+            const rectangle = new pancakes.Rectangle(x*dx, y*dy, w, h);
+            const body = new pancakes.Body(x*dx, y*dy, pancakes.C.randomInt(0, 50), pancakes.C.randomInt(0, 50));
+            body.enabled = true;
             body.addShape(rectangle);
             physics.add(body);
             bodies.push(body);
-
         }
+
+    }
+
+    for(let body of physics.bodies){
+
+        body.collidesWith(physics.bodies);
+        // body.enabled = true;
 
     }
 
